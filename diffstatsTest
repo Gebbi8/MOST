@@ -1,0 +1,2 @@
+unix	unixinsert	unixdelete	bives	bivesinsert	bivesdelete	bivesmove	bivesupdate	bivestriggeredinsert	bivestriggereddelete	bivestriggeredmove	bivestriggeredupdate	bivesnode	bivesattribute	bivestext	modeltype	model	version1	version2
+3033	1477	1556	50	2	0	4	20	3	0	0	0	234	15	5	SBML	"MODEL1202090001.xml"	2012-05-20	2012-08-11

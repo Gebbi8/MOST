@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body></body>
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>   
+<script type="text/javascript">
+
+var bivesChange = [];
+
+var txtFile = new XMLHttpRequest();
+txtFile.open("GET", "http://localhost/tom/diffstats.txt", true);
+txtFile.onreadystatechange = function()
+{
+  if (txtFile.readyState === 4) {  // document is ready to parse.
+    if (txtFile.status === 200) {  // file is found
+      allText = txtFile.responseText; 
+      lines = txtFile.responseText.split("\n"); // split file by new line
+
+			for(var line = 1; line < lines.length ; line++){ // get bives-data
+				var stringArr = parseString(lines[line]);
+				bivesChange.push([stringArr[3], stringArr[4], 
+				stringArr[5], stringArr[6], stringArr[7]]);
+			}
+			console.log(bivesChange);
+
+		}
+  }
+}
+txtFile.send(null);
+    
+function parseString(str){
+	str = str.split("\t");
+	return str;
+}
+
+</script>
+
+</html>
