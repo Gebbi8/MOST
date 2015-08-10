@@ -1,0 +1,19 @@
+Research Intrest
+
+The number of computational models describing biological system rises permanently. Also these models change overtime revealing informations about the evolution of biological systems. As it is complicated to extract such knowledge from large tables in which each line is a comparison between two version of one model, charts can be helpfull to communicate these informations easily even for peoples without much knowledge about the biological background
+
+Academic background
+
+2015-present
+Master degree in Computer Science
+University of Rostock
+Rostock, Germany
+
+2011-2015
+Bachelor degree in Computer Science
+University of Rostock
+Rostock, Germany
+
+With the increasing amount of computational models describing biological systems, researchers encounter two questions: 'How similar are these models? Is it possible to group them by their features?'
+
+Manually studying similarities of a large set of complex models is barely feasible. Consequently, we have to examine automatic methods to explore these similarities. As a start, we focus on the structure of the models, namely their reaction networks based on the SBML representation. With respect to the biological background, a simple element-wise comparison of the reaction networks is assumed to be inappropriate. Instead, we rely on an approach to automatically find the most frequent structures. The occurrences of such frequent patterns can serve as a reasonable similarity measure for models that share many common structures. The similarity enables, for example, a valuable organisation of models such that researchers can easily browse through a group of models related to their own work. Furthermore, the discovery of frequent patterns provides diverse opportunities to gain new knowledge about the creation of computational models.
