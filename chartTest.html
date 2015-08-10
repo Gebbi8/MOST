@@ -4,7 +4,8 @@
 
 
 .bar:hover, .bar1:hover, .bar2:hover, .bar3:hover{
-  fill: brown;
+  fill: black;
+	opacity: 0.1;
 }
 
 .axis {
@@ -15,7 +16,7 @@
 .axis line {
   fill: none;
   stroke: #000;
-  shape-rendering: crispEdges;
+  shape-rendering: optimizeSpeed;
 }
 
 .x.axis path {
@@ -27,7 +28,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 2960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -42,7 +43,7 @@ var x = d3.scale.ordinal()
 
 var y = d3.scale.log()
 		.base(Math.E)
-		//.clamp(true)
+		.clamp(true)
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -60,7 +61,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("diffstatsTest", type, function(error, data) {
+d3.tsv("diffstats", type, function(error, data) {
   if (error) throw error;
 
   //x.domain(data.map(function(d) { return d.model;}));
@@ -90,8 +91,9 @@ var bivupdate = svg.selectAll(".bar3")
       .attr("x", function(d, i) { return i * (width / data.length)+2; })
       .attr("width", width / data.length) //add -0.1 for padding
       .attr("y", function(d) { return y(d.bivesupdate) })
-      .attr("height", function(d) { alert(y(d.bivesupdate));return height - y(d.bivesupdate); })
+      .attr("height", function(d) { return height - y(d.bivesupdate);})
 			.attr("fill", "yellow");
+
 
 var bivmove = svg.selectAll(".bar2")
       .data(data)
@@ -100,29 +102,35 @@ var bivmove = svg.selectAll(".bar2")
       .attr("x", function(d, i) { return i * (width / data.length)+2; })
       .attr("width", width / data.length) //add -0.1 for padding
       .attr("y", function(d) { return y(d.bivesmove + d.bivesupdate) })
-      .attr("height", function(d) { return height - y(d.bivesmove); })
+			.attr("height", function(d) { return height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bivesupdate));})
 			.attr("fill", "blue");
-/*
- var bivinsert = svg.selectAll(".bar")
+
+var bivinsert = svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d, i) { return i * (width / data.length)+2; })
       .attr("width", width / data.length) //add -0.1 for padding
       .attr("y", function(d) {return y(d.bivesinsert + d.bivesmove + d.bivesupdate); })
-      .attr("height", function(d) { return height - y(d.bivesinsert); })
+      .attr("height", function(d) { return height - y(d.bivesinsert + d.bivesmove + d.bivesupdate)
+																	 - (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
+																	 - (height - y(d.bivesupdate)); })
 			.attr("fill", "green"); 
 
-	var bivdelete = svg.selectAll(".bar1")
+var bivdelete = svg.selectAll(".bar1")
       .data(data)
     .enter().append("rect")
       .attr("class", "bar1")
       .attr("x", function(d, i) { return i * (width / data.length)+2; })
       .attr("width", width / data.length) //add -0.1 for padding
       .attr("y", function(d) { return y(d.bivesdelete + d.bivesinsert + d.bivesmove + d.bivesupdate) })
-      .attr("height", function(d) { return height - y(d.bivesdelete); })
+      .attr("height", function(d) { return height - y(d.bivesdelete + d.bivesinsert + d.bivesmove + d.bivesupdate)
+																	- (height - y(d.bivesinsert + d.bivesmove + d.bivesupdate) - (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives))) 
+																							- (height - y(d.bives*d.bivesupdate/d.bives)))
+																	- (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
+																	- (height - y(d.bivesupdate)); })
 			.attr("fill", "red");
-*/
+
 });
 
 // add legend
@@ -166,16 +174,16 @@ legendText
     });
 */
 function type(d) {
-	d.bives = getLog(d.bives);
-	d.bivesinsert = getLog(d.bivesinsert);
-	d.bivesdelete = getLog(d.bivesdelete);
-	d.bivesmove = getLog(d.bivesmove);
-	d.bivesupdate = getLog(+d.bivesupdate);
+	d.bives = getInt(d.bives);
+	d.bivesinsert = getInt(d.bivesinsert);
+	d.bivesdelete = getInt(d.bivesdelete);
+	d.bivesmove = getInt(d.bivesmove);
+	d.bivesupdate = getInt(+d.bivesupdate);
 	console.log(d);
   return d;
 }
 
-function getLog(l){
+function getInt(l){
 	if(+l == 0){
 		return 1;
 	} else {
