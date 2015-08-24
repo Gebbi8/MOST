@@ -39,9 +39,9 @@ var color = d3.scale.category20();
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 
-//var pie = d3.layout.pie()
-//		.value(function(d){ return d.bives; })
-//    .sort(null);
+var pie = d3.layout.pie()
+		.value(function(d){ return d.bives; })
+    .sort(null);
 
 var arc = d3.svg.arc()
     .innerRadius(radius - 125)
