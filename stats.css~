@@ -1,0 +1,39 @@
+body {
+    background-color: white;
+}
+
+* {
+  margin:0;
+  padding:0;
+}
+
+#midDiv {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#topDiv {
+  background-color: #207a7a;
+}
+
+#contentDiv {
+  background-color: white;
+  margin-left: 250px;
+}
+
+#choiceDiv {
+  float: left;
+  width:250px;
+  background-color: lightgreen;
+}
+
+#svg {
+	border-style: solid;
+	border-width: 5px;
+	border-color: red;
+}
+
+footer {
+  clear: both;
+  background-color: #207a7a;
+}

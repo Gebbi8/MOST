@@ -266,8 +266,8 @@ function selectDateRange(){
 	var date1 = document.getElementById("version1").value;
 	var date2 = document.getElementById("version2").value;
 	if(date1 == "YYYY-MM-DD" || date2 == "YYYY-MM-DD") { alert("Enter date"); return;}
-	date2 = parseDate(date1);
-	date1 = parseDate(date2);
+	date1 = parseDate(date1);
+	date2 = parseDate(date2);
 	if(date1 < date2){
 		showChart("date version 1", date2, date1);
 	} else {
