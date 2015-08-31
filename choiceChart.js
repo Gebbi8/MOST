@@ -32,5 +32,4 @@ d3.tsv("diffstats", function(error, d){
 	console.log(d);
 }
 
-);	
-
+);

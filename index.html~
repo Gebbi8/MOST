@@ -26,7 +26,10 @@
 	<p>Footer</p>
 </footer> 
 </body>
-<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>   
-<script type="text/javascript" src="choiceChart.js"></script>
+<script type="text/javascript" src="d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="choiceChart.js">
+
+
+</script>
 
 </html>
