@@ -26,7 +26,8 @@ var parseDate = d3.time.format("%Y-%m-%d").parse;
 d3.tsv("diffstats", function(error, d){
 	if(error) throw error;
 	console.log(d);
-	return {version2: parseDate(d.version2),
+	return {
+		version2: parseDate(d.version2),
 	};
 	console.log(d);
 }
