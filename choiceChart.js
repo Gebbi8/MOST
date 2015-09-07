@@ -118,7 +118,7 @@ function brushmove() {
 
 function brushend() {
 	console.log("brushend");
-	var extent =	brush.extent();
+	extent =	brush.extent();
 	console.log(extent);
 }
 

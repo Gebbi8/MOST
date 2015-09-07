@@ -13,18 +13,20 @@
 </div>
 
 <div id="midDiv">
-<div id="choiceDiv">
-  <div id="choiceChart" class="chart">
-    <div class="title">Timespan</div>
-  </div>
-</div>
-<div id="contentDiv"><p>MainDiv</p>
-<select id="select-list2">
-  <option value="Chart1">First Chart</option> 
-  <option value="Chart2">Second Chart</option>
-  <option value="Chart3">Third Chart</option>
-</select>
-</div>
+	<div id="choiceDiv">
+	  <div id="choiceChart" class="chart">
+	    <div class="title">Timespan</div>
+	  </div>
+	</div>
+	<div id="contentDiv"><p>MainDiv</p>
+		<select id="select-list2">
+			<option value="Overview Bives Changes">Overview Bives Changes</option> 
+			<option value="Comparison Unix-Bives">Second Chart</option>
+			<option value="Chart3">Third Chart</option>
+		</select>
+		<div id="charts"><p>Charts</p></div>
+		<div id="info"><p>Info</p></div>
+	</div>
 </div>
 
 
@@ -32,11 +34,11 @@
 	<p>Footer</p>
 </footer> 
 </body>
+<script> var extent; </script>
 <script type="text/javascript" src="d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="choiceChart.js"></script>
 <script type="text/javascript" src="dropDown.js"></script>
 <script type="text/javascript" src="bivesOverview.js"></script>
-
-</script>
+<script type="text/javascript" src="donut-bives-unix.js"></script>
 
 </html>

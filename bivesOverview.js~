@@ -26,7 +26,7 @@ function bivesOverview(date1, date2){
 				.orient("left")
 				.tickFormat(function(d){return Math.round(d);}); //Number of axis-splits
 
-		var svg = d3.select("#charts").append("svg")
+		var svg = d3.select("#contentDiv").append("svg")
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 			.append("g")

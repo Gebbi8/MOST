@@ -10,6 +10,8 @@ body {
 #midDiv {
   width: 960px;
   margin: 0 auto;
+	min-height: 900px;
+	height: 900px;
 }
 
 #topDiv {
@@ -18,17 +20,20 @@ body {
 
 #contentDiv {
   background-color: white;
-  margin-left: 250px;
+	width: 610px;
+  margin-left: 350px;
+	overflow: auto;
 }
 
-#choiceDiv {
+#choiceDiv {	
   float: left;
   width: 350px;
+	min-height: 900px;
   background-color: lightgreen;
 }
 
-svg {
-
+#choiceChart{
+	margin-top: 150px;
 }
 
 footer {

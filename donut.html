@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
-  position: relative;
-  width: 960px;
-}
-
-text {
-  font: 10px sans-serif;
-}
-
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-
-</style>
-	<input type="text" id="date1" value="YYYY-MM-DD"></input>
-	<input type="text" id="date2" value="YYYY-MM-DD"></input>
-	<input type="button" value="Submit" onclick="selectDateRange()"></input>
-<form>
-  <label><input type="radio" name="dataset" value="bives" checked> Bives</label>
-  <label><input type="radio" name="dataset" value="unix"> Unix</label>
-	<label><input type="radio" name="dataset" value="bivesupdate"> Bivesupdate</label>
-</form>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script>
-
 var width = 960,
     height = 550,
     radius = Math.min(width, height) / 2;
@@ -159,8 +126,4 @@ function arcTween(a) {
     return arc(i(t));
   };
 }
-
-</script>
-
-
 		

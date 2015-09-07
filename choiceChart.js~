@@ -1,4 +1,4 @@
-var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
+var margin = {top: 200, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
 
 var x = d3.time.scale()
 					.range([0, timewidth]);
@@ -70,7 +70,7 @@ d3.tsv("diffstats", function(d) {
 		    .call(yAxis)
 		  .append("text")
 				.attr("x", 25)
-		    .attr("y", -15)
+		    .attr("y", -20)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "black")
@@ -118,7 +118,7 @@ function brushmove() {
 
 function brushend() {
 	console.log("brushend");
-	var extent =	brush.extent();
+	extent =	brush.extent();
 	console.log(extent);
 }
 
