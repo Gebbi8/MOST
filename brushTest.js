@@ -18,7 +18,7 @@ var yAxis = d3.svg.axis()
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
 
-var svg = d3.select("#choiceChart").append("svg")
+var svg = d3.select("#mainDiv").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")

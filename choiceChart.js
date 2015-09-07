@@ -1,15 +1,15 @@
-var margin = {top: 10, right: 5, bottom: 70, left: 65}, timewidth = 200, timeheight = 600;
+var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
 
 var x = d3.time.scale()
-					.range([timewidth, 0]);
+					.range([0, timewidth]);
 
 var y = d3.scale.linear()
 					.range([timeheight, 0]);
 
 var xAxis = d3.svg.axis()
 							.scale(x)
-							.orient("bottom")
-							.ticks(d3.time.years)
+//							.orient("bottom")
+							.ticks(5)
 							.tickFormat(d3.time.format("%Y"));
 							
 
@@ -27,27 +27,14 @@ var svg = d3.select("#choiceChart").append("svg")
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
 
-/*d3.tsv("diffstats", function(error, d){
-	if(error) throw error;
-	//console.log(d);
-	return {
-		version2: parseDate(d.version2),
-	};
-}, function (error, dataset){
-	if(error) throw error;
-	console.log(dataset);
-	var newData = dataset.filter(function(d){ return d.model === "MODEL1011080000.xml";});
-	console.log(dataset);
-	
-	alert("test");
-});
-*/
-
 d3.tsv("diffstats", function(d) {
 	return {version2: year(parseDate(d.version2)),
 	};
 
 }, function(error, rows) {
+	rows.sort(function(a, b) {
+                return d3.ascending(a.version2, b.version2);
+        });	
 	console.log(rows);
 	console.log("test");
 	
@@ -66,12 +53,17 @@ d3.tsv("diffstats", function(d) {
         count: counts[key]
     });
 	});
+
 	console.log(counts);
 	console.log(data);
 
+	var minVersion2 = d3.min(data, function (d){ return d.version2});
+	minVersion2 = new Date(minVersion2);
+	var maxVersion2 = d3.max(data, function (d){ return d.version2});
+	maxVersion2 = new Date(maxVersion2);
+
 	y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
-	x.domain([[new Date(2012, 0, 1), new Date(2012, 11, 31)]]);
-	//x.domain([d3.min(data, function(d) { return d.version2}), 						d3.max(data, function(d) {return d.version2})]);
+	x.domain([minVersion2, maxVersion2]).nice();
 
 	var AxisY = svg.append("g")
 		    .attr("class", "y axis")
@@ -90,7 +82,8 @@ d3.tsv("diffstats", function(d) {
 		    .call(xAxis)
 		  .append("text")
 		    .attr("transform", "translate(" +timewidth+", 10)") //hier eigentlich nur rotation //translate die drunter
-		    .attr("y", 2)
+				.attr("x", 35)
+		    .attr("y", -12)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "Black")
@@ -104,6 +97,6 @@ d3.tsv("diffstats", function(d) {
 				  .attr("width", timewidth / data.length) //add -0.1 for padding
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
-					.attr("fill", "steelblue");						 
+					.attr("fill", "steelblue");	
 
 });
