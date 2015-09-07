@@ -18,7 +18,7 @@ var yAxis = d3.svg.axis()
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
 
-var svg = d3.select("#choiceChart").append("svg")
+var svg = d3.select("#contentDiv").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")
@@ -69,8 +69,8 @@ d3.tsv("diffstats", function(d) {
 		    .attr("class", "y axis")
 		    .call(yAxis)
 		  .append("text")
-				.attr("x", 25)
-		    .attr("y", -20)
+		    .attr("transform", "translate(80,-20)")
+		    .attr("y", 6)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "black")
@@ -112,14 +112,13 @@ svg.append("g")
 
 function brushmove() {
 	console.log("brushmove");
-	
+	var extent =	brush.extent();
+	console.log(extent);
 
 }
 
 function brushend() {
 	console.log("brushend");
-	var extent =	brush.extent();
-	console.log(extent);
 }
 
 

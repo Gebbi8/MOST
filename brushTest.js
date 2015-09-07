@@ -18,7 +18,7 @@ var yAxis = d3.svg.axis()
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
 
-var svg = d3.select("#mainDiv").append("svg")
+var svg = d3.select("#contentDiv").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")
@@ -89,7 +89,7 @@ d3.tsv("diffstats", function(d) {
 				.attr("fill", "Black")
 		    .text("Year");
 
-	var bivupdate = svg.selectAll(".bar")
+	var rects = svg.selectAll(".bar")
 				  .data(data)
 				.enter().append("rect")
 				  .attr("class", "bar")
@@ -111,35 +111,17 @@ svg.append("g")
  .attr('height', timeheight);
 
 function brushmove() {
-  var extent = brush.extent();
-  points.classed("selected", function(d) {
-    is_brushed = extent[0] <= d.index && d.index <= extent[1];
-    return is_brushed;
-  });
+	console.log("brushmove");
+	
+
 }
 
 function brushend() {
-  get_button = d3.select(".clear-button");
-  if(get_button.empty() === true) {
-    clear_button = svg.append('text')
-      .attr("y", 460)
-      .attr("x", 825)
-      .attr("class", "clear-button")
-      .text("Clear Brush");
-  }
-
-  x.domain(brush.extent());
-
-  console.log((x.index));
-
-  points.classed("selected", false);
-  d3.select(".brush").call(brush.clear());
-
-  clear_button.on('click', function(){
-    x.domain([0, 50]);
-    take_data();
-    clear_button.remove();
-  });
+	console.log("brushend");
+	var extent =	brush.extent();
+	console.log(extent);
 }
+
+
 
 });
