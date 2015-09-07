@@ -1,5 +1,5 @@
 function donut(date1, date2){
-	var width = 960,
+	var width = 610,
 	    height = 550,
 	    radius = Math.min(width, height) / 2;
 
@@ -15,7 +15,7 @@ function donut(date1, date2){
 	    .innerRadius(radius - 125)
 	    .outerRadius(radius - 45);
 
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select("#charts").append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")

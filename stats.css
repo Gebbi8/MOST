@@ -36,6 +36,10 @@ body {
 	margin-top: 150px;
 }
 
+#charts{
+	width: 610px;
+}
+
 footer {
   clear: both;
   background-color: #207a7a;
