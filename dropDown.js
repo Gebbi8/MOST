@@ -44,5 +44,5 @@ d3.select("#select-list2").selectAll("option")
     .datum(function(d){return d3.select(this).attr("value");})
     //add the listener to the click and change events 
     //(neither works!)
-    .on("click", alertChange2)
+    //.on("click", alertChange2)
     .on("change", alertChange2);	
