@@ -1,6 +1,6 @@
-var margin = {top: 10, right: 5, bottom: 5, left: 45}, timewidth = 200, timeheight = 200;
+var margin = {top: 10, right: 5, bottom: 70, left: 65}, timewidth = 200, timeheight = 600;
 
-var x = d3.scale.linear()
+var x = d3.time.scale()
 					.range([timewidth, 0]);
 
 var y = d3.scale.linear()
@@ -8,10 +8,13 @@ var y = d3.scale.linear()
 
 var xAxis = d3.svg.axis()
 							.scale(x)
-							.orient("bottom");
+							.orient("bottom")
+							.ticks(d3.time.years)
+							.tickFormat(d3.time.format("%Y"));
+							
 
 var yAxis = d3.svg.axis()
-							.scale(x)
+							.scale(y)
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
 
@@ -19,17 +22,88 @@ var svg = d3.select("#choiceChart").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")
-		  .attr("transform", "translate(100,100)");
+		  .attr("transform", "translate(50,30)");
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
+var year = d3.time.format("%Y-%m");
 
-d3.tsv("diffstats", function(error, d){
+/*d3.tsv("diffstats", function(error, d){
 	if(error) throw error;
-	console.log(d);
+	//console.log(d);
 	return {
 		version2: parseDate(d.version2),
 	};
-	console.log(d);
-}
+}, function (error, dataset){
+	if(error) throw error;
+	console.log(dataset);
+	var newData = dataset.filter(function(d){ return d.model === "MODEL1011080000.xml";});
+	console.log(dataset);
+	
+	alert("test");
+});
+*/
 
-);
+d3.tsv("diffstats", function(d) {
+	return {version2: year(parseDate(d.version2)),
+	};
+
+}, function(error, rows) {
+	console.log(rows);
+	console.log("test");
+	
+	var counts = {};
+	rows.forEach(function(r) {
+    if (!counts[r.version2]) {
+        counts[r.version2] = 0;
+    }
+    counts[r.version2]++;
+	});
+	
+	var data = [];
+	Object.keys(counts).forEach(function(key) {
+    data.push({
+        version2: key,
+        count: counts[key]
+    });
+	});
+	console.log(counts);
+	console.log(data);
+
+	y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
+	x.domain([[new Date(2012, 0, 1), new Date(2012, 11, 31)]]);
+	//x.domain([d3.min(data, function(d) { return d.version2}), 						d3.max(data, function(d) {return d.version2})]);
+
+	var AxisY = svg.append("g")
+		    .attr("class", "y axis")
+		    .call(yAxis)
+		  .append("text")
+		    .attr("transform", "translate(80,-20)")
+		    .attr("y", 6)
+		    .attr("dy", ".71em")
+		    .style("text-anchor", "end")
+				.attr("fill", "black")
+		    .text("Changes");
+
+	var AxisX = svg.append("g")
+		    .attr("class", "x axis")
+				.attr("transform", "translate(0," + timeheight + ")")
+		    .call(xAxis)
+		  .append("text")
+		    .attr("transform", "translate(" +timewidth+", 10)") //hier eigentlich nur rotation //translate die drunter
+		    .attr("y", 2)
+		    .attr("dy", ".71em")
+		    .style("text-anchor", "end")
+				.attr("fill", "Black")
+		    .text("Year");
+
+	var bivupdate = svg.selectAll(".bar")
+				  .data(data)
+				.enter().append("rect")
+				  .attr("class", "bar")
+				  .attr("x", function(d, i) { return i * (timewidth / data.length)+2; })
+				  .attr("width", timewidth / data.length) //add -0.1 for padding
+				  .attr("y", function(d) { return y(d.count) })
+				  .attr("height", function(d) { return timeheight - y(d.count);})
+					.attr("fill", "steelblue");						 
+
+});
