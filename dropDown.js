@@ -1,5 +1,5 @@
 var alertChange2 = function(d,i) {
-		console.log("!!!!!!!", window.extent);	
+	d3.selectAll('#charts').selectAll('svg').remove()	
   	switch(d){
 			case "Overview Bives Changes":
 				bivesOverview(window.extent[0], window.extent[1]);
