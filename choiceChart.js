@@ -16,12 +16,11 @@ var yAxis = d3.svg.axis()
 							.scale(y)
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
-
 var svg = d3.select("#choiceChart").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")
-		  .attr("transform", "translate(50,30)");
+		  .attr("transform", "translate(50,30)");		
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
@@ -98,29 +97,38 @@ d3.tsv("diffstats", function(d) {
 				  .attr("height", function(d) { return timeheight - y(d.count);})
 					.attr("fill", "steelblue");	
 
+var parseDate = d3.time.format("%Y-%m-%d").parse;
+var parseDate2 = d3.time.format("%b %d %Y").parse;
+
+var date1 = parseDate2(document.getElementById("date1").value);
+var date2 = parseDate2(document.getElementById("date2").value);
+
 var brush = d3.svg.brush()
- .x(x)
- .on("brush", brushmove)
- .on("brushend", brushend);
+	.x(x)
+	.extent([date1, date2])
+	.on("brush", brushmove)
+	.on("brushend", brushend);
 
 svg.append("g")
- .attr("class", "brush")
- .call(brush)
+	.attr("class", "brush")
+	.call(brush)
 .selectAll('rect')
- .attr('height', timeheight);
+	.attr('height', timeheight);
 
 function brushmove() {
 	console.log("brushmove");
-	
-
+	extent = brush.extent();
+	document.getElementById("date1").value = window.extent[0].toString().substr(4,11);
+	document.getElementById("date2").value = window.extent[1].toString().substr(4,11);
 }
 
 function brushend() {
+	console.log(parseDate2("Jan 01 2010"));
 	console.log("brushend");
-	extent =	brush.extent();
-	console.log(extent);
+	extent = brush.extent();
+	console.log(extent);	
 }
 
-
+//Date.parse(document.getElementById("date1").value).add(5).days()
 
 });

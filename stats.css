@@ -63,3 +63,18 @@ footer {
     fill-opacity: .125;
     shape-rendering: crispEdges;
 }
+
+/* BUTTONS */
+
+button .up	{
+		background: url(/image/up.png) no-repeat;
+		cursor:pointer;
+    border: none;
+}
+
+button .down{
+		background: url(/image/down.png) no-repeat;
+		cursor:pointer;
+    border: none;
+}
+              

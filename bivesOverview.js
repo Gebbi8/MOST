@@ -4,11 +4,11 @@ function bivesOverview(date1, date2){
 		  width = 610 - margin.left - margin.right,
 		  height = 500 - margin.top - margin.bottom;
 
-	var colors =	[	["inserts", "green"],
+	var colors =	[["inserts", "green"],
 								["deletes", "red"],
 								["moves", "blue"],
 								["update", "yellow"],
-							];
+								];
 
 		var x = d3.scale.ordinal()
 				.rangeBands([0, width], .1);

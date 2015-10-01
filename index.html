@@ -16,8 +16,16 @@
 	<div id="choiceDiv">
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan</div>
+				<p>	
+					<input type="date" id="date1" value="Jan 01 2010">
+					<button class="up" onclcick=""></button>
+					<button class="down" onclick=""></button>
+				</p>
+				<p><input type="date" id="date2" value="Jan 01 2011"></p>
+			</p>
 	  </div>
 	</div>
+
 	<div id="contentDiv"><p>MainDiv</p>
 		<select id="select-list2">
 			<option value="Overview Bives Changes">Overview Bives Changes</option> 
@@ -36,6 +44,7 @@
 </body>
 <script> var extent; </script>
 <script type="text/javascript" src="d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="date.js"></script>
 <script type="text/javascript" src="choiceChart.js"></script>
 <script type="text/javascript" src="dropDown.js"></script>
 <script type="text/javascript" src="bivesOverview.js"></script>
