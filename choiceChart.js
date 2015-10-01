@@ -115,6 +115,41 @@ svg.append("g")
 .selectAll('rect')
 	.attr('height', timeheight);
 
+document.getElementById("date1Up").onclick = function ()
+{
+	var newDate = Date.parse(document.getElementById("date1").value).add(1).days();
+	document.getElementById("date1").value = newDate.toString().substr(4,11);
+	brush.extent([newDate, date2]);
+	extent = brush.extent();
+	date1 = newDate;
+	console.log(brush.extent(), extent);
+}
+
+document.getElementById("date1Down").onclick = function ()
+{
+	var newDate = Date.parse(document.getElementById("date1").value).add(-1).days();
+	document.getElementById("date1").value = newDate.toString().substr(4,11);
+	brush.extent([newDate, date2]);
+	extent = brush.extent();
+	date1 = newDate;
+	console.log(brush.extent());
+}
+
+document.getElementById("date2Up").onclick = function ()
+{
+	var newDate = Date.parse(document.getElementById("date2").value).add(1).days();
+	document.getElementById("date2").value = newDate.toString().substr(4,11);
+	//window.extent[0] = newDate;
+}
+
+document.getElementById("date2Down").onclick = function ()
+{
+	var newDate = Date.parse(document.getElementById("date2").value).add(-1).days();
+	document.getElementById("date2").value = newDate.toString().substr(4,11);
+	//window.extent[0] = newDate;
+}
+
+
 function brushmove() {
 	console.log("brushmove");
 	extent = brush.extent();
@@ -123,7 +158,6 @@ function brushmove() {
 }
 
 function brushend() {
-	console.log(parseDate2("Jan 01 2010"));
 	console.log("brushend");
 	extent = brush.extent();
 	console.log(extent);	

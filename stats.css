@@ -66,13 +66,17 @@ footer {
 
 /* BUTTONS */
 .up	{
-		background: url(/image/up.png) no-repeat;
+		background-image: url(/var/www/tom/image/up.png);
+		background-repeat: no-repeat;
+		background-size: 32px 32px;
 		cursor:pointer;
     border: none;
 }
 
 .down{
-		background: url(/image/down.png) no-repeat;
+		background-image: url(/var/www/tom/imagedown.png);
+		background-repeat: no-repeat;
+		background-size: 32px 32px;
 		cursor:pointer;
     border: none;
 }

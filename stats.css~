@@ -65,15 +65,18 @@ footer {
 }
 
 /* BUTTONS */
-
-.button .up	{
-		background: url(/image/up.png) no-repeat;
+.up	{
+		background-image: url(/var/www/tom/image/up.png);
+		background-repeat: no-repeat;
+		ackground-size: 32px 32px;
 		cursor:pointer;
     border: none;
 }
 
-.button .down{
-		background: url(/image/down.png) no-repeat;
+.down{
+		background-image: url(/var/www/tom/imagedown.png);
+		background-repeat: no-repeat;
+		background-size: 32px 32px;
 		cursor:pointer;
     border: none;
 }

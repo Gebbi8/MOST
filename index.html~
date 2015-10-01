@@ -16,8 +16,16 @@
 	<div id="choiceDiv">
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan</div>
-				<p><input type="date" id="date1" value="Jan 01 2010"></p>
-				<p><input type="date" id="date2" value="Jan 01 2011"></p>
+				<p>	
+					<input type="date" id="date1" value="Jan 01 2010">
+					<button class="up" id="date1Up"></button>
+					<button class="down" id="date1Down"></button>
+				</p>
+				<p>
+					<input type="date" id="date2" value="Jan 01 2011">
+					<button class="up" id="date1Up"></button>
+					<button class="down" id="date1Down"></button>
+				</p>
 			</p>
 	  </div>
 	</div>
