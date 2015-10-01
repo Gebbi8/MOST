@@ -66,13 +66,13 @@ footer {
 
 /* BUTTONS */
 
-button .up	{
+.button .up	{
 		background: url(/image/up.png) no-repeat;
 		cursor:pointer;
     border: none;
 }
 
-button .down{
+.button .down{
 		background: url(/image/down.png) no-repeat;
 		cursor:pointer;
     border: none;
