@@ -122,7 +122,7 @@ document.getElementById("date1Up").onclick = function ()
 	brush.extent([newDate, date2]);
 	extent = brush.extent();
 	date1 = newDate;
-	console.log(brush.extent(), extent);
+	brushed();
 }
 
 document.getElementById("date1Down").onclick = function ()
@@ -132,23 +132,33 @@ document.getElementById("date1Down").onclick = function ()
 	brush.extent([newDate, date2]);
 	extent = brush.extent();
 	date1 = newDate;
-	console.log(brush.extent());
+	brushed();
 }
 
 document.getElementById("date2Up").onclick = function ()
 {
 	var newDate = Date.parse(document.getElementById("date2").value).add(1).days();
 	document.getElementById("date2").value = newDate.toString().substr(4,11);
-	//window.extent[0] = newDate;
+	brush.extent([date1, newDate]);
+	extent = brush.extent();
+	date2 = newDate;
+	brushed();
 }
 
 document.getElementById("date2Down").onclick = function ()
 {
 	var newDate = Date.parse(document.getElementById("date2").value).add(-1).days();
 	document.getElementById("date2").value = newDate.toString().substr(4,11);
-	//window.extent[0] = newDate;
+	brush.extent([date1, newDate]);
+	extent = brush.extent();
+	date2 = newDate;
+	brushed();
 }
 
+function brushed() {
+	console.log("brushed");
+	svg.select(".brush").call(brush);
+}
 
 function brushmove() {
 	console.log("brushmove");
@@ -163,6 +173,5 @@ function brushend() {
 	console.log(extent);	
 }
 
-//Date.parse(document.getElementById("date1").value).add(5).days()
-
 });
+

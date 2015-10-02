@@ -68,7 +68,8 @@ footer {
 .up	{
 		background-image: url(/var/www/tom/image/up.png);
 		background-repeat: no-repeat;
-		ackground-size: 32px 32px;
+		width: 32px;
+		height: 32px;
 		cursor:pointer;
     border: none;
 }
@@ -76,7 +77,8 @@ footer {
 .down{
 		background-image: url(/var/www/tom/imagedown.png);
 		background-repeat: no-repeat;
-		background-size: 32px 32px;
+		width: 32px;
+		height: 32px;
 		cursor:pointer;
     border: none;
 }

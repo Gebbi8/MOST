@@ -23,8 +23,8 @@
 				</p>
 				<p>
 					<input type="date" id="date2" value="Jan 01 2011">
-					<button class="up" id="date1Up"></button>
-					<button class="down" id="date1Down"></button>
+					<button class="up" id="date2Up"></button>
+					<button class="down" id="date2Down"></button>
 				</p>
 			</p>
 	  </div>
