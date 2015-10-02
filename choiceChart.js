@@ -155,6 +155,24 @@ document.getElementById("date2Down").onclick = function ()
 	brushed();
 }
 
+function holdit(btn, action, start, speedup) {
+    var t;
+
+    var repeat = function () {
+        action();
+        t = setTimeout(repeat, start);
+        start = start / speedup;
+    }
+
+    btn.mousedown = function() {
+        repeat();
+    }
+
+    btn.mouseup = function () {
+        clearTimeout(t);
+    }
+};
+
 function brushed() {
 	console.log("brushed");
 	svg.select(".brush").call(brush);
