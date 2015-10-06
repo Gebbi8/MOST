@@ -33,8 +33,6 @@ d3.tsv("diffstats", function(d) {
 	rows.sort(function(a, b) {
                 return d3.ascending(a.version2, b.version2);
         });	
-	console.log(rows);
-	console.log("test");
 	
 	var counts = {};
 	rows.forEach(function(r) {
@@ -52,8 +50,6 @@ d3.tsv("diffstats", function(d) {
     });
 	});
 
-	console.log(counts);
-	console.log(data);
 
 	var minVersion2 = d3.min(data, function (d){ return d.version2});
 	minVersion2 = new Date(minVersion2);
@@ -80,8 +76,8 @@ d3.tsv("diffstats", function(d) {
 		    .call(xAxis)
 		  .append("text")
 		    .attr("transform", "translate(" +timewidth+", 10)") //hier eigentlich nur rotation //translate die drunter
-				.attr("x", 35)
-		    .attr("y", -12)
+				.attr("x", 10)
+		    .attr("y", 15)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "Black")
@@ -115,62 +111,85 @@ svg.append("g")
 .selectAll('rect')
 	.attr('height', timeheight);
 
-document.getElementById("date1Up").onclick = function ()
-{
-	var newDate = Date.parse(document.getElementById("date1").value).add(1).days();
-	document.getElementById("date1").value = newDate.toString().substr(4,11);
-	brush.extent([newDate, date2]);
-	extent = brush.extent();
-	date1 = newDate;
-	brushed();
-}
+var hold = -1;
 
-document.getElementById("date1Down").onclick = function ()
-{
-	var newDate = Date.parse(document.getElementById("date1").value).add(-1).days();
-	document.getElementById("date1").value = newDate.toString().substr(4,11);
-	brush.extent([newDate, date2]);
-	extent = brush.extent();
-	date1 = newDate;
-	brushed();
-}
+var date1Up = document.getElementById("date1Up");
+date1Up.onmouseup = function(){ hold = 0;};
+date1Up.onmouseout = function(){ hold = 0;};
+date1Up.onmousedown = function () { hold = -1; holdit("date1", "up");};
 
-document.getElementById("date2Up").onclick = function ()
-{
-	var newDate = Date.parse(document.getElementById("date2").value).add(1).days();
-	document.getElementById("date2").value = newDate.toString().substr(4,11);
-	brush.extent([date1, newDate]);
-	extent = brush.extent();
-	date2 = newDate;
-	brushed();
-}
+var date1Down = document.getElementById("date1Down");
+date1Down.onmouseup = function(){ hold = 0;};
+date1Down.onmouseout = function(){ hold = 0;};
+date1Down.onmousedown = function () { hold = -1; holdit("date1", "down");};
 
-document.getElementById("date2Down").onclick = function ()
-{
-	var newDate = Date.parse(document.getElementById("date2").value).add(-1).days();
-	document.getElementById("date2").value = newDate.toString().substr(4,11);
-	brush.extent([date1, newDate]);
-	extent = brush.extent();
-	date2 = newDate;
-	brushed();
-}
+var date2Up = document.getElementById("date2Up");
+date2Up.onmouseup = function(){ hold = 0;};
+date2Up.onmouseout = function(){ hold = 0;};
+date2Up.onmousedown = function () { hold = -1; holdit("date2", "up");};
 
-function holdit(btn, action, start, speedup) {
-    var t;
+var date2Down = document.getElementById("date2Down");
+date2Down.onmouseup = function(){ hold = 0;};
+date2Down.onmouseout = function(){ hold = 0;};
+date2Down.onmousedown = function () { hold = -1; holdit("date2", "down");};
 
-    var repeat = function () {
-        action();
-        t = setTimeout(repeat, start);
-        start = start / speedup;
-    }
+var date1Field = document.getElementById("date1");
+date1Field.addEventListener("keydown", function (e) {
+	if(e.keyCode === 13){
+		console.log("test");
+		var newDate = Date.parse(date1Field.value);
+		brush.extent([newDate, date2]);
+		date1 = newDate;
+		extent = brush.extent();
+		brushed();
+	}
+});
 
-    btn.mousedown = function() {
-        repeat();
-    }
 
-    btn.mouseup = function () {
-        clearTimeout(t);
-    }
+var date2Field = document.getElementById("date2");
+date2Field.addEventListener("keydown", function (e) {
+	if(e.keyCode === 13){
+		console.log("test");
+		var newDate = Date.parse(date2Field.value);
+		brush.extent([date1, newDate]);
+		date2 = newDate;
+		extent = brush.extent();
+		brushed();
+	}
+});
+
+function holdit(btn, mode) {
+	if (hold == -1){
+		setTimeout(function(){
+			if(mode === "up"){
+				var newDate = Date.parse(document.getElementById(btn).value).add(1).days();
+				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			} else {
+				var newDate = Date.parse(document.getElementById(btn).value).add(-1).days();
+				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			}
+					
+			holdit(btn, mode);
+		}, 100);
+  }
 };
 
 function brushed() {
