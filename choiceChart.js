@@ -51,10 +51,8 @@ d3.tsv("diffstats", function(d) {
 	});
 
 
-	var minVersion2 = d3.min(data, function (d){ return d.version2});
-	minVersion2 = new Date(minVersion2);
-	var maxVersion2 = d3.max(data, function (d){ return d.version2});
-	maxVersion2 = new Date(maxVersion2);
+	var minVersion2 = new Date(d3.min(data, function (d){ return d.version2+"-01"}));
+	var maxVersion2 = new Date(d3.max(data, function (d){ return d.version2+"-30"}));
 
 	y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
 	x.domain([minVersion2, maxVersion2]).nice();
@@ -75,9 +73,9 @@ d3.tsv("diffstats", function(d) {
 				.attr("transform", "translate(0," + timeheight + ")")
 		    .call(xAxis)
 		  .append("text")
-		    .attr("transform", "translate(" +timewidth+", 10)") //hier eigentlich nur rotation //translate die drunter
+		    .attr("transform", "translate(" +timewidth+")")
 				.attr("x", 10)
-		    .attr("y", 15)
+		    .attr("y", 20)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "Black")
@@ -87,8 +85,8 @@ d3.tsv("diffstats", function(d) {
 				  .data(data)
 				.enter().append("rect")
 				  .attr("class", "bar")
-				  .attr("x", function(d, i) { return i * (timewidth / data.length)+2; })
-				  .attr("width", timewidth / data.length) //add -0.1 for padding
+				  .attr("x", function(d) { return x(new Date(d.version2)); })
+				  .attr("width", timewidth / data.length -2) 
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
 					.attr("fill", "steelblue");	
@@ -136,12 +134,21 @@ date2Down.onmousedown = function () { hold = -1; holdit("date2", "down");};
 var date1Field = document.getElementById("date1");
 date1Field.addEventListener("keydown", function (e) {
 	if(e.keyCode === 13){
-		console.log("test");
 		var newDate = Date.parse(date1Field.value);
-		brush.extent([newDate, date2]);
-		date1 = newDate;
-		extent = brush.extent();
-		brushed();
+		if(newDate != null){
+			if(newDate < minVersion2){
+				newDate = minVersion2;
+			} else if(newDate > maxVersion2){
+				newDate = maxVersion2;
+			}
+			brush.extent([newDate, date2]);
+			date1 = newDate;
+			extent = brush.extent();
+			brushed();
+		} else {
+			alert("Please enter a correct date.");
+		}
+
 	}
 });
 
@@ -149,12 +156,20 @@ date1Field.addEventListener("keydown", function (e) {
 var date2Field = document.getElementById("date2");
 date2Field.addEventListener("keydown", function (e) {
 	if(e.keyCode === 13){
-		console.log("test");
 		var newDate = Date.parse(date2Field.value);
-		brush.extent([date1, newDate]);
-		date2 = newDate;
-		extent = brush.extent();
-		brushed();
+		if(newDate != null){
+			if(newDate < minVersion2){
+				newDate = minVersion2;
+			} else if(newDate > maxVersion2){
+				newDate = maxVersion2;
+			}
+			brush.extent([date1, newDate]);
+			date2 = newDate;
+			extent = brush.extent();
+			brushed();
+		} else {
+			alert("Please enter a correct date.");
+		}
 	}
 });
 
@@ -193,21 +208,17 @@ function holdit(btn, mode) {
 };
 
 function brushed() {
-	console.log("brushed");
 	svg.select(".brush").call(brush);
 }
 
 function brushmove() {
-	console.log("brushmove");
 	extent = brush.extent();
 	document.getElementById("date1").value = window.extent[0].toString().substr(4,11);
 	document.getElementById("date2").value = window.extent[1].toString().substr(4,11);
 }
 
 function brushend() {
-	console.log("brushend");
 	extent = brush.extent();
-	console.log(extent);	
 }
 
 });

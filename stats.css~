@@ -66,7 +66,7 @@ footer {
 
 /* BUTTONS */
 .up	{
-		background-image: url(/var/www/tom/image/up.png);
+		background-image: url(/tom/image/up.png);
 		background-repeat: no-repeat;
 		width: 32px;
 		height: 32px;
@@ -75,11 +75,28 @@ footer {
 }
 
 .down{
-		background-image: url(/var/www/tom/imagedown.png);
+		background-image: url(/tom/image/down.png);
 		background-repeat: no-repeat;
 		width: 32px;
 		height: 32px;
 		cursor:pointer;
     border: none;
+}
+
+/* MENU */
+li{
+	display: table-cell;
+	padding: 20px;
+	width: 75px;
+	cursor: pointer; cursor: hand; 
+}
+
+.pictureMenu {
+	display: block;
+	width: 100px;
+}
+
+.pictureMenu:hover {
+    border:1px solid #0000ff;
 }
               
