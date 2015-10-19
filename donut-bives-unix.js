@@ -9,7 +9,7 @@ function donut(date1, date2){
 
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
 
-	var pie = d3.layout.pie()
+	var pie = d3.layout.pie()	
 			.value(function(d){ return d.bives; })
 	    .sort(null);
 

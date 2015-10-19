@@ -23,6 +23,7 @@ body {
 	width: 610px;
   margin-left: 350px;
 	overflow: auto;
+	height: inherit;
 }
 
 #choiceDiv {	
@@ -84,7 +85,7 @@ footer {
 }
 
 /* MENU */
-li{
+#menu li{
 	display: table-cell;
 	padding: 20px;
 	width: 75px;
@@ -96,7 +97,26 @@ li{
 	width: 100px;
 }
 
-.pictureMenu:hover {
-    border:1px solid #0000ff;
+/* BIVES TOOL */
+
+.bives-insert {
+    color: #01df01;
 }
+.bives-delete {
+    color: #ff4000;
+}
+.bives-attr {
+    font-style: italic;
+    font-weight: bold;
+}
+.bives-suppl {
+    color: #a4a4a4;
+}
+.bives-update {
+    color: #dfa601;
+}
+.bives-move {
+    color: #014adf;
+}
+
               
