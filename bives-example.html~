@@ -1,0 +1,66 @@
+<html><head><meta charset="UTF-8">
+<script src="jquery-2.1.4.min.js"></script>
+<style type="text/css">
+.bives-insert
+{color:#01DF01;}
+.bives-delete
+{color:#FF4000;}
+.bives-attr
+{font-weight: bold;font-style: italic;}
+.bives-suppl
+{color:#A4A4A4;}
+.bives-update
+{color:#DFA601;}
+.bives-move
+{color:#014ADF;}
+</style>
+</head><body>
+<div id="display"/>
+
+<script type="text/javascript">
+
+
+
+
+
+///////////////
+/// see here:
+
+var file1 = "http://budhat.sems.uni-rostock.de/download?downloadModel=24";
+var file2 = "http://budhat.sems.uni-rostock.de/download?downloadModel=25";
+var command = "reactionsJson  , xyz";
+
+// create the job object
+// see http://bives.sems.uni-rostock.de/
+var bivesJob = {
+	files:
+	[
+		file1,
+		file2
+	],
+	commands:
+	[
+		command
+	]
+};
+
+// call the bives wrapper script
+$.post (
+	"bives.php",
+	"bivesJob=" + JSON.stringify (bivesJob),
+	function (data)
+	{
+		$("#display").html ($.parseJSON (data).reactionsJson  );
+		$("#xyz").html ($.parseJSON (data).xyz);
+	}
+);
+
+/// end example
+///////////////
+
+
+
+
+
+</script>
+</body></html>
