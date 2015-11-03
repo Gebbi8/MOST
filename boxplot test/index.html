@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.box {
+  font: 10px sans-serif;
+}
+.box line,
+.box rect,
+.box circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+.box .center {
+  stroke-dasharray: 3,3;
+}
+.box .outlier {
+  fill: none;
+  stroke: #ccc;
+}
+</style>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="box.js"></script>
+<script>
+var margin = {top: 10, right: 5, bottom: 20, left: 45},
+		  width = 610 - margin.left - margin.right,
+		  height = 500 - margin.top - margin.bottom;
+
+var y = d3.scale.ordinal()
+				.rangeBands([0, height], .1);
+
+var yAxis = d3.svg.axis()
+			.orient("left");
+
+var x = d3.scale.log()
+			.base(Math.E)
+			.clamp(true)
+			.range([0, width]);
+
+var xAxis = d3.svg.axis()
+			.scale(x)
+			.orient("bottom");
+
+var svg = d3.select("body").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Variables for Boxplots
+var min = Infinity,
+    max = -Infinity;
+
+var data = [];
+		data[0] = [];
+		data[1] = [];
+		data[2] = [];
+		data[3] = [];
+
+var boxData = [];
+		boxData[0] = [];
+		boxData[1] = [];
+		boxData[2] = [];
+		boxData[3] = [];
+
+d3.tsv("diffstats", function(error, tsv) {
+
+	
+	tsv.forEach(function(d){
+		d.bivesmove = +d.bivesmove;
+		data[0].push(d.bivesmove);
+		d.bivesinsert = +d.bivesinsert;
+		data[1].push(d.bivesinsert)
+		d.bivesdelete = +d.bivesdelete;
+		data[2].push(d.bivesdelete)
+		d.bivesupdate = +d.bivesupdate;
+		data[3].push(d.bivesupdate)
+
+		max = Math.max(max, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
+		min = Math.min(min, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
+	});
+	//max, min test
+	data[0].sort(function(a,b){ return a-b;});
+	data[1].sort(function(a,b){ return a-b;});
+	data[2].sort(function(a,b){ return a-b;});
+	data[3].sort(function(a,b){ return a-b;});
+
+
+	for(var i=0; i<4; i++){
+		boxData[i][2] = median(data[i]);
+		boxData[i][1] = lowerQuartil(data[i]);
+		boxData[i][3] = upperQuartil(data[i]);
+		boxData[i][0] = lowerWhisker(data[i]);
+		boxData[i][4] = upperWhisker(data[i]);
+	}
+
+	x.domain([min, max]).nice();
+
+	svg.append("g")
+			.attr("class", "x axis")
+				.attr("transform", "translate(0," + height + ")")
+		    .call(xAxis)
+		  .append("text")
+		    .attr("transform", "translate(" +width+")")
+				.attr("x", 10)
+		    .attr("y", 20)
+		    .attr("dy", ".71em")
+		    .style("text-anchor", "end")
+				.attr("fill", "black")
+		    .text("Year");
+
+/*var testArr = [0,1,2,3,4,5];
+var controlArr = [];
+
+	controlArr[2] = median(testArr);
+	controlArr[1] = lowerQuartil(testArr);
+	controlArr[3] = upperQuartil(testArr);
+
+console.log(controlArr);
+*/
+
+
+console.log(max, min, boxData);
+
+
+
+});
+//!!!!!!!!hier möglicherweise min, max noch nicht fertig
+
+
+// Returns the median of an already sorted array
+function median(arr){
+	var half = Math.floor(arr.length/2);
+
+	if(arr.length % 2)
+		return arr[half];
+	else
+		return (arr[half-1] + arr[half])/2;
+}
+
+// Returns the value for the lower Quartil
+function lowerQuartil(arr) {
+	var quarter = Math.floor(arr.length/4);
+
+	if(arr.length % 4)
+		return arr[quarter];
+	else
+		return (arr[quarter-1] + arr[quarter])/2;
+}
+
+// Returns the value for the upper Quartil
+function upperQuartil(arr) {
+	var thirdQuarter = Math.floor(3*arr.length/4);
+
+	if((3*arr.length) % 4)
+		return arr[thirdQuarter];
+	else
+		return (arr[thirdQuarter-1] + arr[thirdQuarter])/2;
+}
+
+function lowerWhisker(arr){
+	var lowerWhisker = Math.ceil(0.0125*arr.length);
+
+	return arr[lowerWhisker];
+}
+
+function upperWhisker(arr){
+	var upperWhisker = Math.floor(0.9875*arr.length);
+
+	return arr[upperWhisker];
+}
+
+</script>
