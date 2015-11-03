@@ -9,13 +9,20 @@ function donut(date1, date2){
 
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
 
-	var pie = d3.layout.pie()
+	var pie = d3.layout.pie()	
 			.value(function(d){ return d.bives; })
 	    .sort(null);
-
+ 	
 	var arc = d3.svg.arc()
 	    .innerRadius(radius - 125)
 	    .outerRadius(radius - 45);
+
+	//text field overlay
+	var tooltip = d3.select("body")
+		.append("div")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden");
 
 	var svg = d3.select("#charts").append("svg")
 	    .attr("width", width)
@@ -25,13 +32,15 @@ function donut(date1, date2){
 
 		d3.tsv("diffstats", type, function(error, data) {
 			data = data.filter(function(d){ return date1 < d.version1 && d.version2 < date2; });
-
 			var path = svg.datum(data).selectAll("path")
 			    .data(pie)
 			  .enter().append("path")
 			    .attr("fill", function(d, i) { return color(i); })
 			    .attr("d", arc)
-			    .each(function(d) { this._current = d; }); // store the initial angles
+			    .each(function(d) { this._current = d; }) // store the initial angles
+				  .on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
+					//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+					.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 			d3.selectAll("input")
 			    .on("change", change);
 
@@ -46,6 +55,13 @@ function donut(date1, date2){
 			path = path.data(pie); // compute the new angles
 			path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
 		}
+		
+		function showMeta(d, i){
+		/*	d3.select(this)
+				.attr({fill: "orange"}); //function tester, turns element orange on click
+		*/
+			console.log(this.__data__.data.model);
+		}
 
 
 		});
@@ -57,7 +73,7 @@ function donut(date1, date2){
 		d.unixdelete = +d.unixdelete;
 		d.bives = +d.bives;
 		d.bivesinsert = +d.bivesinsert;
-		d.bivesdelete	 = +d.bivesdelete;
+		d.bivesdelete = +d.bivesdelete;
 		d.bivesmove = +d.bivesmove;
 		d.bivesupdate = +d.bivesupdate;
 		d.bivestriggeredinsert = +d.bivestriggeredinsert;
@@ -69,6 +85,8 @@ function donut(date1, date2){
 		d.bivestext = +d.bivestext;
 		d.version1 = parseDate(d.version1);
 		d.version2 = parseDate(d.version2);
+		d.model = d.model;
+		d.modeltype = d.modeltype;
 	  return d;
 	}
 

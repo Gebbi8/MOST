@@ -14,13 +14,13 @@ function bivesOverview(date1, date2){
 		var x = d3.scale.ordinal()
 				.rangeBands([0, width], .1);
 
+		var xAxis = d3.svg.axis()
+				.orient("bottom");
+
 		var y = d3.scale.log()
 				.base(Math.E)
 				.clamp(true)
 				.range([height, 0]);
-
-		var xAxis = d3.svg.axis()
-				.orient("bottom");
 
 		var yAxis = d3.svg.axis()
 				.scale(y)

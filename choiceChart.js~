@@ -75,7 +75,7 @@ d3.tsv("diffstats", function(d) {
 		  .append("text")
 		    .attr("transform", "translate(" +timewidth+")")
 				.attr("x", 10)
-		    .attr("y", 15)
+		    .attr("y", 20)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
 				.attr("fill", "Black")

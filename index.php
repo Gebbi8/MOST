@@ -52,5 +52,5 @@
 <script type="text/javascript" src="bivesTool.js"></script>
 <script type="text/javascript" src="bivesOverview.js"></script>
 <script type="text/javascript" src="donut-bives-unix.js"></script>
-
+<script type="text/javascript" src="box.js"></script>
 </html>
