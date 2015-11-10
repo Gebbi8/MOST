@@ -57,7 +57,7 @@ d3.tsv("diffstats", function(d) {
 	y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
 	x.domain([minVersion2, maxVersion2]).nice();
 
-	var AxisY = svg.append("g")
+	svg.append("g")
 		    .attr("class", "y axis")
 		    .call(yAxis)
 		  .append("text")
@@ -68,18 +68,10 @@ d3.tsv("diffstats", function(d) {
 				.attr("fill", "black")
 		    .text("Changes");
 
-	var AxisX = svg.append("g")
+	svg.append("g")
 		    .attr("class", "x axis")
 				.attr("transform", "translate(0," + timeheight + ")")
-		    .call(xAxis)
-		  .append("text")
-		    .attr("transform", "translate(" +timewidth+")")
-				.attr("x", 10)
-		    .attr("y", 20)
-		    .attr("dy", ".71em")
-		    .style("text-anchor", "end")
-				.attr("fill", "Black")
-		    .text("Year");
+		    .call(xAxis);
 
 	var rects = svg.selectAll(".bar")
 				  .data(data)

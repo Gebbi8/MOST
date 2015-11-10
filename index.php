@@ -33,7 +33,8 @@
 	<div id="contentDiv"><p>MainDiv</p>
 		<div id="menu">
 			<li onclick="donut(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/donutMini.png" alt="Donut"><div class="desc">Bives-Unix-Donut</div></li>
-			<li onclick="bivesOverview(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange"><div class="desc">Bives-Heatmap</div></li>
+			<li onclick="bivesOverview(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange"><div class="desc">Bives Heatmap</div></li>
+			<li onclick="boxplot(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot"><div class="desc">Bives Boxplot</div></li>
 		</div>
 		<div id="charts"><p>Charts</p></div>
 		<div id="info"><p>Info</p>
