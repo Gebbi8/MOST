@@ -123,10 +123,10 @@ footer {
 }
 
 .up {
-    background: url(http://cssdeck.com/uploads/media/items/5/5Fm069k.png)  3px -136px no-repeat #f3f3f3;
+    background: url(/tom/image/arrow.png)  3px -136px no-repeat #f3f3f3;
 }
 .down {
-    background: url(http://cssdeck.com/uploads/media/items/5/5Fm069k.png)  3px -171px no-repeat #f3f3f3;
+    background: url(/tom/image/arrow.png)  3px -171px no-repeat #f3f3f3;
 }
 
 
