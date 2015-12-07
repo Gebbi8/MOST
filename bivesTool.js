@@ -20,7 +20,7 @@ function getBivesData(file1, file2, command, place){
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
 		{
-			$(place).html ($.parseJSON (data).reactionsJson);
+			$(place).html ($.parseJSON (data).reportHtml);
 		}
 	);
 }

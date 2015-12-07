@@ -28,7 +28,7 @@
 
 var file1 = "http://budhat.sems.uni-rostock.de/download?downloadModel=24";
 var file2 = "http://budhat.sems.uni-rostock.de/download?downloadModel=25";
-var command = "reactionsJson  , xyz";
+var command = "reportHtml";
 
 // create the job object
 // see http://bives.sems.uni-rostock.de/
@@ -50,8 +50,8 @@ $.post (
 	"bivesJob=" + JSON.stringify (bivesJob),
 	function (data)
 	{
-		$("#display").html ($.parseJSON (data).reactionsJson  );
-		$("#xyz").html ($.parseJSON (data).xyz);
+		$("#display").html ($.parseJSON (data).reportHtml);
+	//	$("#xyz").html ($.parseJSON (data).xyz);
 	}
 );
 

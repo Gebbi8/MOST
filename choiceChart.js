@@ -59,18 +59,20 @@ d3.tsv("diffstats", function(d) {
 
 	svg.append("g")
 		    .attr("class", "y axis")
+				.attr("fill", "white")
 		    .call(yAxis)
 		  .append("text")
 				.attr("x", 25)
 		    .attr("y", -20)
 		    .attr("dy", ".71em")
 		    .style("text-anchor", "end")
-				.attr("fill", "black")
+				.attr("fill", "white")
 		    .text("Changes");
 
 	svg.append("g")
 		    .attr("class", "x axis")
 				.attr("transform", "translate(0," + timeheight + ")")
+				.attr("fill", "white")
 		    .call(xAxis);
 
 	var rects = svg.selectAll(".bar")
@@ -81,7 +83,7 @@ d3.tsv("diffstats", function(d) {
 				  .attr("width", timewidth / data.length -2) 
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
-					.attr("fill", "steelblue");	
+					.attr("fill", "white");	
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var parseDate2 = d3.time.format("%b %d %Y").parse;

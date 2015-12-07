@@ -8,7 +8,7 @@ function boxplot(date1, date2){
 				height = 500 - margin.top - margin.bottom;
 
 	var svg = d3.select("#charts").append("svg")
-				.attr("width", width + margin.left + 2*margin.right)
+				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -72,14 +72,16 @@ function boxplot(date1, date2){
 
 		x = d3.scale.log()
 			.base(Math.E)
-			.domain([Math.exp(0), Math.exp(9)])//.domain([min, max])	
-			//.clamp(true)
-			.range([0, width])//.nice()
+			//.domain([Math.exp(0), Math.exp(9)])//
+			.domain([1, max])	
+			.clamp(true)
+			.range([0, width]).nice()
 			;
 
 		var xAxis = d3.svg.axis()
 				.scale(x)
-				.orient("bottom");
+				.orient("bottom")
+				.tickFormat(function(d){return Math.round(d);});
 		
 		for(var i=0; i<4; i++){
 			var lW = lowerWhisker(data[i]);
@@ -121,7 +123,7 @@ function boxplot(date1, date2){
 	*/
 
 
-	console.log(max, min, boxData);
+	console.log(max, min, boxData, data);
 
 
 

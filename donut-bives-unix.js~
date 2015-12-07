@@ -32,16 +32,18 @@ function donut(date1, date2){
 
 		d3.tsv("diffstats", type, function(error, data) {
 			data = data.filter(function(d){ return date1 < d.version1 && d.version2 < date2; });
+
 			var path = svg.datum(data).selectAll("path")
 			    .data(pie)
-			  .enter().append("path")
+			  	.enter().append("path")
 			    .attr("fill", function(d, i) { return color(i); })
 			    .attr("d", arc)
-			    .each(function(d) { this._current = d; }) // store the initial angles
-				  .on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
-					//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-					.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
-			d3.selectAll("input")
+			    //.each(function(d) { this._current = d; }) // store the initial angles
+					.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
+					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+					.on("click", function(){ console.log("test"); getBivesData("http://budhat.sems.uni-rostock.de/download?downloadModel=24", "http://budhat.sems.uni-rostock.de/download?downloadModel=25", "reportHtml", "#info")});
+	/*		d3.selectAll("input")
 			    .on("change", change);
 
 		var timeout = setTimeout(function() {
@@ -54,16 +56,8 @@ function donut(date1, date2){
 			pie.value(function(d) { return d[value]; }); // change the value function
 			path = path.data(pie); // compute the new angles
 			path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
-		}
+		}*/
 		
-		function showMeta(d, i){
-		/*	d3.select(this)
-				.attr({fill: "orange"}); //function tester, turns element orange on click
-		*/
-			console.log(this.__data__.data.model);
-		}
-
-
 		});
 
 

@@ -4,11 +4,11 @@ function boxplot(date1, date2){
 	var x,y;
 
 	var margin = {top: 10, right: 5, bottom: 20, left: 100},
-				width = 610 - margin.left - margin.right,
+				width = 630 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
 
 	var svg = d3.select("#charts").append("svg")
-				.attr("width", width + margin.left + 2*margin.right)
+				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -55,33 +55,6 @@ function boxplot(date1, date2){
 				max = Math.max(max, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
 				min = Math.min(min, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
 			}
-		
-			//discard single values if they equal 0
-			/*
-			if(d.bivesmove != 0){
-				data[0].push(d.bivesmove);
-				max = Math.max(d.bivesmove, max);
-				min = Math.min(d.bivesmove, min);
-			}
-		
-			if(d.bivesinsert != 0){
-				data[0].push(d.bivesinsert);
-				max = Math.max(d.bivesinsert, max);
-				min = Math.min(d.bivesinsert, min);
-			}
-		
-			if(d.bivesdelete != 0){
-				data[0].push(d.bivesdelete);
-				max = Math.max(d.bivesdelete, max);
-				min = Math.min(d.bivesdelete, min);
-			}
-		
-			if(d.bivesupdate != 0){
-				data[0].push(d.bivesupdate);
-				max = Math.max(d.bivesupdate, max);
-				min = Math.min(d.bivesupdate, min);
-			}
-			*/
 		});
 		//max, min test
 		data[0].sort(function(a,b){ return a-b;});
@@ -99,14 +72,16 @@ function boxplot(date1, date2){
 
 		x = d3.scale.log()
 			.base(Math.E)
-			.domain([Math.exp(0), Math.exp(9)])//.domain([min, max])	
-			//.clamp(true)
-			.range([0, width])//.nice()
+			//.domain([Math.exp(0), Math.exp(9)])//
+			.domain([1, max])	
+			.clamp(true)
+			.range([0, width]).nice()
 			;
 
 		var xAxis = d3.svg.axis()
 				.scale(x)
-				.orient("bottom");
+				.orient("bottom")
+				.tickFormat(function(d){return Math.round(d);});
 		
 		for(var i=0; i<4; i++){
 			var lW = lowerWhisker(data[i]);
@@ -148,7 +123,7 @@ function boxplot(date1, date2){
 	*/
 
 
-	console.log(max, min, boxData);
+	console.log(max, min, boxData, data);
 
 
 

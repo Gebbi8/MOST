@@ -16,17 +16,16 @@
 	<div id="choiceDiv">
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan</div>
-				<p>	
+				<div class="buttons">
 					<input type="date" id="date1" value="Jan 01 2010">
-					<button class="up" id="date1Up"></button>
-					<button class="down" id="date1Down"></button>
-				</p>
-				<p>
+						<a href="#" class="button left up" id="date1Up"></a>
+						<a href="#" class="button right down" id="date1Down"></a>
+				</div>
+				<div class="buttons">
 					<input type="date" id="date2" value="Jan 01 2011">
-					<button class="up" id="date2Up"></button>
-					<button class="down" id="date2Down"></button>
-				</p>
-			</p>
+						<a href="#" class="button left up" id="date2Up"></a>
+						<a href="#" class="button right down" id="date2Down"></a>
+				</div>
 	  </div>
 	</div>
 

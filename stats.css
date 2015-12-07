@@ -4,7 +4,6 @@ body {
 
 * {
   margin:0;
-  padding:0;
 }
 
 #midDiv {
@@ -19,6 +18,7 @@ body {
 }
 
 #contentDiv {
+	padding: 10px;
   background-color: white;
 	width: inherit;
   margin-left: 350px;
@@ -26,11 +26,13 @@ body {
 	height: inherit;
 }
 
-#choiceDiv {	
+#choiceDiv {
+	padding: 10px;
+	color: white;
   float: left;
   width: 350px;
 	min-height: 900px;
-  background-color: lightgreen;
+  background-color: #004A99;
 }
 
 #choiceChart{
@@ -53,36 +55,80 @@ footer {
 
 .axis path, .axis line{
 		fill: none;
-		stroke: black;
+		stroke: white;
 		shape-rendering: crispEdges;
 }
 
 /* SELECTION  */
 
 .brush .extent {
-    stroke: #f09f8c;
+    stroke: #0DFFFC;
     fill-opacity: .125;
     shape-rendering: crispEdges;
 }
 
 /* BUTTONS */
-.up	{
-		background-image: url(/tom/image/up.png);
-		background-repeat: no-repeat;
-		width: 32px;
-		height: 32px;
-		cursor:pointer;
-    border: none;
+.buttons {
+    float: left;
+    padding-bottom: 20px;
+    clear: both;
+}
+.button {
+    color: #6e6e6e;
+    padding: 0px 12px;
+    position: relative;
+    display: inline;
+    background: #f3f3f3;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    border: solid 1px #dcdcdc;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    margin-right: 10px;
+}
+.button:hover {
+    color: #333;
+    border-color: #999;
+    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
+	-webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.button:active {
+    color: #000;
+    border-color: #444;
+}
+.left {
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+		margin-left: 10px;
 }
 
-.down{
-		background-image: url(/tom/image/down.png);
-		background-repeat: no-repeat;
-		width: 32px;
-		height: 32px;
-		cursor:pointer;
-    border: none;
+
+.right:hover { border-left: solid 1px #999 }
+.right {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-bottom-left-radius: 0;
+    border-left: solid 1px #f3f3f3;
+    border-left: solid 1px rgba(255, 255, 255, 0);
 }
+
+.up {
+    background: url(http://cssdeck.com/uploads/media/items/5/5Fm069k.png)  3px -136px no-repeat #f3f3f3;
+}
+.down {
+    background: url(http://cssdeck.com/uploads/media/items/5/5Fm069k.png)  3px -171px no-repeat #f3f3f3;
+}
+
 
 /* MENU */
 #menu li{
@@ -149,19 +195,7 @@ body {
 .axis {
   font: 12px sans-serif;
 }
- 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
- 
-.x.axis path { 
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+
 
 
               

@@ -1,9 +1,5 @@
 //Info-Content
-function getBivesData(){
-	var file1 = "http://budhat.sems.uni-rostock.de/download?downloadModel=24";
-	var file2 = "http://budhat.sems.uni-rostock.de/download?downloadModel=25";
-	var command = "reactionsJson";
-
+function getBivesData(file1, file2, command, place){
 	// create the job object
 	// see http://bives.sems.uni-rostock.de/
 	var bivesJob = {
@@ -24,8 +20,7 @@ function getBivesData(){
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
 		{
-			$("#info").html ($.parseJSON (data).reactionsJson);
-			//$("#xyz").html ($.parseJSON (data).xyz);
+			$(place).html ($.parseJSON (data).reportHtml);
 		}
 	);
 }
