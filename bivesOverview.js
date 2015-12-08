@@ -27,12 +27,6 @@ function bivesOverview(date1, date2){
 				.orient("left")
 				.tickFormat(function(d){return Math.round(d);}); //Number of axis-splits
 
-		var svg = d3.select("#charts").append("svg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-			.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
 		d3.tsv("diffstats", type, function(error, data) {
 			if (error) throw error;
@@ -40,6 +34,20 @@ function bivesOverview(date1, date2){
 			console.log(data);
 
 			y.domain([1, d3.max(data, function(d) { return d.bives; })]).nice();
+
+
+			//compute svg width depending on data length
+			var rectWidth = width/data.length;
+	
+			if (rectWidth < 10) rectWidth = 1;
+			
+			var svgWidth = rectWidth * data.length;
+
+			var svg = d3.select("#charts").append("svg")
+				.attr("width", svgWidth + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 			svg.append("g")
 					.attr("class", "y axis")
@@ -52,54 +60,56 @@ function bivesOverview(date1, date2){
 					.attr("fill", "white")
 					.text("Changes");
 
-
 			var bivupdate = svg.selectAll(".bar3")
 						.data(data)
 					.enter().append("rect")
 						.attr("class", "bar3")
-						.attr("x", function(d, i) { return i * (width / data.length)+2; })
-						.attr("width", width / data.length) //add -0.1 for padding
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) { return y(d.bivesupdate) })
 						.attr("height", function(d) { return height - y(d.bivesupdate);})
 						.attr("fill", "yellow")
-						.on('click', barDetail);
+						.on('click', function() {barDetail();});
 
 
 			var bivmove = svg.selectAll(".bar2")
 						.data(data)
 					.enter().append("rect")
 						.attr("class", "bar2")
-						.attr("x", function(d, i) { return i * (width / data.length)+2; })
-						.attr("width", width / data.length) //add -0.1 for padding
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) { return y(d.bivesmove + d.bivesupdate) })
 						.attr("height", function(d) { return height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bivesupdate));})
-						.attr("fill", "blue");
+						.attr("fill", "blue")
+						.on('click', function() {barDetail();});
 
 			var bivinsert = svg.selectAll(".bar")
 						.data(data)
 					.enter().append("rect")
 						.attr("class", "bar")
-						.attr("x", function(d, i) { return i * (width / data.length)+2; })
-						.attr("width", width / data.length) //add -0.1 for padding
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) {return y(d.bivesinsert + d.bivesmove + d.bivesupdate); })
 						.attr("height", function(d) { return height - y(d.bivesinsert + d.bivesmove + d.bivesupdate)
 																				 - (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
 																				 - (height - y(d.bivesupdate)); })
-						.attr("fill", "green"); 
+						.attr("fill", "green")
+						.on('click', function() {barDetail();}); 
 
 			var bivdelete = svg.selectAll(".bar1")
 						.data(data)
 					.enter().append("rect")
 						.attr("class", "bar1")
-						.attr("x", function(d, i) { return i * (width / data.length)+2; })
-						.attr("width", width / data.length) //add -0.1 for padding
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) { return y(d.bivesdelete + d.bivesinsert + d.bivesmove + d.bivesupdate) })
 						.attr("height", function(d) { return height - y(d.bivesdelete + d.bivesinsert + d.bivesmove + d.bivesupdate)
 																				- (height - y(d.bivesinsert + d.bivesmove + d.bivesupdate) - (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives))) 
 																										- (height - y(d.bives*d.bivesupdate/d.bives)))
 																				- (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
 																				- (height - y(d.bivesupdate)); })
-						.attr("fill", "red");
+						.attr("fill", "red")
+						.on('click', function() {barDetail();});
 
 		});
 
@@ -171,5 +181,6 @@ function bivesOverview(date1, date2){
 
 	function barDetail(){
 		console.log("barDetail");
+		return;
 	}
 }

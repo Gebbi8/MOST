@@ -4,11 +4,11 @@ function boxplot(date1, date2){
 	var x,y;
 
 	var margin = {top: 10, right: 5, bottom: 20, left: 100},
-				width = 630 - margin.left - margin.right,
+				width = 610 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
 
 	var svg = d3.select("#charts").append("svg")
-				.attr("width", width + margin.left + margin.right)
+				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -73,7 +73,7 @@ function boxplot(date1, date2){
 		x = d3.scale.log()
 			.base(Math.E)
 			//.domain([Math.exp(0), Math.exp(9)])//
-			.domain([1, max])	
+			.domain([0, max])	
 			.clamp(true)
 			.range([0, width]).nice()
 			;
