@@ -1,6 +1,5 @@
 //Info-Content
 function getBivesData(name, dateVersion1, dateVersion2, command, place){
-//https://stuff.lesscomplex.org/biomodels/releases/MODEL1105030000.xml/Wed Dec 12 2012 00:00:00 GMT+0100 (CET)/MODEL1105030000.xml https://stuff.lesscomplex.org/biomodels/releases/MODEL1105030000.xml/Tue Jun 18 2013 00:00:00 GMT+0200 (CEST)/MODEL1105030000.xml
 	dateVersion1 = formatDate(dateVersion1);
 	dateVersion2 = formatDate(dateVersion2);
 	var file1 = "https://stuff.lesscomplex.org/biomodels/releases/"+name+"/"+dateVersion1+"/"+name;
@@ -31,6 +30,16 @@ function getBivesData(name, dateVersion1, dateVersion2, command, place){
 	);
 }
 
-function formatDate(date){
-	return Date.parse(date).toString().substr(4,11);
+
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
 }
