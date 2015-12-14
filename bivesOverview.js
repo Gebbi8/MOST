@@ -42,8 +42,19 @@ function bivesOverview(date1, date2){
 			if (rectWidth < 10) rectWidth = 1;
 			
 			var svgWidth = rectWidth * data.length;
+			
+			var svgDiv = d3.select("#charts").append("div")
+										.attr("id", "svgDiv");
 
-			var svg = d3.select("#charts").append("svg")
+	
+			//text field overlay
+			var tooltip = d3.select("body")
+				.append("div")
+				.style("position", "absolute")
+				.style("z-index", "10")
+				.style("visibility", "hidden");
+
+			var svg = d3.select("#svgDiv").append("svg")
 				.attr("width", svgWidth + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 			.append("g")
@@ -69,7 +80,10 @@ function bivesOverview(date1, date2){
 						.attr("y", function(d) { return y(d.bivesupdate) })
 						.attr("height", function(d) { return height - y(d.bivesupdate);})
 						.attr("fill", "yellow")
-						.on('click', function() {barDetail();});
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
 
 
 			var bivmove = svg.selectAll(".bar2")
@@ -81,7 +95,10 @@ function bivesOverview(date1, date2){
 						.attr("y", function(d) { return y(d.bivesmove + d.bivesupdate) })
 						.attr("height", function(d) { return height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bivesupdate));})
 						.attr("fill", "blue")
-						.on('click', function() {barDetail();});
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
 
 			var bivinsert = svg.selectAll(".bar")
 						.data(data)
@@ -94,7 +111,10 @@ function bivesOverview(date1, date2){
 																				 - (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
 																				 - (height - y(d.bivesupdate)); })
 						.attr("fill", "green")
-						.on('click', function() {barDetail();}); 
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
 
 			var bivdelete = svg.selectAll(".bar1")
 						.data(data)
@@ -109,7 +129,10 @@ function bivesOverview(date1, date2){
 																				- (height - y(d.bivesupdate + d.bivesmove) - (height - y(d.bives*d.bivesupdate/d.bives)))
 																				- (height - y(d.bivesupdate)); })
 						.attr("fill", "red")
-						.on('click', function() {barDetail();});
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
 
 		});
 

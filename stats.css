@@ -43,6 +43,10 @@ body {
 	width: 610px;
 }
 
+#svgDiv{
+	overflow: auto;
+}
+
 footer {
   clear: both;
   background-color: #207a7a;

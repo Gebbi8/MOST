@@ -43,6 +43,7 @@
 <footer>
 	<p>Footer</p>
 </footer> 
+<div id="overlay"></div>
 </body>
 <script> var extent; </script>
 <script src="jquery-2.1.4.min.js"></script>

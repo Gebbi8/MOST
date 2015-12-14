@@ -175,7 +175,7 @@ body {
   font: 10px sans-serif;
 }
 
-rect .bar1, .bar2, .bar3, .bar{
+.bar1, .bar2, .bar3, .bar{
 	width: 10px;
 }
 
