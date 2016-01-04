@@ -31,8 +31,16 @@ function donut(date1, date2){
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 		d3.tsv("diffstats", type, function(error, data) {
+			//filter by date
 			data = data.filter(function(d){ return date1 < d.version1 && d.version2 < date2; });
-
+			//filter by modelType
+			if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
+				if(document.getElementById('BioModels').checked) {
+					data = data.filter(function(d){return d.modeltype == 'SBML'})
+				} else {
+					data = data.filter(function(d){return d.modeltype == 'CellML'})
+				}
+			}
 			var path = svg.datum(data).selectAll("path")
 			    .data(pie)
 			  	.enter().append("path")

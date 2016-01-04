@@ -6,11 +6,11 @@ body {
   margin:0;
 }
 
-#midDiv {
-  width: 960px;
+body { /*vorher midDiv*/
+  width: 100vw;
   margin: 0 auto;
 	min-height: 900px;
-	height: 900px;
+	height: 100vh;
 }
 
 #topDiv {
@@ -18,21 +18,19 @@ body {
 }
 
 #contentDiv {
-	padding: 10px;
   background-color: white;
-	width: inherit;
   margin-left: 350px;
 	overflow: auto;
 	height: inherit;
 }
 
 #choiceDiv {
-	padding: 10px;
 	color: white;
   float: left;
   width: 350px;
 	min-height: 900px;
   background-color: #004A99;
+	height: inherit;
 }
 
 #choiceChart{
@@ -41,6 +39,10 @@ body {
 
 #charts{
 	width: 610px;
+}
+
+#svgDiv{
+	overflow: auto;
 }
 
 footer {

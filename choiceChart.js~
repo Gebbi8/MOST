@@ -11,7 +11,6 @@ var xAxis = d3.svg.axis()
 							.ticks(5)
 							.tickFormat(d3.time.format("%Y"));
 							
-
 var yAxis = d3.svg.axis()
 							.scale(y)
 							.orient("left");		//evtl. tickFormat für Achsensplit????
@@ -59,6 +58,7 @@ d3.tsv("diffstats", function(d) {
 
 	svg.append("g")
 		    .attr("class", "y axis")
+				.attr("fill", "white")
 		    .call(yAxis)
 		  .append("text")
 				.attr("x", 25)
@@ -101,6 +101,28 @@ svg.append("g")
 	.call(brush)
 .selectAll('rect')
 	.attr('height', timeheight);
+
+
+var modelType = ["BioModels", "CellML"], 
+    j = 1;  // Choose the rectangle as default
+
+// Create the shape selectors
+var form = d3.select("#choiceChart").append("form");
+
+labels = form.selectAll("label")
+    .data(modelType)
+    .enter()
+    .append("label")
+    .text(function(d) {return d;})
+    .insert("input")
+    .attr({
+				id: function(d, i) { return d;}
+        type: "checkbox",
+        class: "modelType",
+        name: "mode",
+        value: function(d, i) {return i;}
+    })
+    .property("checked", function(d, i) {return i===j;});
 
 var hold = -1;
 

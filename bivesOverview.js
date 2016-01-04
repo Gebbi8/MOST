@@ -31,7 +31,14 @@ function bivesOverview(date1, date2){
 		d3.tsv("diffstats", type, function(error, data) {
 			if (error) throw error;
 			data = data.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
-			console.log(data);
+			//filter by modelType
+			if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
+				if(document.getElementById('BioModels').checked) {
+					data = data.filter(function(d){return d.modeltype == 'SBML'})
+				} else {
+					data = data.filter(function(d){return d.modeltype == 'CellML'})
+				}
+			}
 
 			y.domain([1, d3.max(data, function(d) { return d.bives; })]).nice();
 

@@ -32,8 +32,15 @@ function boxplot(date1, date2){
 	d3.tsv("diffstats", type, function(error, tsv) {
 		if (error) throw error;
 		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
-
-		var header = [["bivesmove"],["bivesinsert"],["bivesdelete"],["bivesupdate"]];
+		//filter by modelType
+		if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
+			if(document.getElementById('BioModels').checked) {
+				tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
+			} else {
+				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})
+			}
+		}
+		var header = [["move"],["insert"],["delete"],["update"]];
 
 		tsv.forEach(function(d){
 			d.bivesmove = +d.bivesmove;
@@ -43,7 +50,7 @@ function boxplot(date1, date2){
 		
 			//discard diff if all values equal 0
 		
-			if(d.bivesmove + d.bivesdelete + d.bivesinsert + d.bivesupdate < 20) {
+			if(d.bivesmove + d.bivesdelete + d.bivesinsert + d.bivesupdate < 20) { //?????????????????????????
 				//console.log(d.bivesmove, d.bivesdelete, d.bivesinsert,d.bivesupdate);
 			}
 			else {
@@ -100,7 +107,7 @@ function boxplot(date1, date2){
 			if(uW == 0){ boxData[i][4] = 0;} else {boxData[i][4] = x(uW);};
 		}
 
-		drawBoxes(boxData);
+		drawBoxes(boxData, data);
 
 		svg.append("g")
 				.attr("class", "x axis")
@@ -123,7 +130,7 @@ function boxplot(date1, date2){
 	*/
 
 
-	console.log(max, min, boxData, data);
+	//console.log(max, min, boxData, data);
 
 
 
@@ -172,7 +179,7 @@ function boxplot(date1, date2){
 		return arr[upperWhisker];
 	}
 
-	function drawBoxes(boxes){
+	function drawBoxes(boxes, data){
 		var boxHeight = 40;
 
 
@@ -185,13 +192,37 @@ function boxplot(date1, date2){
 				.attr("x2", boxes[i][0])
 				.attr("y2", 55 + i*120 - boxHeight/2);
 
+			//untere Ausreißer
+			for(var j = 0; j < data[i].length; j++){
+				if(data[i][j] < boxes[i][0]){
+					svg.append("circle")
+						.style("stroke", "black")
+						.attr("cx", data[i][j])
+						.attr("cy", 55 + i*120)
+						.attr("r", 5);
+				} else {j = data[i].length;}
+			}
+
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][4])
 				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes[i][4])
 				.attr("y2", 55 + i*120 - boxHeight/2);
-		
+
+			//obere Ausreißer
+			for(var j = data[i].length-1; j > 0; j--){
+				if(data[i][j] > boxes[i][4]){
+					console.log(data[i][j]);
+					svg.append("circle")
+						.style("stroke", "black")
+						.attr("cx", data[i][j])
+						.attr("cy", 55 + i*120)
+						.attr("r", 5)
+						.attr("fill", "none");
+				} else {j = 0;}
+			}
+
 			svg.append("line")
 				.style("stroke", "black")
 				.style("stroke-dasharray", ("3, 3")) 
@@ -215,6 +246,8 @@ function boxplot(date1, date2){
 				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes[i][2])
 				.attr("y2", 55 + i*120 - boxHeight/2)
+
+		//
 		}
 	}
 

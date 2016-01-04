@@ -2,8 +2,8 @@
 function getBivesData(name, dateVersion1, dateVersion2, command, place){
 	dateVersion1 = formatDate(dateVersion1);
 	dateVersion2 = formatDate(dateVersion2);
-	var file1 = "https://stuff.lesscomplex.org/biomodels/releases/"+name+"/"+dateVersion1+"/"+name;
-	var file2 = "https://stuff.lesscomplex.org/biomodels/releases/"+name+"/"+dateVersion2+"/"+name;
+	var file1 = "http://biomodels.lesscomplex.org/releases/"+name+"/"+dateVersion1+"/"+name;
+	var file2 = "http://biomodels.lesscomplex.org/releases/"+name+"/"+dateVersion2+"/"+name;
 	console.log(file1,file2);
 	// create the job object
 	// see http://bives.sems.uni-rostock.de/

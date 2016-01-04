@@ -46,6 +46,14 @@ function bivesOverview(date1, date2){
 			var svgDiv = d3.select("#charts").append("div")
 										.attr("id", "svgDiv");
 
+	
+			//text field overlay
+			var tooltip = d3.select("body")
+				.append("div")
+				.style("position", "absolute")
+				.style("z-index", "10")
+				.style("visibility", "hidden");
+
 			var svg = d3.select("#svgDiv").append("svg")
 				.attr("width", svgWidth + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
