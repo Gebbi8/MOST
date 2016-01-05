@@ -181,7 +181,7 @@ function boxplot(date1, date2){
 
 	function drawBoxes(boxes, data){
 		var boxHeight = 40;
-
+		var color = [["#83C5D1"],["#B5D045"],["#F47E7D"],["#FFFA5F"]];
 
 		for(var i = 0; i < 4; i++){
 			//draw Whiskers
@@ -232,7 +232,7 @@ function boxplot(date1, date2){
 				.attr("y2", 55 + i*120);	
 
 			svg.append("rect")
-				.style("fill", "red")
+				.style("fill", color[i])
 				.style("stroke-width", 1)
 				.style("stroke", "black")
 				.attr("x", boxes[i][1])
