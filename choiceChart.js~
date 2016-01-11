@@ -116,7 +116,7 @@ labels = form.selectAll("label")
     .text(function(d) {return d;})
     .insert("input")
     .attr({
-				id: function(d, i) { return d;}
+				id: function(d, i) { return d;},
         type: "checkbox",
         class: "modelType",
         name: "mode",
@@ -233,6 +233,8 @@ function brushmove() {
 }
 
 function brushend() {
+	//alert("brushEND");
+	svg.select(".brush").call(brush);
 	extent = brush.extent();
 }
 

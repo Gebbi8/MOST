@@ -228,11 +228,15 @@ function brushed() {
 
 function brushmove() {
 	extent = brush.extent();
+	date1 = window.extent[0];
+	date2 = window.extent[1];
 	document.getElementById("date1").value = window.extent[0].toString().substr(4,11);
 	document.getElementById("date2").value = window.extent[1].toString().substr(4,11);
 }
 
 function brushend() {
+	//alert("brushEND");
+	svg.select(".brush").call(brush);
 	extent = brush.extent();
 }
 

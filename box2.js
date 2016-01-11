@@ -177,15 +177,16 @@ function boxplot2(date1, date2){
 		var boxHeight = 40;
 		var color = [["#F9C8EA"],["#FB8335"],["#81C0C5"]];
 
+		var height2 = height + 15.66;
 
 		for(var i = 0; i < 3; i++){
 			//draw Whiskers
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][0])
-				.attr("y1", 58.5 + i*height/3 + boxHeight/2)
+				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
 				.attr("x2", boxes[i][0])
-				.attr("y2", 58.5 + i*height/3 - boxHeight/2);
+				.attr("y2", 58.5 + i*height2/3 - boxHeight/2);
 
 			//untere Ausreißer
 			for(var j = 0; j < data[i].length; j++){
@@ -193,7 +194,7 @@ function boxplot2(date1, date2){
 					svg.append("circle")
 						.style("stroke", "black")
 						.attr("cx", data[i][j])
-						.attr("cy", 58.5 + i*height/3)
+						.attr("cy", 58.5 + i*height2/3)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = data[i].length;}
@@ -202,9 +203,9 @@ function boxplot2(date1, date2){
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][4])
-				.attr("y1", 58.5 + i*height/3 + boxHeight/2)
+				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 58.5 + i*height/3 - boxHeight/2);
+				.attr("y2", 58.5 + i*height2/3 - boxHeight/2);
 
 			//obere Ausreißer
 			for(var j = data[i].length-1; j > 0; j--){
@@ -213,7 +214,7 @@ function boxplot2(date1, date2){
 					svg.append("circle")
 						.style("stroke", "black")
 						.attr("cx", data[i][j])
-						.attr("cy", 58.5 + i*height/3)
+						.attr("cy", 58.5 + i*height2/3)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = 0;}
@@ -223,25 +224,25 @@ function boxplot2(date1, date2){
 				.style("stroke", "black")
 				.style("stroke-dasharray", ("3, 3")) 
 				.attr("x1", boxes[i][0])
-				.attr("y1", 58.5 + i*height/3)
+				.attr("y1", 58.5 + i*height2/3)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 58.5 + i*height/3);	
+				.attr("y2", 58.5 + i*height2/3);	
 
 			svg.append("rect")
 				.style("fill",  color[i])
 				.style("stroke-width", 1)
 				.style("stroke", "black")
 				.attr("x", boxes[i][1])
-				.attr("y", 58.5 + i*height/3 - boxHeight/2)
+				.attr("y", 58.5 + i*height2/3 - boxHeight/2)
 				.attr("width", boxes[i][3] - boxes[i][1])
 				.attr("height", boxHeight);
 			
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][2])
-				.attr("y1", 58.5 + i*height/3 + boxHeight/2)
+				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
 				.attr("x2", boxes[i][2])
-				.attr("y2", 58.5 + i*height/3 - boxHeight/2)
+				.attr("y2", 58.5 + i*height2/3 - boxHeight/2)
 		}
 	}
 
