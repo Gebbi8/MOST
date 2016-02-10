@@ -78,7 +78,7 @@ function bivesOverview(date1, date2){
 					.attr("fill", "white")
 					.text("Changes");
 
-			var bivupdate = svg.selectAll(".bar3")
+/*			var bivupdate = svg.selectAll(".bar3")
 						.data(data)
 					.enter().append("rect")
 						.attr("class", "bar3")
@@ -139,7 +139,94 @@ function bivesOverview(date1, date2){
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")}); */
+
+			var bivdelete = svg.selectAll(".bar1")
+						.data(data)
+					.enter().append("rect")
+						.attr("class", "bar1")
+						.attr("insert", function(d, i) {return(d.bivesinsert)})
+						.attr("delete", function(d, i) {return(d.bivesdelete)})
+						.attr("move", function(d, i) {return(d.bivesmove)})
+						.attr("update", function(d, i) {return(d.bivesupdate)})
+						.attr("sum", function(d, i) {return(d.bivesinsert+d.bivesdelete+d.bivesmove+d.bivesupdate)})
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
+						.attr("y", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (y(H));
+								})
+						.attr("height", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (height - y(H))*d.bivesdelete/H;
+								})
+						.attr("fill", "red")
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
+
+			var bivinsert = svg.selectAll(".bar")
+						.data(data)
+					.enter().append("rect")
+						.attr("class", "bar")
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
+						.attr("y", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (y(H)+(height - y(H))*d.bivesdelete/H);
+								})
+						.attr("height", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (height - y(H))*d.bivesinsert/H;
+								})
+						.attr("fill", "green")
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
+
+			var bivmove = svg.selectAll(".bar2")
+						.data(data)
+					.enter().append("rect")
+						.attr("class", "bar2")
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
+						.attr("y", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (y(H)+(height - y(H))*(d.bivesdelete+d.bivesinsert)/H);
+								})
+						.attr("height", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (height - y(H))*d.bivesmove/H;
+								})
+						.attr("fill", "blue")
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
+
+				var bivupdate = svg.selectAll(".bar3")
+						.data(data)
+					.enter().append("rect")
+						.attr("class", "bar3")
+						.attr("x", function(d, i) { return i * (rectWidth)+2; })
+						.attr("width", rectWidth) //add -0.1 for padding
+						.attr("y", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (y(H)+(height - y(H))*(d.bivesdelete+d.bivesinsert+d.bivesmove)/H);
+								})
+						.attr("height", function(d) {
+								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								return (height - y(H))*d.bivesupdate/H;
+								})
+						.attr("fill", "yellow")
+						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+						.on("click", function(){ getBivesData(this.__data__.model, this.__data__.version1, this.__data__.version2, "reportHtml", "#info")});
+
+
 
 		});
 
