@@ -1,7 +1,34 @@
 function boxplot2(date1, date2){
 	d3.selectAll('#charts').selectAll('svg').remove();
+	d3.selectAll('.onoffswitch').remove();
 	
-	var x,y;
+
+//flip-button to switch between log and normal scale
+	var onOffSwitch = d3.select("#charts")
+           .append("div")
+               .attr("class","onoffswitch");
+
+  onOffSwitch = d3.select(".onoffswitch")
+		.append("input")
+		 .attr("type", "checkbox")
+		 .attr("name", "onoffswitch")
+		 .attr("class", "onoffswitch-checkbox")
+		 .attr("id", "myonoffswitch")
+		 .attr("checked", "")
+		 .on("click", function(){rescale();});
+
+	onOffSwitch = d3.select(".onoffswitch")
+		.append("label")
+		 .attr("class", "onoffswitch-label")
+		 .attr("for", "myonoffswitch");
+
+	 onOffSwitch = d3.select(".onoffswitch-label")
+		  .append("span")
+		   .attr("class", "onoffswitch-inner");
+	onOffSwitch = d3.select(".onoffswitch-label")
+		  .append("span")	
+		   .attr("class", "onoffswitch-switch");
+	var x,x2,y;
 
 	var margin = {top: 10, right: 5, bottom: 20, left: 100},
 				width = 610 - margin.left - margin.right,
@@ -10,12 +37,25 @@ function boxplot2(date1, date2){
 	var svg = d3.select("#charts").append("svg")
 				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
+				.attr("id", "logSvg")
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+///////////////////////
+	var svg2 = d3.select("#charts").append("svg")
+				.style("opacity", 1)
+				.attr("width", width + margin.left + 3*margin.right)
+				.attr("height", height + margin.top + 2*margin.bottom)
+				.attr("id", "normalSvg")
+				.style("display", "none")
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	// Variables for Boxplots
 	var min = Infinity,
-		  max = -Infinity;
+	  max = -Infinity;
+	
+	var mode = 0;
 
 	var data = [];
 			data[0] = [];
@@ -26,6 +66,11 @@ function boxplot2(date1, date2){
 			boxData[0] = [];
 			boxData[1] = [];
 			boxData[2] = [];
+
+	var boxData2 = [];
+			boxData2[0] = [];
+			boxData2[1] = [];
+			boxData2[2] = [];
 
 	d3.tsv("diffstats", type, function(error, tsv) {
 		if (error) throw error;
@@ -79,29 +124,41 @@ function boxplot2(date1, date2){
 			.clamp(true)
 			.range([0, width]).nice();
 
+///////////////////
+		x2 = d3.scale.linear()
+			.domain([1, max])	
+			.clamp(true)
+			.range([0, width]).nice()
+			;	
+
 		var xAxis = d3.svg.axis()
 				.scale(x)
 				.orient("bottom")
 				.tickFormat(function(d){return Math.round(d);});
+///////////////////
+		var xAxis2 = d3.svg.axis()
+				.scale(x2)
+				.orient("bottom")
+				.tickFormat(function(d){return Math.round(d);});		
 		
 		for(var i=0; i<3; i++){
 			var lW = lowerWhisker(data[i]);
-			if(lW == 0){ boxData[i][0] = 0; } else { boxData[i][0] = x(lW);};
+			if(lW == 0){ boxData[i][0] = 0; boxData2[i][0] = 0; } else { boxData[i][0] = x(lW); boxData2[i][0] = x2(lW);};
 		
 			var lQ = lowerQuartil(data[i]);
-			if(lowerQuartil(data[i]) == 0){ boxData[i][1] = 0;} else {boxData[i][1] = x(lQ);};
+			if(lowerQuartil(data[i]) == 0){ boxData[i][1] = 0; boxData2[i][1] = 0;} else {boxData[i][1] = x(lQ); boxData2[i][1] = x2(lQ);};
 		
 			var m = median(data[i]);
-			if(m == 0){ boxData[i][2] = 0;} else {boxData[i][2] = x(m);};
+			if(m == 0){ boxData[i][2] = 0; boxData2[i][2] = 0;} else {boxData[i][2] = x(m); boxData2[i][2] = x2(m);};
 		
 			var uQ = upperQuartil(data[i]);
-			if(uQ == 0){ boxData[i][3] = 0;} else {boxData[i][3] = x(uQ);};
+			if(uQ == 0){ boxData[i][3] = 0; boxData2[i][3] = 0;} else {boxData[i][3] = x(uQ); boxData2[i][3] = x2(uQ)};
 		
 			var uW = upperWhisker(data[i]);
-			if(uW == 0){ boxData[i][4] = 0;} else {boxData[i][4] = x(uW);};
+			if(uW == 0){ boxData[i][4] = 0; boxData2[i][4] = 0;} else {boxData[i][4] = x(uW); boxData2[i][4] = x2(uW);};
 		}
 
-		drawBoxes(boxData, data);
+		drawBoxes(boxData, boxData2, data);
 
 		svg.append("g")
 				.attr("class", "x axis")
@@ -109,6 +166,16 @@ function boxplot2(date1, date2){
 				  .call(xAxis);
 	
 		svg.append("g")
+				.attr("class", "y axis")
+					.attr("transform", "translate(0, 0)")
+				  .call(yAxis);
+
+		svg2.append("g")
+				.attr("class", "x axis")
+					.attr("transform", "translate(0," + height + ")")
+				  .call(xAxis2);
+	
+		svg2.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
 				  .call(yAxis);
@@ -173,48 +240,56 @@ function boxplot2(date1, date2){
 		return arr[upperWhisker];
 	}
 
-	function drawBoxes(boxes, data){
+	function drawBoxes(boxes, boxes2, data){
 		var boxHeight = 40;
-		var color = [["#F9C8EA"],["#FB8335"],["#81C0C5"]];
+		var color = [["#83C5D1"],["#B5D045"],["#F47E7D"],["#FFFA5F"]];
 
-		var height2 = height + 15.66;
-
+/*		var controlData = data; var controlData2 = data;
+		
+		for(var i = 0; i<data.length; i++){
+			for(var j = 0; j < data[i].length; j++){
+				
+				controlData[i][j]=x(data[i][j]);
+				controlData2[i][j]=x2(data[i][j]);
+			}
+		}
+		console.log(boxes);	console.log(boxes2);	console.log(controlData);	console.log(controlData2);
+*/
 		for(var i = 0; i < 3; i++){
 			//draw Whiskers
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][0])
-				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
+				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes[i][0])
-				.attr("y2", 58.5 + i*height2/3 - boxHeight/2);
+				.attr("y2", 55 + i*120 - boxHeight/2);
 
 			//untere Ausreißer
 			for(var j = 0; j < data[i].length; j++){
-				if(data[i][j] < boxes[i][0]){
+				if(x(data[i][j]) < boxes[i][0]){
 					svg.append("circle")
 						.style("stroke", "black")
-						.attr("cx", data[i][j])
-						.attr("cy", 58.5 + i*height2/3)
-						.attr("r", 5)
-						.attr("fill", "none");
+						.attr("cx", x(data[i][j]))
+						.attr("cy", 55 + i*120)
+						.attr("r", 5);
 				} else {j = data[i].length;}
 			}
 
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][4])
-				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
+				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 58.5 + i*height2/3 - boxHeight/2);
+				.attr("y2", 55 + i*120 - boxHeight/2);
 
 			//obere Ausreißer
 			for(var j = data[i].length-1; j > 0; j--){
-				if(data[i][j] > boxes[i][4]){
-					console.log(data[i][j]);
+				if(x(data[i][j]) > boxes[i][4]){
+					//console.log(data[i][j]);
 					svg.append("circle")
 						.style("stroke", "black")
-						.attr("cx", data[i][j])
-						.attr("cy", 58.5 + i*height2/3)
+						.attr("cx", x(data[i][j]))
+						.attr("cy", 55 + i*120)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = 0;}
@@ -224,25 +299,88 @@ function boxplot2(date1, date2){
 				.style("stroke", "black")
 				.style("stroke-dasharray", ("3, 3")) 
 				.attr("x1", boxes[i][0])
-				.attr("y1", 58.5 + i*height2/3)
+				.attr("y1", 55 + i*120)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 58.5 + i*height2/3);	
+				.attr("y2", 55 + i*120);	
 
 			svg.append("rect")
-				.style("fill",  color[i])
+				.style("fill", color[i])
 				.style("stroke-width", 1)
 				.style("stroke", "black")
 				.attr("x", boxes[i][1])
-				.attr("y", 58.5 + i*height2/3 - boxHeight/2)
+				.attr("y", 55 + i*120 - boxHeight/2)
 				.attr("width", boxes[i][3] - boxes[i][1])
 				.attr("height", boxHeight);
 			
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][2])
-				.attr("y1", 58.5 + i*height2/3 + boxHeight/2)
+				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes[i][2])
-				.attr("y2", 58.5 + i*height2/3 - boxHeight/2)
+				.attr("y2", 55 + i*120 - boxHeight/2)
+
+		///////draw linear svg
+			//draw Whiskers
+			svg2.append("line")
+				.style("stroke", "black")
+				.attr("x1", boxes2[i][0])
+				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("x2", boxes2[i][0])
+				.attr("y2", 55 + i*120 - boxHeight/2);
+
+			//untere Ausreißer
+			for(var j = 0; j < data[i].length; j++){
+				if(x2(data[i][j]) < boxes2[i][0]){
+					svg2.append("circle")
+						.style("stroke", "black")
+						.attr("cx", x2(data[i][j]))
+						.attr("cy", 55 + i*120)
+						.attr("r", 5);
+				} else {j = data[i].length;}
+			}
+
+			svg2.append("line")
+				.style("stroke", "black")
+				.attr("x1", boxes2[i][4])
+				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("x2", boxes2[i][4])
+				.attr("y2", 55 + i*120 - boxHeight/2);
+		//obere Ausreißer
+			for(var j = data[i].length-1; j > 0; j--){
+				if(x2(data[i][j]) > boxes2[i][4]){
+					svg2.append("circle")
+						.style("stroke", "black")
+						.attr("cx", x2(data[i][j]))
+						.attr("cy", 55 + i*120)
+						.attr("r", 5)
+						.attr("fill", "none");
+				} else {j = 0;}
+			}
+
+			svg2.append("line")
+				.style("stroke", "black")
+				.style("stroke-dasharray", ("3, 3")) 
+				.attr("x1", boxes2[i][0])
+				.attr("y1", 55 + i*120)
+				.attr("x2", boxes2[i][4])
+				.attr("y2", 55 + i*120);	
+
+			svg2.append("rect")
+				.style("fill", color[i])
+				.style("stroke-width", 1)
+				.style("stroke", "black")
+				.attr("x", boxes2[i][1])
+				.attr("y", 55 + i*120 - boxHeight/2)
+				.attr("width", boxes2[i][3] - boxes2[i][1])
+				.attr("height", boxHeight);
+			
+			svg2.append("line")
+				.style("stroke", "black")
+				.attr("x1", boxes2[i][2])
+				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("x2", boxes2[i][2])
+				.attr("y2", 55 + i*120 - boxHeight/2)
+			
 		}
 	}
 
@@ -251,5 +389,27 @@ function boxplot2(date1, date2){
 		d.version2 = parseDate(d.version2);	
 		return d;
 	}
+
+	function rescale() {
+		if(mode == 0){
+			mode = 1;
+			$("#logSvg").fadeToggle(function(){
+				$("#normalSvg").fadeToggle();
+			});
+		} else {
+			mode = 0;
+			$("#normalSvg").fadeToggle(function(){
+					$("#logSvg").fadeToggle();
+				});
+		}
+
+		//jquery fadeIn/Out between svgs
+
+//////////////////////////////
+
+
+
+		console.log("TEST!!!!!!!!!!");
+  }
 
 }

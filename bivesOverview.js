@@ -1,5 +1,6 @@
 function bivesOverview(date1, date2){
 	d3.selectAll('#charts').selectAll('svg').remove();
+	d3.selectAll('.onoffswitch').remove();
 
 	var margin = {top: 10, right: 5, bottom: 5, left: 45},
 		  width = 610 - margin.left - margin.right,

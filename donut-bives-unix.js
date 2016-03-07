@@ -1,5 +1,6 @@
 function donut(date1, date2){
 	d3.selectAll('#charts').selectAll('svg').remove();
+	d3.selectAll('.onoffswitch').remove();
 	
 	var width = 610,
 	    height = 550,

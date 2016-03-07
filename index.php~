@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="stats.css" />
 </head>
 <body>
-<script> var extent;</script>
+
 	<div id="choiceDiv">
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan</div>
@@ -57,7 +57,7 @@
 <script type="text/javascript" src="donut-bives-unix.js"></script>
 <script type="text/javascript" src="box.js"></script>
 <script type="text/javascript" src="box2.js"></script>
-<script>
+<script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 function closer(){
 	d3.selectAll('#overlay').remove();
 }
