@@ -35,16 +35,9 @@
 			<div id="info"><p>Info</p></div>
 		</div>
 	</div>
-<div id="overlay">
-	<div id="welcome">
-		Welcome to ?????????
-		a tool to analyse the evolution of SBML and CellML Models.
-		We provide a short instruction about the handling of this site.
-	</div>
-	<button id="startIntro"> Introduction </button>
-	<div id="sources"> The Models are taken from the BioModels Database (https://www.ebi.ac.uk/biomodels-main/) and the CellML Model Repository (https://models.cellml.org/cellml)</div>
-	<button onclick="closer()"> Close </button>
-</div>
+<button id="infoButton">
+	i
+</button>
 
 </body>
 

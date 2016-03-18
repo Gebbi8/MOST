@@ -277,7 +277,8 @@ function boxplot(date1, date2){
 						.style("stroke", "black")
 						.attr("cx", x(data[i][j]))
 						.attr("cy", 55 + i*120)
-						.attr("r", 5);
+						.attr("r", 5)
+						.attr("fill", "none");
 				} else {j = data[i].length;}
 			}
 
