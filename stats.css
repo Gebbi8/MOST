@@ -321,12 +321,13 @@ body {
 	position: absolute;
 	background-color: gray;
 	width: 300px;
-	transform: translate(0%, -100%);
+	transform: translate(0%, -50%);
 }
 
 #timeSpanBox{
 	top: 235px;
 	left: 105px;
+	transform: translate(0%,-100%);
 }
 
 #smallInfoTimespan{
@@ -344,6 +345,7 @@ body {
 	top: 10px;
 	right: -305px;
 	color: white;
+	transform: translate(0%,-100%);
 }
 
 #donutButton{
@@ -354,7 +356,6 @@ body {
 }
 
 #donutBox{
-	top: 80px;
 	left: 35px;
 	color: white;
 }
@@ -366,7 +367,6 @@ body {
 }
 
 #heatBox{
-	top: 250px;
 	left: 35px;
 	color: white;
 }
@@ -378,7 +378,6 @@ body {
 }
 
 #box1Box{
-	top: 200px;
 	left: 35px;
 	color: white;
 }
@@ -390,7 +389,6 @@ body {
 }
 
 #box2Box{
-	top: 200px;
 	left: 35px;
 	color: white;
 }
