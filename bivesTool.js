@@ -1,5 +1,7 @@
 //Info-Content
 function getBivesData(name, dateVersion1, dateVersion2, command, place){
+	d3.selectAll('#info > *').remove();
+	
 	dateVersion1 = formatDate(dateVersion1);
 	dateVersion2 = formatDate(dateVersion2);
 	var file1 = "http://biomodels.lesscomplex.org/releases/"+name+"/"+dateVersion1+"/"+name;
@@ -25,6 +27,9 @@ function getBivesData(name, dateVersion1, dateVersion2, command, place){
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
 		{
+			
+			console.log(data);
+			
 			$(place).html ($.parseJSON (data).reportHtml);
 		}
 	);
@@ -33,7 +38,7 @@ function getBivesData(name, dateVersion1, dateVersion2, command, place){
 
 
 function formatDate(date) {
-    var d = new Date(date),
+	    var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
