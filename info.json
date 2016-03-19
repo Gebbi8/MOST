@@ -1,0 +1,39 @@
+{
+	"timespan": "Adjust the timespan to change the start date and end date for the model statistics. You may choose to enter the dates directly, use the buttons to move forwards or backwards in time, or to select the range of interest in the graph below and using your mouse",
+	"dataset": "We use two major data sets for our statistics. One data set are the SBML-encoded models from BioModels. We use these models in all versions available from their archive at ftp://ftp.ebi.ac.uk/pub/databases/biomodels/releases/. The other data set are the CellML-encoded models from the CellML model repository. We use all exposures that are openly available from http://models.cellml.org/workspace_list_txt",
+
+	"projectInfo": {
+		"motivation": "Models keep on evolving, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model.",
+		"goal": "Check out our statistics of changes between model versions.",
+		"questions": [{
+			"question": "How often do models change?",
+			"question": "What types of changes are frequently applied?",
+			"question": "What are the reasons for these changes?"
+		}]
+	},
+
+	"projectdesign": {
+		"design": "This project incorporates several smaller project developed in SEMS, including:",
+		"subproject": {
+			"name": "ModelCrawler",
+			"url": "someURL"
+		},
+		"subproject": {
+			"name": "BiVeS",
+			"url": "someURL"
+		},
+		"funding": "This project is funded by the e:Bio SEMS project (FKZ 031 6194)."
+	},
+
+	"donutVis": "The donut chart visualises the amount of diffs between the model versions in the selected data set. The colors are randomply assigned and thus should not be interpreted.",
+	"donutUsage": "You can click on each of the fields in the donut chart. By hovering over, you see the name of the model considered for the diff. By clicking on a field, further information is displayed below the donut chart (model name and version, origin of data, and considered versions). You will get more detailed information on th eactual diffs by clicking on the Report-button.",
+
+	"donutVis": "The heatmap visualises all diffs between the model versions in the selected data set. The colors indicate whether a diff is an insert (green), a delete (red), a move (blue), or an update (yellow). The models are randomly placed on the x-axis.",
+	"donutUsage": "You can click on each of the bars in the heatmap to gain further information about the actual changes. By hovering over, you see the name of the model considered for the diff. By clicking on a bar, further information is displayed below the heatmap (number of diff operations for each diff type, model name and version, origin of data, and considered versions). You will get even more detailed information on th eactual diffs by clicking on the Report-button.",
+
+	"boxplot1Vis": "The boxplot visualises the numbers of diff operations in the data set by their quartiles, and it shows the data variability outside the upper and lower quartile using whiskers. The single fields show the numbers for BiVeS diffs by type: Moves (blue), inserts (green), deletes (red), updates (yellow). The x-axis shows the number of diffs. Logarithmic scale can be turned on and off.",
+	"boxplot1Usage": "",
+
+	"boxplot2Vis": "The boxplot visualises the amounts of diff operations in the data set by their quartiles, and it shows the data variability outside the upper and lower quartile using whiskers. The single fields show the number of BiVeS diffs by target: Text nodes (blue), attributes (green), document nodes (red). The x-axis shows the number of diffs. Logarithmic scale can be turned on and off.",
+	"boxplot2Usage": ""
+}
