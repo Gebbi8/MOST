@@ -1,6 +1,6 @@
 {
-	"timespan": "Adjust the timespan to change the start date and end date for the model statistics. You may choose to enter the dates directly, use the buttons to move forwards or backwards in time, or to select the range of interest in the graph below and using your mouse",
-	"dataset": "We use two major data sets for our statistics. One data set are the SBML-encoded models from BioModels. We use these models in all versions available from their archive at ftp://ftp.ebi.ac.uk/pub/databases/biomodels/releases/. The other data set are the CellML-encoded models from the CellML model repository. We use all exposures that are openly available from http://models.cellml.org/workspace_list_txt",
+	"timespan": "Adjust the timespan to change the start date and end date for the model statistics. You may choose to enter the dates directly, use the buttons to move forward or backward in time, or to select the range of interest in the graph below and using the mouse.",
+	"dataset": "Two data sets can be included in the model statistics. One data set are the SBML-encoded models from BioModels. We use these models in all versions available from their <a href='ftp://ftp.ebi.ac.uk/pub/databases/biomodels/releases/'>archive</a>. The other data set are the CellML-encoded models from the CellML model repository. We use all exposures that are openly available from their <a href='http://models.cellml.org/workspace_list_txt'>website</a>.",
 
 	"projectInfo": {
 		"motivation": "Models keep on evolving, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model.",
