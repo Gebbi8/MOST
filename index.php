@@ -85,14 +85,14 @@
 </body>
 
 <script src="jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="d3.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="date.js"></script>
-<script type="text/javascript" src="choiceChart.js"></script>
-<script type="text/javascript" src="bivesTool.js"></script>
-<script type="text/javascript" src="bivesOverview.js"></script>
-<script type="text/javascript" src="donut-bives-unix.js"></script>
-<script type="text/javascript" src="box.js"></script>
-<script type="text/javascript" src="box2.js"></script>
+<script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="thirdParty/date.js"></script>
+<script type="text/javascript" src="javascript/choiceChart.js"></script>
+<script type="text/javascript" src="bives/bivesTool.js"></script>
+<script type="text/javascript" src="javascript/heatmap.js"></script>
+<script type="text/javascript" src="javascript/donut.js"></script>
+<script type="text/javascript" src="javascript/boxplot1.js"></script>
+<script type="text/javascript" src="javascript/boxplot2.js"></script>
 <script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 
 var infoMode = "start";

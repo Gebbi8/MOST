@@ -25,10 +25,14 @@ var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
 
 d3.tsv("diffstats", function(d) {
-	return {version2: year(parseDate(d.version2)),
+	alert(d);
+	console.log(d[0].x);
+	return {version2: year(parseDate(d.version2id))
 	};
-
-}, function(error, rows) {
+	console.log(version2);
+}/*, function(error, rows) {
+	
+	
 	rows.sort(function(a, b) {
                 return d3.ascending(a.version2, b.version2);
         });	
@@ -244,5 +248,5 @@ function brushend() {
 	extent = brush.extent();
 }
 
-});
+} */);
 
