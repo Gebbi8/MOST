@@ -43,6 +43,10 @@
 	i
 </button>
 
+<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button>
+	<div class="infoBox" id="datasetBox"></div>
+</div>
+
 </body>
 
 <script src="jquery-2.1.4.min.js"></script>
@@ -54,7 +58,6 @@
 <script type="text/javascript" src="donut-bives-unix.js"></script>
 <script type="text/javascript" src="box.js"></script>
 <script type="text/javascript" src="box2.js"></script>
-<script type="text/javascript" src="info.js"></script>
 <script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 
 var infoMode = "start";
@@ -62,9 +65,28 @@ var infoMode = "start";
 
 $.getJSON("info.json", function(json){
 	$("#smallInfoTimespan").click (function(){
-		if( $('#timeSpanBox').is(':empty') ) alert('läuft') ; 
-		$('#timeSpanBox').append(json.timespan)});
+		if( $('#timeSpanBox').is(':empty') ){
+			$('#timeSpanBox').append(json.timespan);
+		} else {
+			$("#timeSpanBox").contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+	
+	$("#smallInfoDataset").click (function(){
+		if( $('#datasetBox').is(':empty') ){
+			$('#datasetBox').append(json.dataset);
+		} else {
+			$('#datasetBox > a').remove();
+			$('#datasetBox').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
 });
+
+
 
 </script>
 </html>
