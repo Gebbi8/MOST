@@ -8,8 +8,12 @@
 <body>
 
 	<div id="choiceDiv">
+	<img id="logo" src="image/logo.svg" alt="">
+
 	  <div id="choiceChart" class="chart">
-	    <div class="title">Timespan</div>
+	    <div class="title">Timespan<button id="smallInfoTimespan" class="smallInfo">i</button>
+			<div class="infoBox" id="timeSpanBox"></div>
+		</div>
 				<div class="buttons">
 					<input type="date" id="date1" value="Jan 01 2010">
 						<a href="#" class="button left up" id="date1Up"></a>
@@ -35,9 +39,13 @@
 			<div id="info"><p>Info</p></div>
 		</div>
 	</div>
-<button id="infoButton">
+<button onclick="showInfo(jsonText)" id="infoButton">
 	i
 </button>
+
+<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button>
+	<div class="infoBox" id="datasetBox"></div>
+</div>
 
 </body>
 
@@ -51,8 +59,34 @@
 <script type="text/javascript" src="box.js"></script>
 <script type="text/javascript" src="box2.js"></script>
 <script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
-function closer(){
-	d3.selectAll('#overlay').remove();
-}
+
+var infoMode = "start";
+
+
+$.getJSON("info.json", function(json){
+	$("#smallInfoTimespan").click (function(){
+		if( $('#timeSpanBox').is(':empty') ){
+			$('#timeSpanBox').append(json.timespan);
+		} else {
+			$("#timeSpanBox").contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+	
+	$("#smallInfoDataset").click (function(){
+		if( $('#datasetBox').is(':empty') ){
+			$('#datasetBox').append(json.dataset);
+		} else {
+			$('#datasetBox > a').remove();
+			$('#datasetBox').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+});
+
+
+
 </script>
 </html>

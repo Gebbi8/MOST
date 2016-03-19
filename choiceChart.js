@@ -104,9 +104,13 @@ svg.append("g")
 
 
 var modelType = ["BioModels", "CellML"], 
-    j = 1;  // Choose the rectangle as default
+    j = 0;  // Choose the rectangle as default
 
 // Create the shape selectors
+var dataset = d3.select('#choiceChart').append("dataset")
+	.append("text")
+	.text("Dataset");
+
 var form = d3.select("#choiceChart").append("form");
 
 labels = form.selectAll("label")
@@ -116,7 +120,7 @@ labels = form.selectAll("label")
     .text(function(d) {return d;})
     .insert("input")
     .attr({
-				id: function(d, i) { return d;},
+		id: function(d, i) { return d;},
         type: "checkbox",
         class: "modelType",
         name: "mode",
