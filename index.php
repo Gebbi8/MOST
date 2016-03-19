@@ -156,10 +156,8 @@ $.getJSON("info.json", function(json){
 	
 	$("#smallInfoBox2").click (function(){
 		if( $('#box2Box').is(':empty') ){
-			alert("whoop");
 			$('#box2Box').append(json.boxplot2Vis).append(json.boxplot2Usage);
 		} else {
-			alert("whoop?");
 			$('#box2Box > a').remove();
 			$('#box2Box').contents().filter(function () {
 				return this.nodeType === 3; // Text nodes only
