@@ -32,7 +32,7 @@ function bivesOverview(date1, date2){
 				.tickFormat(function(d){return Math.round(d);}); //Number of axis-splits
 
 
-		d3.tsv("diffstats", type, function(error, data) {
+		d3.tsv("statsTables/diffstats", type, function(error, data) {
 			if (error) throw error;
 			data = data.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
 			//filter by modelType

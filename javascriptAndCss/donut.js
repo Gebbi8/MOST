@@ -34,7 +34,7 @@ function donut(date1, date2){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-		d3.tsv("diffstats", type, function(error, data) {
+		d3.tsv("statsTables/diffstats", type, function(error, data) {
 			//filter by date
 			data = data.filter(function(d){ return date1 < d.version1 && d.version2 < date2; });
 			//filter by modelType

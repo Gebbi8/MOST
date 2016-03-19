@@ -77,7 +77,7 @@ function boxplot(date1, date2){
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	d3.tsv("diffstats", type, function(error, tsv) {
+	d3.tsv("statsTables/diffstats", type, function(error, tsv) {
 		if (error) throw error;
 		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
 		//filter by modelType
