@@ -3,8 +3,7 @@
 	"dataset": "Select the data sets you wish to display in the model statistics on the right. You can choose either the SBML-encoded model versions from BioModels, or the CellML-encoded model versions from PMR2, or both.",
 
 	"projectInfo": {
-		"motivation": "Models keep on evolving, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model.",
-		"goal": "Check out our statistics of changes between model versions.",
+		"motivation": "Models evolve over time, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model. The following questions can be addressed:",
 		"questions": [{
 			"question": "How often do models change?",
 			"question": "What types of changes are frequently applied?",
@@ -12,17 +11,9 @@
 		}]
 	},
 
-	"projectdesign": {
-		"design": "This project incorporates several smaller project developed in SEMS, including:",
-		"subproject": {
-			"name": "ModelCrawler",
-			"url": "someURL"
-		},
-		"subproject": {
-			"name": "BiVeS",
-			"url": "someURL"
-		},
-		"funding": "This project is funded by the e:Bio SEMS project (FKZ 031 6194)."
+	"acknowledgments": {
+		"design": "This project incorporates model versions from <a href='https://www.ebi.ac.uk/biomodels-main/'>BioModels</a> and from the <a href='http://models.cellml.org/cellml'>CellML Model Repository</a>. The diffs were generated using the <a href='https://sems.uni-rostock.de/projects/bives/'>BiVeS tool</a>.",
+		"funding": "The project is funded by the e:Bio <a='https://sems.uni-rostock.de/'>SEMS project</a> (FKZ 031 6194)."
 	},
 
 	"donutVis": "The donut chart visualises the amount of diffs between the model versions in the selected data set. The colors are randomly assigned and thus should not be interpreted.",
