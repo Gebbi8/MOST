@@ -44,7 +44,7 @@ body { /*vorher midDiv*/
 }
 
 #midScroll{
-	overflow: auto;
+	overflow: initial;
 }
 
 #charts{
@@ -343,5 +343,57 @@ body {
 #datasetBox{
 	top: 10px;
 	right: -305px;
+	color: white;
+}
+
+#donutButton{
+	position: relative;
+	left: 500px;
+	top: 60px;
+	display: none;
+}
+
+#donutBox{
+	top: 0px;
+	left: 25px;
+	color: white;
+}
+
+#heatButton{
+	position: relative;
+	left: 500px;
+	top: 60px;
+	display: none;
+}
+
+#heatBox{
+	top: 0px;
+	left: 25px;
+	color: white;
+}
+
+#box1Button{
+	position: relative;
+	left: 500px;
+	top: 60px;
+	display: none;
+}
+
+#box1Box{
+	top: 0px;
+	left: 25px;
+	color: white;
+}
+
+#box2Button{
+	position: relative;
+	left: 500px;
+	top: 60px;
+	display: none;
+}
+
+#box2Box{
+	top: 0px;
+	left: 25px;
 	color: white;
 }

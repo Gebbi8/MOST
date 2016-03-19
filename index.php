@@ -35,7 +35,22 @@
 			<li onclick="boxplot2(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot"><div class="desc">Boxplot</div></li>
 		</div>
 		<div id="midScroll">
-			<div id="charts"><p>Charts</p></div>
+			
+			<div id="charts"><p>Charts</p>
+				<div id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
+					<div class="infoBox" id="donutBox"></div>
+				</div>
+				<div id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
+					<div class="infoBox" id="heatBox"></div>
+				</div>
+				<div id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
+					<div class="infoBox" id="box1Box"></div>
+				</div>
+				<div id="box2Button"><button id="smallInfobBox2" class="smallInfo">i</button>
+					<div class="infoBox" id="box2Box"></div>
+				</div>				
+			</div>
+			
 			<div id="info"><p>Info</p></div>
 		</div>
 	</div>
@@ -64,6 +79,7 @@ var infoMode = "start";
 
 
 $.getJSON("info.json", function(json){
+	console.log(json);
 	$("#smallInfoTimespan").click (function(){
 		if( $('#timeSpanBox').is(':empty') ){
 			$('#timeSpanBox').append(json.timespan);
@@ -84,6 +100,39 @@ $.getJSON("info.json", function(json){
 			}).remove();
 		}
 	});
+	
+	$("#smallInfoDonut").click (function(){
+		if( $('#donutBox').is(':empty') ){
+			$('#donutBox').append(json.donutVis);
+		} else {
+			$('#donutBox > a').remove();
+			$('#donutBox').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+	
+	$("#smallInfoHeat").click (function(){
+		if( $('#heatBox').is(':empty') ){
+			$('#heatBox').append(json.donutVis);
+		} else {
+			$('#heatBox > a').remove();
+			$('#heatBox').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+
+	$("#smallInfoBox1").click (function(){
+		if( $('#box1Box').is(':empty') ){
+			$('#box1Box').append(json.donutVis);
+		} else {
+			$('#box1Box > a').remove();
+			$('#box1Box').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});	
 });
 
 

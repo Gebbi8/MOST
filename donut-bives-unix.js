@@ -1,4 +1,5 @@
 function donut(date1, date2){
+	$('#donutButton').fadeIn();
 	d3.selectAll('#charts').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
