@@ -48,7 +48,7 @@ function bivesOverview(date1, date2){
 			//compute svg width depending on data length
 			var rectWidth = width/data.length;
 	
-			if (rectWidth < 10) rectWidth = 1;
+			if (rectWidth < 5) rectWidth = 1;
 			
 			var svgWidth = rectWidth * data.length;
 			

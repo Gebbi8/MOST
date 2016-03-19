@@ -13,6 +13,12 @@ body { /*vorher midDiv*/
 	height: 100vh;
 }
 
+#logo{
+	left: 10px;
+	top: 10px;
+	width: 300px;
+}
+
 #topDiv {
   background-color: #207a7a;
 }
@@ -34,7 +40,7 @@ body { /*vorher midDiv*/
 }
 
 #choiceChart{
-	margin-top: 150px;
+	margin-top: 50px;
 }
 
 #midScroll{

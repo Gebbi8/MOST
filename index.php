@@ -8,6 +8,8 @@
 <body>
 
 	<div id="choiceDiv">
+	<img id="logo" src="image/logo.svg" alt="">
+
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan</div>
 				<div class="buttons">
@@ -35,7 +37,7 @@
 			<div id="info"><p>Info</p></div>
 		</div>
 	</div>
-<button id="infoButton">
+<button onclick="showInfo(jsonText)" id="infoButton">
 	i
 </button>
 
@@ -50,9 +52,19 @@
 <script type="text/javascript" src="donut-bives-unix.js"></script>
 <script type="text/javascript" src="box.js"></script>
 <script type="text/javascript" src="box2.js"></script>
+<script type="text/javascript" src="info.js"></script>
 <script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 function closer(){
 	d3.selectAll('#overlay').remove();
+}
+var infoMode = "start";
+
+function showInfo(arr) {
+
+    for(var i = 0; i<arr.length; i++) {
+        if(arr[i].mode == infoMode) out = arr[i].text
+    }
+    document.getElementById("charts").innerHTML = out;
 }
 </script>
 </html>
