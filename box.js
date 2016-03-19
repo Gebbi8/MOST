@@ -1,9 +1,9 @@
 function boxplot(date1, date2){
+	$('.menuInfoButton').fadeOut();
 	d3.selectAll('#charts').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-
-
+	$('#box1Button').fadeIn();
 
 // Variables for Boxplots
 	var mode = 0;

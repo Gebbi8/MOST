@@ -37,16 +37,16 @@
 		<div id="midScroll">
 			
 			<div id="charts"><p>Charts</p>
-				<div id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
+				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
-				<div id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
+				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
 					<div class="infoBox" id="heatBox"></div>
 				</div>
-				<div id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
+				<div class="menuInfoButton" id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
 					<div class="infoBox" id="box1Box"></div>
 				</div>
-				<div id="box2Button"><button id="smallInfobBox2" class="smallInfo">i</button>
+				<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
 					<div class="infoBox" id="box2Box"></div>
 				</div>				
 			</div>
@@ -54,9 +54,6 @@
 			<div id="info"><p>Info</p></div>
 		</div>
 	</div>
-<button onclick="showInfo(jsonText)" id="infoButton">
-	i
-</button>
 
 <div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button>
 	<div class="infoBox" id="datasetBox"></div>
@@ -103,7 +100,7 @@ $.getJSON("info.json", function(json){
 	
 	$("#smallInfoDonut").click (function(){
 		if( $('#donutBox').is(':empty') ){
-			$('#donutBox').append(json.donutVis);
+			$('#donutBox').append(json.donutVis).append(json.donutUsage);
 		} else {
 			$('#donutBox > a').remove();
 			$('#donutBox').contents().filter(function () {
@@ -114,7 +111,7 @@ $.getJSON("info.json", function(json){
 	
 	$("#smallInfoHeat").click (function(){
 		if( $('#heatBox').is(':empty') ){
-			$('#heatBox').append(json.donutVis);
+			$('#heatBox').append(json.heatmapVis).append(json.heatmapUsage);
 		} else {
 			$('#heatBox > a').remove();
 			$('#heatBox').contents().filter(function () {
@@ -125,10 +122,23 @@ $.getJSON("info.json", function(json){
 
 	$("#smallInfoBox1").click (function(){
 		if( $('#box1Box').is(':empty') ){
-			$('#box1Box').append(json.donutVis);
+			$('#box1Box').append(json.boxplot1Vis).append(json.boxplot1Usage);
 		} else {
 			$('#box1Box > a').remove();
 			$('#box1Box').contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+	
+	$("#smallInfoBox2").click (function(){
+		if( $('#box2Box').is(':empty') ){
+			alert("whoop");
+			$('#box2Box').append(json.boxplot2Vis).append(json.boxplot2Usage);
+		} else {
+			alert("whoop?");
+			$('#box2Box > a').remove();
+			$('#box2Box').contents().filter(function () {
 				return this.nodeType === 3; // Text nodes only
 			}).remove();
 		}

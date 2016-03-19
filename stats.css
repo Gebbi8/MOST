@@ -354,46 +354,43 @@ body {
 }
 
 #donutBox{
-	top: 0px;
-	left: 25px;
+	top: 80px;
+	left: 35px;
 	color: white;
 }
 
 #heatButton{
 	position: relative;
-	left: 500px;
-	top: 60px;
+	left: 625px;
 	display: none;
 }
 
 #heatBox{
-	top: 0px;
-	left: 25px;
+	top: 250px;
+	left: 35px;
 	color: white;
 }
 
 #box1Button{
 	position: relative;
-	left: 500px;
-	top: 60px;
+	left: 650px;
 	display: none;
 }
 
 #box1Box{
-	top: 0px;
-	left: 25px;
+	top: 200px;
+	left: 35px;
 	color: white;
 }
 
 #box2Button{
 	position: relative;
-	left: 500px;
-	top: 60px;
+	left: 650px;
 	display: none;
 }
 
 #box2Box{
-	top: 0px;
-	left: 25px;
+	top: 200px;
+	left: 35px;
 	color: white;
 }
