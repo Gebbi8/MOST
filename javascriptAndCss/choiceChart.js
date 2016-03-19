@@ -25,11 +25,11 @@ var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
 
 d3.tsv("statsTables/diffstats", function(d) {
-	alert(d);
+//	alert(d);
 	console.log(d[0].x);
 	return {version2: year(parseDate(d.version2id))
 	};
-	console.log(version2);
+//	console.log(version2);
 }/*, function(error, rows) {
 	
 	

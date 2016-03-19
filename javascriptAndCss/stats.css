@@ -135,10 +135,10 @@ footer {
 }
 
 .up {
-    background: url(/image/arrows.png)  3px -136px no-repeat #f3f3f3;
+    background: url(../image/arrows.png)  3px -136px no-repeat #f3f3f3;
 }
 .down {
-    background: url(/image/arrows.png)  3px -171px no-repeat #f3f3f3;
+    background: url(../image/arrows.png)  3px -171px no-repeat #f3f3f3;
 }
 
 
