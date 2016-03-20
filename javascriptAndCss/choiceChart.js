@@ -188,27 +188,27 @@ labels = form.selectAll("label")
     })
     .property("checked", function(d, i) {return i===j;});
 
-var hold = -1;
+var hold = -1; var wait = 1;
 
 var date1Up = document.getElementById("date1Up");
 date1Up.onmouseup = function(){ hold = 0;};
 date1Up.onmouseout = function(){ hold = 0;};
-date1Up.onmousedown = function () { hold = -1; holdit("date1", "up");};
+date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
 
 var date1Down = document.getElementById("date1Down");
 date1Down.onmouseup = function(){ hold = 0;};
 date1Down.onmouseout = function(){ hold = 0;};
-date1Down.onmousedown = function () { hold = -1; holdit("date1", "down");};
+date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
 
 var date2Up = document.getElementById("date2Up");
 date2Up.onmouseup = function(){ hold = 0;};
 date2Up.onmouseout = function(){ hold = 0;};
-date2Up.onmousedown = function () { hold = -1; holdit("date2", "up");};
+date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
 
 var date2Down = document.getElementById("date2Down");
 date2Down.onmouseup = function(){ hold = 0;};
 date2Down.onmouseout = function(){ hold = 0;};
-date2Down.onmousedown = function () { hold = -1; holdit("date2", "down");};
+date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
 
 var date1Field = document.getElementById("date1");
 date1Field.addEventListener("keydown", function (e) {
@@ -255,7 +255,7 @@ date2Field.addEventListener("keydown", function (e) {
 });
 
 function holdit(btn, mode) {
-
+	console.log(hold, wait)
 /* 	var testDay = moment("01/01/2010");
 	console.log(moment(testDay).format('DD/MM/YYYY'));
 	console.log(testDay);
@@ -265,15 +265,51 @@ function holdit(btn, mode) {
 	testDay.add(1, 'days');
 	console.log(testDay);	
 	console.log(moment(testDay).format('DD/MM/YYYY')); */
-	if (hold == -1){
+	if (hold == -1 && wait == 1){
 		setTimeout(function(){
+			wait = 0;
 			if(mode === "up"){
-				console.log("a " + document.getElementById(btn).value);
+				//console.log("a " + document.getElementById(btn).value);
 				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
-				console.log("b " + newDate);
-				console.log(Date.parse(date1Field.value));
+				//console.log("b " + newDate);
+				//console.log(Date.parse(date1Field.value));
 				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
-				console.log("c " + document.getElementById(btn).value);
+				//console.log("c " + document.getElementById(btn).value);
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			} else {
+				var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			}
+					
+			holdit(btn, mode);
+		}, 300);
+	} else if (hold == -1){
+		setTimeout(function(){
+			wait = 0;
+			if(mode === "up"){
+				//console.log("a " + document.getElementById(btn).value);
+				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+				//console.log("b " + newDate);
+				//console.log(Date.parse(date1Field.value));
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				//console.log("c " + document.getElementById(btn).value);
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -299,7 +335,7 @@ function holdit(btn, mode) {
 					
 			holdit(btn, mode);
 		}, 1);
-  }
+	}
 };
 
 function brushed() {
