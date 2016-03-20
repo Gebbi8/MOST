@@ -3,6 +3,7 @@ function boxplot2(date1, date2){
 	d3.selectAll('#charts').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
+	d3.selectAll('#charts > *').remove();
 	$('#box2Button').fadeIn();
 
 	
@@ -347,7 +348,8 @@ function boxplot2(date1, date2){
 						.style("stroke", "black")
 						.attr("cx", x2(data[i][j]))
 						.attr("cy", 55 + i*120)
-						.attr("r", 5);
+						.attr("r", 5)
+						.attr("fill", "none");
 				} else {j = data[i].length;}
 			}
 

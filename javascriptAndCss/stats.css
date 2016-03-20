@@ -49,6 +49,15 @@ body { /*vorher midDiv*/
 
 #charts{
 	width: 610px;
+	margin: 10px;
+}
+
+#charts > * {
+	margin-bottom: 10px;
+}
+
+ul {
+	margin-top: 10px;
 }
 
 #svgDiv{
@@ -141,6 +150,20 @@ footer {
     background: url(../image/arrows.png)  3px -171px no-repeat #f3f3f3;
 }
 
+#cellML {
+    background: url(../image/CellML_Logo.svg)  no-repeat center center / contain;
+	height: 100px;
+}
+#bioModels {
+    background: url(../image/BioModels_Database_logo_2014.png)  no-repeat center center / contain;
+	height: 100px;
+}
+#bives {
+    background: url(../image/logo-small-no-connections.svg)  no-repeat center center / contain;
+	height: 100px;
+}
+
+
 
 /* MENU */
 #menu li{
@@ -187,9 +210,7 @@ body {
   font: 10px sans-serif;
 }
 
-.bar1, .bar2, .bar3, .bar{
-	width: 10px;
-}
+
 
 
 

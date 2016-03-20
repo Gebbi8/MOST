@@ -30,10 +30,22 @@ d3.tsv("statsTables/filestats", function(dd) {
 for (var i = 0; i < dd.length; i++)
 {
 	dd[i]["date"] = new Date (dd[i]["date"]);
-  filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+
+	
+	filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+	//console.log(dd[0]);
 }
 d3.tsv("statsTables/diffstats", function(d) {
+	for (var i=0; i < d.length; i++){
+		d[i]["bivesinsert"] = +d[i]["bivesinsert"];
+		d[i]["bivesmove"] = +d[i]["bivesmove"];
+		d[i]["bivesdelete"] = +d[i]["bivesdelete"];
+		d[i]["bivesupdate"] = +d[i]["bivesupdate"];
+		d[i]["bives"] = +d[i]["bives"]; 
+		
+	}
 	diffstats=d;
+	
 	console.log ("ready");
 	tuwatt ();
 });
@@ -51,7 +63,7 @@ d3.tsv("statsTables/diffstats", function(d) {
 function tuwatt ()
 {
 	rows=diffstats;
-// 	console.log (rows[0]);
+ 	console.log (rows[0]);
 	
 	rows.sort(function(a, b) {
                 return d3.ascending(a.version2id, b.version2id);
