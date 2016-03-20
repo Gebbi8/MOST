@@ -49,6 +49,15 @@ body { /*vorher midDiv*/
 
 #charts{
 	width: 610px;
+	margin: 10px;
+}
+
+#charts > * {
+	margin-bottom: 10px;
+}
+
+ul {
+	margin-top: 10px;
 }
 
 #svgDiv{

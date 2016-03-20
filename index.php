@@ -58,7 +58,7 @@
 				</div>				
 			</div>
 			
-			<div id="info"><p>Info</p></div>
+			<div id="info"></div>
 		</div>
 	</div>
 
@@ -165,8 +165,8 @@ $.getJSON("javascriptAndCss/info.json", function(json){
 
 
 //load startpage info from json
-	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.questions);
-	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.design);
+	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
+	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
 });
 
 
