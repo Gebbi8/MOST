@@ -24,40 +24,68 @@ var svg = d3.select("#choiceChart").append("svg")
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
 
+var diffstats = {};
+
+
+d3.tsv("statsTables/filestats", function(dd) {
+for (var i = 0; i < dd.length; i++)
+    filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
 d3.tsv("statsTables/diffstats", function(d) {
-//	alert(d);
-	console.log(d[0].x);
-	return {version2: year(parseDate(d.version2id))
-	};
-//	console.log(version2);
-}/*, function(error, rows) {
-	
+tuwatt (d);
+});
+
+
+});
+
+
+
+
+
+
+
+
+function tuwatt (rows)
+{
+	console.log (rows[0]);
 	
 	rows.sort(function(a, b) {
-                return d3.ascending(a.version2, b.version2);
+                return d3.ascending(a.version2id, b.version2id);
         });	
 	
 	var counts = {};
 	rows.forEach(function(r) {
-    if (!counts[r.version2]) {
-        counts[r.version2] = 0;
+		
+		var datum = filestats[ r["model"] + r["version2id"]  ].date;
+		
+    if (!counts[datum]) {
+        counts[datum] = 0;
     }
-    counts[r.version2]++;
+    counts[datum]++;
 	});
 	
+	var max = 0;
 	var data = [];
 	Object.keys(counts).forEach(function(key) {
     data.push({
-        version2: key,
+        datum: new Date(key)
+		,
         count: counts[key]
     });
+		if (counts[key] > max)
+			max = counts[key];
 	});
+	
+	console.log (data);
 
 
-	var minVersion2 = new Date(d3.min(data, function (d){ return d.version2+"-01"}));
-	var maxVersion2 = new Date(d3.max(data, function (d){ return d.version2+"-30"}));
+	var minVersion2 = d3.min(data, function (d){ return d.datum });
+	var maxVersion2 = d3.max(data, function (d){ return d.datum });
+	
+	console.log (minVersion2);
+	console.log (maxVersion2);
+	
 
-	y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
+	y.domain([0, max]).nice();
 	x.domain([minVersion2, maxVersion2]).nice();
 
 	svg.append("g")
@@ -72,18 +100,23 @@ d3.tsv("statsTables/diffstats", function(d) {
 				.attr("fill", "white")
 		    .text("Changes");
 
+	
 	svg.append("g")
 		    .attr("class", "x axis")
 				.attr("transform", "translate(0," + timeheight + ")")
 				.attr("fill", "white")
 		    .call(xAxis);
 
+				
+				
+				
 	var rects = svg.selectAll(".bar")
 				  .data(data)
-				.enter().append("rect")
+					.enter()
+					.append("rect")
 				  .attr("class", "bar")
-				  .attr("x", function(d) { return x(new Date(d.version2)); })
-				  .attr("width", timewidth / data.length -2) 
+				  .attr("x", function(d) { var meinx = x(d.datum); if (isNaN (meinx)){ console.log ("das is nan: " + meinx); /*console.log (d.datum); console.log (new Date(d.datum)); console.log (x(new Date(d.datum)));*/} return meinx; })
+				  .attr("width", timewidth / data.length) 
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
 					.attr("fill", "white");	
@@ -248,5 +281,5 @@ function brushend() {
 	extent = brush.extent();
 }
 
-} */);
+} 
 

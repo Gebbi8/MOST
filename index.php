@@ -87,19 +87,24 @@
 <script src="thirdParty/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="thirdParty/date.js"></script>
-<script type="text/javascript" src="javascriptAndCss/choiceChart.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
 <script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
-<script> var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
+<script type="text/javascript">
+
+var filestats = {};
+
+
+
+ var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 
 var infoMode = "start";
 
 
 $.getJSON("javascriptAndCss/info.json", function(json){
-	console.log(json);
+//	console.log(json);
 	$("#smallInfoTimespan").click (function(){
 		if( $('#timeSpanBox').is(':empty') ){
 			$('#timeSpanBox').append(json.timespan);
@@ -169,4 +174,5 @@ $.getJSON("javascriptAndCss/info.json", function(json){
 
 
 </script>
+<script type="text/javascript" src="javascriptAndCss/choiceChart.js"></script>
 </html>
