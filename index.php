@@ -37,29 +37,13 @@
 		<div id="midScroll">
 			
 			<div id="charts">
-				<h2>ModelStats</h2>
-				
-				<h3>Motivation</h3>
-				
-				<p> Models keep on evolving, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model. </p>
-				
-				<h3>Questions</h3>
-				
-				<ul>
-					<li>How often do models change?</li>
-					<li>What types of changes are frequently applied?</li>
-					<li>What are the reasons for these changes?</li>
-				</ul>
-				
-				<h3>Projectdesign</h3>
-				<p>
-					This project incorporates several smaller project developed in SEMS, including:
-					 <li>ModelCrawler</li>
-					 <li>BiVeS</li>
-				</p>
+				<h3>Project info</h3>
+				<p id="projectInfo"> </p>
+												
 				
 				<h3>Acknowledgments</h3>
-				
+				<p id="acknowledgments"> 
+				</p>
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
@@ -178,8 +162,12 @@ $.getJSON("javascriptAndCss/info.json", function(json){
 			}).remove();
 		}
 	});	
-});
 
+
+//load startpage info from json
+	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.questions);
+	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.design);
+});
 
 
 </script>
