@@ -1,4 +1,4 @@
-formatDate = d3.time.format("%b %d");
+formatDate = d3.time.format("%Y-%m-%d");
 
 // parameters
 var margin = {
@@ -13,14 +13,14 @@ var margin = {
 
 // scale function
 var timeScale = d3.time.scale()
-  .domain([new Date('2012-01-02'), new Date('2013-01-01')])
+  .domain([new Date('01/01/2010'), new Date('01/01/2011')])
   .range([0, width])
   .clamp(true);
 
 
 // initial value
-var startValue = timeScale(new Date('2012-03-20'));
-startingValue = new Date('2012-03-20');
+var startValue = timeScale(new Date('01/01/2010'));
+startingValue = new Date('01/01/2010');
 
 //////////
 
