@@ -162,6 +162,13 @@ footer {
 	height: 100px;
 }
 
+.floatlogo {
+    float: left;
+    width: 150px;
+    height: 75px;
+    margin: 10px; 
+}
+
 
 
 /* MENU */

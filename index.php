@@ -46,9 +46,11 @@
 					<h3>Acknowledgments</h3>
 					<p id="acknowledgments">
 					</p>
-					<div id="bioModels"></div>
-					<div id="cellML"></div>
-					<div id="bives"></div>
+					<div id="linkLogos">
+						<a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
+						<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a>
+						<a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a>
+					</div>
 				</div>
 				
 				<div id="donutpage">
