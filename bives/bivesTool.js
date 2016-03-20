@@ -23,7 +23,7 @@ function getBivesData(name, dateVersion1, dateVersion2, command, place){
 
 	// call the bives wrapper script
 	$.post (
-		"bives.php",
+		"bives/bives.php",
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
 		{

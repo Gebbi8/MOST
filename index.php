@@ -29,7 +29,7 @@
 
 	<div id="contentDiv"><p></p>
 		<div id="menu">
-			<li onclick="donut(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/donutMini.png" alt="Donut"><div class="desc">Donut</div></li>
+			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
 			<li onclick="bivesOverview(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange"><div class="desc">Heatmap</div></li>
 			<li onclick="boxplot(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot"><div class="desc">Boxplot</div></li>
 			<li onclick="boxplot2(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot"><div class="desc">Boxplot</div></li>
@@ -95,6 +95,15 @@
 <script type="text/javascript">
 
 var filestats = {};
+var diffstats = {};
+
+
+
+$("#donutbutton").click (function ()
+{
+	donut(window.extent[0], window.extent[1]);
+});
+// onclick="donut(window.extent[0], window.extent[1])"
 
 
 

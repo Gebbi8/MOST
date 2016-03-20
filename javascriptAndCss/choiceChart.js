@@ -24,29 +24,34 @@ var svg = d3.select("#choiceChart").append("svg")
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 var year = d3.time.format("%Y-%m");
 
-var diffstats = {};
 
 
 d3.tsv("statsTables/filestats", function(dd) {
 for (var i = 0; i < dd.length; i++)
-    filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
-d3.tsv("statsTables/diffstats", function(d) {
-tuwatt (d);
-});
-
-
-});
-
-
-
-
-
-
-
-
-function tuwatt (rows)
 {
-	console.log (rows[0]);
+	dd[i]["date"] = new Date (dd[i]["date"]);
+  filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+}
+d3.tsv("statsTables/diffstats", function(d) {
+	diffstats=d;
+	console.log ("ready");
+	tuwatt ();
+});
+
+
+});
+
+
+
+
+
+
+
+
+function tuwatt ()
+{
+	rows=diffstats;
+// 	console.log (rows[0]);
 	
 	rows.sort(function(a, b) {
                 return d3.ascending(a.version2id, b.version2id);
@@ -75,14 +80,14 @@ function tuwatt (rows)
 			max = counts[key];
 	});
 	
-	console.log (data);
+// 	console.log (data);
 
 
 	var minVersion2 = d3.min(data, function (d){ return d.datum });
 	var maxVersion2 = d3.max(data, function (d){ return d.datum });
 	
-	console.log (minVersion2);
-	console.log (maxVersion2);
+// 	console.log (minVersion2);
+// 	console.log (maxVersion2);
 	
 
 	y.domain([0, max]).nice();
