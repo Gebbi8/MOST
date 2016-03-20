@@ -172,6 +172,10 @@ footer {
 
 
 /* MENU */
+#menu {
+	 text-align: center 
+}
+
 #menu li{
 	display: table-cell;
 	padding: 20px;
