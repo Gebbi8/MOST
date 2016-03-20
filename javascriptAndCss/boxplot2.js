@@ -76,9 +76,16 @@ function boxplot2(date1, date2){
 			boxData2[1] = [];
 			boxData2[2] = [];
 
-	d3.tsv("statsTables/diffstats", type, function(error, tsv) {
-		if (error) throw error;
-		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
+// 	d3.tsv("statsTables/diffstats", type, function(error, tsv) {
+// 		if (error) throw error;
+			
+			
+			
+			var tsv = diffstats.filter(function(d){
+				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
+				return date1 < ddatum && ddatum < date2;
+			});
+// 		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
 		//filter by modelType
 		if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
 			if(document.getElementById('BioModels').checked) {
@@ -199,7 +206,7 @@ function boxplot2(date1, date2){
 
 
 
-	});
+// 	});
 
 
 	// Returns the median of an already sorted array

@@ -32,9 +32,18 @@ function bivesOverview(date1, date2){
 				.tickFormat(function(d){return Math.round(d);}); //Number of axis-splits
 
 
-		d3.tsv("statsTables/diffstats", type, function(error, data) {
-			if (error) throw error;
-			data = data.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
+// 		d3.tsv("statsTables/diffstats", type, function(error, data) {
+// 			if (error) throw error;
+				
+// 			data = data.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
+				
+				
+			var data = diffstats.filter(function(d){
+				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
+				return date1 < ddatum && ddatum < date2;
+			});
+				
+				
 			//filter by modelType
 			if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
 				if(document.getElementById('BioModels').checked) {
@@ -232,7 +241,7 @@ function bivesOverview(date1, date2){
 
 
 
-		});
+// 		});
 
 
 	// add legend
