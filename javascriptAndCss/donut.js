@@ -1,9 +1,9 @@
 function donut(date1, date2){
 	$('.menuInfoButton').fadeOut();
-	d3.selectAll('#charts').selectAll('svg').remove();
+	d3.selectAll('#donutpage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-	d3.selectAll('#charts > *').remove();
+selectChart("donutpage");
 	$('#donutButton').fadeIn();
 	
 	var width = 610,
@@ -29,7 +29,7 @@ function donut(date1, date2){
 		.style("z-index", "10")
 		.style("visibility", "hidden");
 
-	var svg = d3.select("#charts").append("svg")
+	var svg = d3.select("#donutpage").append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")

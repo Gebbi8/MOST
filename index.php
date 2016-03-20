@@ -30,36 +30,50 @@
 	<div id="contentDiv"><p></p>
 		<div id="menu">
 			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
-			<li onclick="bivesOverview(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange"><div class="desc">Heatmap</div></li>
-			<li onclick="boxplot(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot"><div class="desc">Boxplot</div></li>
-			<li onclick="boxplot2(window.extent[0], window.extent[1])"><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot"><div class="desc">Boxplot</div></li>
+			<li><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Boxplot</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Boxplot</div></li>
 		</div>
 		<div id="midScroll">
 			
 			<div id="charts">
-				<h3>Project info</h3>
-				<p id="projectInfo"> </p>
-												
+				<div id="landingpage">
+					<h3>Project info</h3>
+					<p id="projectInfo"> </p>
+													
+					
+					<h3>Acknowledgments</h3>
+					<p id="acknowledgments">
+					</p>
+					<div id="bioModels"></div>
+					<div id="cellML"></div>
+					<div id="bives"></div>
+				</div>
 				
-				<h3>Acknowledgments</h3>
-				<p id="acknowledgments">
-				</p>
-				<div id="bioModels"></div>
-				<div id="cellML"></div>
-				<div id="bives"></div>
-				
+				<div id="donutpage">
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
+				</div>
+				
+				<div id="heatmappage">
 				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
 					<div class="infoBox" id="heatBox"></div>
 				</div>
+				</div>
+				
+				<div id="box1page">
 				<div class="menuInfoButton" id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
 					<div class="infoBox" id="box1Box"></div>
 				</div>
+				</div>
+				
+				<div id="box2page">
 				<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
 					<div class="infoBox" id="box2Box"></div>
-				</div>				
+				</div>
+				</div>
+				
 			</div>
 			
 			<div id="info"></div>
@@ -82,91 +96,76 @@
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
 <script type="text/javascript">
 
+
+
+/*
+* selectChart can be used to select one of the charts (or tabs). all other content will be hidden.
+*/
+function selectChart (chart)
+{
+	for (var i = 0; i < charts.length; i++)
+		$("#"+charts[i]).hide();
+	$("#"+chart).show();
+}
+
+/*
+* attachInfo can be used to attache some informational strings to one of the "i" boxes on the web page
+* smallInfo: the i-button
+* infoBox: the grey box that will pop-up
+* infoMsg: the message to be displayed
+*/
+function attachInfo (smallInfo, infoBox, infoMsg)
+{
+	$(smallInfo).click (function(){
+		if( $(infoBox).is(':empty') ){
+			$(infoBox).append(infoMsg);
+		} else {
+			$(infoBox).contents().filter(function () {
+				return this.nodeType === 3; // Text nodes only
+			}).remove();
+		}
+	});
+}
+
+
+
+
+
+
 var filestats = {};
 var diffstats = {};
-
-
-$("#donutbutton").click (function ()
-{
-	donut (window.extent[0], window.extent[1]);
-});
-
-
-
- var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
-
+var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
 var infoMode = "start";
 
+var charts = [
+"landingpage",
+"donutpage",
+"heatmappage",
+"box1page",
+"box2page",
+];
 
+// select the landing page as start
+selectChart("landingpage");
+
+// register click-listeners to the tab-buttons
+$("#donutbutton").click (function (){donut (window.extent[0], window.extent[1]);});
+$("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
+$("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
+$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
+
+
+// load info material and fill the i-buttons
 $.getJSON("javascriptAndCss/info.json", function(json){
-//	console.log(json);
-	$("#smallInfoTimespan").click (function(){
-		if( $('#timeSpanBox').is(':empty') ){
-			$('#timeSpanBox').append(json.timespan);
-		} else {
-			$("#timeSpanBox").contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
-	
-	$("#smallInfoDataset").click (function(){
-		if( $('#datasetBox').is(':empty') ){
-			$('#datasetBox').append(json.dataset);
-		} else {
-			$('#datasetBox > a').remove();
-			$('#datasetBox').contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
-	
-	$("#smallInfoDonut").click (function(){
-		if( $('#donutBox').is(':empty') ){
-			$('#donutBox').append(json.donutVis).append(json.donutUsage);
-		} else {
-			$('#donutBox > a').remove();
-			$('#donutBox').contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
-	
-	$("#smallInfoHeat").click (function(){
-		if( $('#heatBox').is(':empty') ){
-			$('#heatBox').append(json.heatmapVis).append(json.heatmapUsage);
-		} else {
-			$('#heatBox > a').remove();
-			$('#heatBox').contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
 
-	$("#smallInfoBox1").click (function(){
-		if( $('#box1Box').is(':empty') ){
-			$('#box1Box').append(json.boxplot1Vis).append(json.boxplot1Usage);
-		} else {
-			$('#box1Box > a').remove();
-			$('#box1Box').contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
-	
-	$("#smallInfoBox2").click (function(){
-		if( $('#box2Box').is(':empty') ){
-			$('#box2Box').append(json.boxplot2Vis).append(json.boxplot2Usage);
-		} else {
-			$('#box2Box > a').remove();
-			$('#box2Box').contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});	
+	attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan);
+	attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset);
+	attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage);
+	attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage);
+	attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage);
+	attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage);
 
-
-//load startpage info from json
+	//load startpage info from json
 	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
 	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
 });

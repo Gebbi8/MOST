@@ -1,9 +1,9 @@
 function boxplot(date1, date2){
 	$('.menuInfoButton').fadeOut();
-	d3.selectAll('#charts').selectAll('svg').remove();
+	d3.selectAll('#box1page').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-	d3.selectAll('#charts > *').remove();
+	selectChart("box1page");
 	$('#box1Button').fadeIn();
 
 // Variables for Boxplots
@@ -30,7 +30,7 @@ function boxplot(date1, date2){
 			boxData2[3] = [];
 
 //flip-button to switch between log and normal scale
-	var onOffSwitch = d3.select("#charts")
+	var onOffSwitch = d3.select("#box1page")
            .append("div")
                .attr("class","onoffswitch");
 
@@ -61,7 +61,7 @@ function boxplot(date1, date2){
 				width = 610 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
 
-	var svg = d3.select("#charts").append("svg")
+	var svg = d3.select("#box1page").append("svg")
 				.style("opacity", 1)
 				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
@@ -69,7 +69,7 @@ function boxplot(date1, date2){
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 ///////////////////////
-	var svg2 = d3.select("#charts").append("svg")
+	var svg2 = d3.select("#box1page").append("svg")
 				.style("opacity", 1)
 				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
