@@ -86,7 +86,7 @@
 
 </body>
 
-<script src="thirdParty/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="thirdParty/date.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
