@@ -46,6 +46,7 @@
 				</p>
 				<div id="bioModels"></div>
 				<div id="cellML"></div>
+				<div id="bives"></div>
 				
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
