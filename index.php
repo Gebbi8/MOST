@@ -3,6 +3,7 @@
 <head>
 	<title>Stats-website</title>
   <meta charset="UTF-8">
+<link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
 </head>
 <body>
