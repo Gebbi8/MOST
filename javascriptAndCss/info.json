@@ -4,11 +4,7 @@
 
 	"projectInfo": {
 		"motivation": "Models evolve over time, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model. The following questions can be addressed:",
-		"questions": [{
-			"question": "How often do models change?",
-			"question": "What types of changes are frequently applied?",
-			"question": "What are the reasons for these changes?"
-		}]
+		"question": "<ul> <li> How often do models change? </li?> <li>What types of changes are frequently applied?</li> <li>What are the reasons for these changes?</li></ul>"
 	},
 
 	"acknowledgments": {
