@@ -22,7 +22,8 @@ var svg = d3.select("#choiceChart").append("svg")
 		  .attr("transform", "translate(50,30)");		
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
-var year = d3.time.format("%Y-%m");
+//var parseDate = d3.time.format("%d/%m/%Y").parse;
+//var year = d3.time.format("%m/%Y");
 
 
 
@@ -139,10 +140,15 @@ function tuwatt ()
 					.attr("fill", "white");	
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
-var parseDate2 = d3.time.format("%b %d %Y").parse;
+//var parseDate2 = d3.time.format("%b %d %Y").parse;
+//var parseDate = d3.time.format("%d/%m/%Y").parse;
+var parseDate2 = d3.time.format("%Y-%m-%d").parse;
 
-var date1 = parseDate2(document.getElementById("date1").value);
-var date2 = parseDate2(document.getElementById("date2").value);
+/* var date1 = parseDate2(document.getElementById("date1").value);
+var date2 = parseDate2(document.getElementById("date2").value); */
+
+var date1 = moment(document.getElementById("date1").value);
+var date2 = moment(document.getElementById("date2").value);
 
 var brush = d3.svg.brush()
 	.x(x)
@@ -208,6 +214,8 @@ var date1Field = document.getElementById("date1");
 date1Field.addEventListener("keydown", function (e) {
 	if(e.keyCode === 13){
 		var newDate = Date.parse(date1Field.value);
+		console.log(newDate);
+		alert("jupp");
 		if(newDate != null){
 			if(newDate < minVersion2){
 				newDate = minVersion2;
@@ -247,11 +255,25 @@ date2Field.addEventListener("keydown", function (e) {
 });
 
 function holdit(btn, mode) {
+
+/* 	var testDay = moment("01/01/2010");
+	console.log(moment(testDay).format('DD/MM/YYYY'));
+	console.log(testDay);
+	testDay.add(1, 'days');
+	console.log(testDay);	
+	console.log(moment(testDay).format('DD/MM/YYYY'));
+	testDay.add(1, 'days');
+	console.log(testDay);	
+	console.log(moment(testDay).format('DD/MM/YYYY')); */
 	if (hold == -1){
 		setTimeout(function(){
 			if(mode === "up"){
-				var newDate = Date.parse(document.getElementById(btn).value).add(1).days();
-				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				console.log("a " + document.getElementById(btn).value);
+				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+				console.log("b " + newDate);
+				console.log(Date.parse(date1Field.value));
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				console.log("c " + document.getElementById(btn).value);
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -262,8 +284,8 @@ function holdit(btn, mode) {
 				extent = brush.extent();
 				brushed();
 			} else {
-				var newDate = Date.parse(document.getElementById(btn).value).add(-1).days();
-				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -276,7 +298,7 @@ function holdit(btn, mode) {
 			}
 					
 			holdit(btn, mode);
-		}, 100);
+		}, 1);
   }
 };
 
@@ -286,10 +308,10 @@ function brushed() {
 
 function brushmove() {
 	extent = brush.extent();
-	date1 = window.extent[0];
-	date2 = window.extent[1];
-	document.getElementById("date1").value = window.extent[0].toString().substr(4,11);
-	document.getElementById("date2").value = window.extent[1].toString().substr(4,11);
+	date1 = moment(window.extent[0]);
+	date2 = moment(window.extent[1]);
+	document.getElementById("date1").value = date1.format('YYYY-MM-DD');
+	document.getElementById("date2").value = date2.format('YYYY-MM-DD');
 }
 
 function brushend() {
