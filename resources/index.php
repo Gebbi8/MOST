@@ -1,12 +1,25 @@
 <?php
+
+function strip_tailing_slashes ($str)
+{
+    while (substr ($str, 0, 1) == '/')
+        $str = substr ($str, 1);
+
+    while (substr ($str, -1) == '/')
+        $str = substr ($str, 0, -1);
+
+    return $str;
+}
+
+
 	$userAgent = $_SERVER['HTTP_USER_AGENT'];
-	$model = $_GET['model'];
-	$version = $_GET['version'];
-	$repo = $_GET['repo'];
+	$model = strip_tailing_slashes ($_GET['model']);
+	$version = strip_tailing_slashes ($_GET['version']);
+	$repo = strip_tailing_slashes ($_GET['repo']);
 	
 	
-	$isRequestComingFromRealUser = strpos($userAgent, 'Java') !== false;
-	$isCellModelRepo = strpos($repo, 'biomodels') !== false;
+    $isRequestComingFromRealUser = strpos($userAgent, 'Java') === false;
+    $isCellModelRepo = strpos($repo, 'biomodels') == false;
 
 	if( $isRequestComingFromRealUser){
 		if($isCellModelRepo){
