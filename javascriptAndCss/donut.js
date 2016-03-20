@@ -3,7 +3,7 @@ function donut(date1, date2){
 	d3.selectAll('#donutpage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-selectChart("donutpage");
+	selectChart("donutpage");
 	$('#donutButton').fadeIn();
 	
 	var width = 610,
@@ -61,7 +61,7 @@ selectChart("donutpage");
 					.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id]["url"], filestats[this.__data__.data.model + this.__data__.data.version2id]["url"],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id], filestats[this.__data__.data.model + this.__data__.data.version2id],"reportHtml", "#info")});
 
 
 	function type(d) {

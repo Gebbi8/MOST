@@ -76,7 +76,17 @@
 				
 			</div>
 			
-			<div id="info"></div>
+			<div id="bivesInfo">
+				<div id="bivesGeneralInfo">
+					<h3>Comparison of Models</h3>
+					<div id="bivesComparedModels">
+						<a id="bivesOriginalModel"></a> <span id="bivesOriginalModelSupp"></span><br />
+						<a id="bivesModifiedModel"></a> <span id="bivesModifiedModelSupp"></span>
+					</div>
+				</div>
+				<div id="bivesResult">
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -143,6 +153,7 @@ var charts = [
 "heatmappage",
 "box1page",
 "box2page",
+"bivesInfo"
 ];
 
 // select the landing page as start
