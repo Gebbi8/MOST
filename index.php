@@ -8,7 +8,7 @@
 <body>
 
 	<div id="choiceDiv">
-	<img id="logo" src="image/logo.svg" alt="">
+	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
 	  <div id="choiceChart" class="chart">
 	    <div class="title">Timespan<button id="smallInfoTimespan" class="smallInfo">i</button>
@@ -153,7 +153,7 @@ $("#donutbutton").click (function (){donut (window.extent[0], window.extent[1]);
 $("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
 $("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
 $("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
-
+$("#logolink").click (function (){selectChart("landingpage");;});
 
 // load info material and fill the i-buttons
 $.getJSON("javascriptAndCss/info.json", function(json){
