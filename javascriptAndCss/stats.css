@@ -150,6 +150,16 @@ footer {
     background: url(../image/arrows.png)  3px -171px no-repeat #f3f3f3;
 }
 
+#cellML {
+    background: url(../image/CellML_Logo.svg)  no-repeat center center / contain;
+	height: 100px;
+}
+#bioModels {
+    background: url(../image/BioModels_Database_logo_2014.png)  no-repeat center center / contain;
+	height: 100px;
+}
+
+
 
 /* MENU */
 #menu li{

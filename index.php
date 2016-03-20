@@ -42,8 +42,11 @@
 												
 				
 				<h3>Acknowledgments</h3>
-				<p id="acknowledgments"> 
+				<p id="acknowledgments">
 				</p>
+				<div id="bioModels"></div>
+				<div id="cellML"></div>
+				
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
