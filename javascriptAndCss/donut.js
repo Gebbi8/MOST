@@ -39,11 +39,9 @@ function donut(date1, date2){
 			//filter by date
 			
 			var data = diffstats.filter(function(d){
-				
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
-// 				console.log (/*ddatum*/);
-				return date1 < ddatum && ddatum < date2; });
-			//filter by modelType
+				return date1 < ddatum && ddatum < date2;
+			});
 			
 			console.log (data);
 			
@@ -63,23 +61,7 @@ function donut(date1, date2){
 					.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(this.__data__.data.model, this.__data__.data.version1, this.__data__.data.version2, "reportHtml", "#info")});
-	/*		d3.selectAll("input")
-			    .on("change", change);
-
-		var timeout = setTimeout(function() {
-			d3.select("input[value=\"bives\"]").property("checked", true).each(change);
-		}, 2000);
-
-		function change() {
-			var value = this.value;
-			clearTimeout(timeout);
-			pie.value(function(d) { return d[value]; }); // change the value function
-			path = path.data(pie); // compute the new angles
-			path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
-		}*/
-		
-// 		});
+					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id]["url"], filestats[this.__data__.data.model + this.__data__.data.version2id]["url"],"reportHtml", "#info")});
 
 
 	function type(d) {

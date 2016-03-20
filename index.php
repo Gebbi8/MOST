@@ -86,12 +86,10 @@ var filestats = {};
 var diffstats = {};
 
 
-
 $("#donutbutton").click (function ()
 {
-	donut(window.extent[0], window.extent[1]);
+	donut (window.extent[0], window.extent[1]);
 });
-// onclick="donut(window.extent[0], window.extent[1])"
 
 
 
