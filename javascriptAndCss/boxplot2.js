@@ -35,7 +35,7 @@ selectChart("box2page");
 		   .attr("class", "onoffswitch-switch");
 	var x,x2,y;
 
-	var margin = {top: 10, right: 5, bottom: 20, left: 100},
+	var margin = {top: 10, right: 5, bottom: 20, left: 110},
 				width = 610 - margin.left - margin.right,
 				height = 410 - margin.top - margin.bottom;
 
