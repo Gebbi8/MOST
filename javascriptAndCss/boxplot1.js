@@ -173,7 +173,7 @@ function boxplot(date1, date2){
 			if(uW == 0){ boxData[i][4] = 0; boxData2[i][4] = 0;} else {boxData[i][4] = x(uW); boxData2[i][4] = x2(uW);};
 		}
 
-		drawBoxes(boxData, boxData2, data);
+		
 
 		svg.append("g")
 				.attr("class", "x axis")
@@ -194,6 +194,8 @@ function boxplot(date1, date2){
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
 				  .call(yAxis);
+		
+		drawBoxes(boxData, boxData2, data);
 
 	/*var testArr = [0,1,2,3,4,5];
 	var controlArr = [];
