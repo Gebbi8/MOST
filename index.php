@@ -147,8 +147,7 @@ function attachInfo (smallInfo, infoBox, infoMsg)
 
 var filestats = {};
 var diffstats = {};
-var extent =[Date.parse("01-01-2010"), Date.parse("01-01-2011")];
-var infoMode = "start";
+var extent =[moment("2010-01-01"), moment("2011-01-01	")];
 
 var charts = [
 "landingpage",
