@@ -35,7 +35,7 @@ selectChart("box2page");
 		   .attr("class", "onoffswitch-switch");
 	var x,x2,y;
 
-	var margin = {top: 10, right: 5, bottom: 20, left: 100},
+	var margin = {top: 10, right: 5, bottom: 20, left: 110},
 				width = 610 - margin.left - margin.right,
 				height = 410 - margin.top - margin.bottom;
 
@@ -104,7 +104,7 @@ selectChart("box2page");
 		
 			//discard diff if all values equal 0
 		
-			if(d.bivesnode + d.bivesattribute + d.bivestext < 20) { //?????????????????????????
+			if(d.bivesnode + d.bivesattribute + d.bivestext < 20) {
 				//console.log(d.bivesmove, d.bivesdelete, d.bivesinsert,d.bivesupdate);
 			}
 			else {
@@ -170,7 +170,7 @@ selectChart("box2page");
 			if(uW == 0){ boxData[i][4] = 0; boxData2[i][4] = 0;} else {boxData[i][4] = x(uW); boxData2[i][4] = x2(uW);};
 		}
 
-		drawBoxes(boxData, boxData2, data);
+
 
 		svg.append("g")
 				.attr("class", "x axis")
@@ -180,6 +180,7 @@ selectChart("box2page");
 		svg.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
+					.attr()
 				  .call(yAxis);
 
 		svg2.append("g")
@@ -191,6 +192,8 @@ selectChart("box2page");
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
 				  .call(yAxis);
+
+		drawBoxes(boxData, boxData2, data);
 
 	/*var testArr = [0,1,2,3,4,5];
 	var controlArr = [];
@@ -272,9 +275,9 @@ selectChart("box2page");
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][0])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes[i][0])
-				.attr("y2", 55 + i*120 - boxHeight/2);
+				.attr("y2", 59 + i*131 - boxHeight/2);
 
 			//untere Ausreißer
 			for(var j = 0; j < data[i].length; j++){
@@ -282,7 +285,7 @@ selectChart("box2page");
 					svg.append("circle")
 						.style("stroke", "black")
 						.attr("cx", x(data[i][j]))
-						.attr("cy", 55 + i*120)
+						.attr("cy", 59 + i*131)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = data[i].length;}
@@ -291,9 +294,9 @@ selectChart("box2page");
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][4])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 55 + i*120 - boxHeight/2);
+				.attr("y2", 59 + i*131 - boxHeight/2);
 
 			//obere Ausreißer
 			for(var j = data[i].length-1; j > 0; j--){
@@ -302,7 +305,7 @@ selectChart("box2page");
 					svg.append("circle")
 						.style("stroke", "black")
 						.attr("cx", x(data[i][j]))
-						.attr("cy", 55 + i*120)
+						.attr("cy", 59 + i*131)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = 0;}
@@ -312,34 +315,34 @@ selectChart("box2page");
 				.style("stroke", "black")
 				.style("stroke-dasharray", ("3, 3")) 
 				.attr("x1", boxes[i][0])
-				.attr("y1", 55 + i*120)
+				.attr("y1", 59 + i*131)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 55 + i*120);	
+				.attr("y2", 59 + i*131);	
 
 			svg.append("rect")
 				.style("fill", color[i])
 				.style("stroke-width", 1)
 				.style("stroke", "black")
 				.attr("x", boxes[i][1])
-				.attr("y", 55 + i*120 - boxHeight/2)
+				.attr("y", 59 + i*131 - boxHeight/2)
 				.attr("width", boxes[i][3] - boxes[i][1])
 				.attr("height", boxHeight);
 			
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][2])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes[i][2])
-				.attr("y2", 55 + i*120 - boxHeight/2)
+				.attr("y2", 59 + i*131 - boxHeight/2)
 
 		///////draw linear svg
 			//draw Whiskers
 			svg2.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes2[i][0])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes2[i][0])
-				.attr("y2", 55 + i*120 - boxHeight/2);
+				.attr("y2", 59 + i*131 - boxHeight/2);
 
 			//untere Ausreißer
 			for(var j = 0; j < data[i].length; j++){
@@ -347,7 +350,7 @@ selectChart("box2page");
 					svg2.append("circle")
 						.style("stroke", "black")
 						.attr("cx", x2(data[i][j]))
-						.attr("cy", 55 + i*120)
+						.attr("cy", 59 + i*131)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = data[i].length;}
@@ -356,16 +359,16 @@ selectChart("box2page");
 			svg2.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes2[i][4])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes2[i][4])
-				.attr("y2", 55 + i*120 - boxHeight/2);
+				.attr("y2", 59 + i*131 - boxHeight/2);
 		//obere Ausreißer
 			for(var j = data[i].length-1; j > 0; j--){
 				if(x2(data[i][j]) > boxes2[i][4]){
 					svg2.append("circle")
 						.style("stroke", "black")
 						.attr("cx", x2(data[i][j]))
-						.attr("cy", 55 + i*120)
+						.attr("cy", 59 + i*131)
 						.attr("r", 5)
 						.attr("fill", "none");
 				} else {j = 0;}
@@ -375,25 +378,25 @@ selectChart("box2page");
 				.style("stroke", "black")
 				.style("stroke-dasharray", ("3, 3")) 
 				.attr("x1", boxes2[i][0])
-				.attr("y1", 55 + i*120)
+				.attr("y1", 59 + i*131)
 				.attr("x2", boxes2[i][4])
-				.attr("y2", 55 + i*120);	
+				.attr("y2", 59 + i*131);	
 
 			svg2.append("rect")
 				.style("fill", color[i])
 				.style("stroke-width", 1)
 				.style("stroke", "black")
 				.attr("x", boxes2[i][1])
-				.attr("y", 55 + i*120 - boxHeight/2)
+				.attr("y", 59 + i*131 - boxHeight/2)
 				.attr("width", boxes2[i][3] - boxes2[i][1])
 				.attr("height", boxHeight);
 			
 			svg2.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes2[i][2])
-				.attr("y1", 55 + i*120 + boxHeight/2)
+				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes2[i][2])
-				.attr("y2", 55 + i*120 - boxHeight/2)
+				.attr("y2", 59 + i*131 - boxHeight/2)
 			
 		}
 	}
@@ -423,7 +426,7 @@ selectChart("box2page");
 
 
 
-		console.log("TEST!!!!!!!!!!");
+		//console.log("TEST!!!!!!!!!!");
   }
 
 }

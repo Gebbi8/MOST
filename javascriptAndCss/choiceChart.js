@@ -22,7 +22,8 @@ var svg = d3.select("#choiceChart").append("svg")
 		  .attr("transform", "translate(50,30)");		
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
-var year = d3.time.format("%Y-%m");
+//var parseDate = d3.time.format("%d/%m/%Y").parse;
+//var year = d3.time.format("%m/%Y");
 
 
 
@@ -139,10 +140,15 @@ function tuwatt ()
 					.attr("fill", "white");	
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
-var parseDate2 = d3.time.format("%b %d %Y").parse;
+//var parseDate2 = d3.time.format("%b %d %Y").parse;
+//var parseDate = d3.time.format("%d/%m/%Y").parse;
+var parseDate2 = d3.time.format("%Y-%m-%d").parse;
 
-var date1 = parseDate2(document.getElementById("date1").value);
-var date2 = parseDate2(document.getElementById("date2").value);
+/* var date1 = parseDate2(document.getElementById("date1").value);
+var date2 = parseDate2(document.getElementById("date2").value); */
+
+var date1 = moment(document.getElementById("date1").value);
+var date2 = moment(document.getElementById("date2").value);
 
 var brush = d3.svg.brush()
 	.x(x)
@@ -182,32 +188,34 @@ labels = form.selectAll("label")
     })
     .property("checked", function(d, i) {return i===j;});
 
-var hold = -1;
+var hold = -1; var wait = 1;
 
 var date1Up = document.getElementById("date1Up");
 date1Up.onmouseup = function(){ hold = 0;};
 date1Up.onmouseout = function(){ hold = 0;};
-date1Up.onmousedown = function () { hold = -1; holdit("date1", "up");};
+date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
 
 var date1Down = document.getElementById("date1Down");
 date1Down.onmouseup = function(){ hold = 0;};
 date1Down.onmouseout = function(){ hold = 0;};
-date1Down.onmousedown = function () { hold = -1; holdit("date1", "down");};
+date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
 
 var date2Up = document.getElementById("date2Up");
 date2Up.onmouseup = function(){ hold = 0;};
 date2Up.onmouseout = function(){ hold = 0;};
-date2Up.onmousedown = function () { hold = -1; holdit("date2", "up");};
+date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
 
 var date2Down = document.getElementById("date2Down");
 date2Down.onmouseup = function(){ hold = 0;};
 date2Down.onmouseout = function(){ hold = 0;};
-date2Down.onmousedown = function () { hold = -1; holdit("date2", "down");};
+date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
 
 var date1Field = document.getElementById("date1");
 date1Field.addEventListener("keydown", function (e) {
 	if(e.keyCode === 13){
 		var newDate = Date.parse(date1Field.value);
+		console.log(newDate);
+		alert("jupp");
 		if(newDate != null){
 			if(newDate < minVersion2){
 				newDate = minVersion2;
@@ -247,11 +255,26 @@ date2Field.addEventListener("keydown", function (e) {
 });
 
 function holdit(btn, mode) {
-	if (hold == -1){
+	console.log(hold, wait)
+/* 	var testDay = moment("01/01/2010");
+	console.log(moment(testDay).format('DD/MM/YYYY'));
+	console.log(testDay);
+	testDay.add(1, 'days');
+	console.log(testDay);	
+	console.log(moment(testDay).format('DD/MM/YYYY'));
+	testDay.add(1, 'days');
+	console.log(testDay);	
+	console.log(moment(testDay).format('DD/MM/YYYY')); */
+	if (hold == -1 && wait == 1){
 		setTimeout(function(){
+			wait = 0;
 			if(mode === "up"){
-				var newDate = Date.parse(document.getElementById(btn).value).add(1).days();
-				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				//console.log("a " + document.getElementById(btn).value);
+				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+				//console.log("b " + newDate);
+				//console.log(Date.parse(date1Field.value));
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				//console.log("c " + document.getElementById(btn).value);
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -262,8 +285,8 @@ function holdit(btn, mode) {
 				extent = brush.extent();
 				brushed();
 			} else {
-				var newDate = Date.parse(document.getElementById(btn).value).add(-1).days();
-				document.getElementById(btn).value = newDate.toString().substr(4,11);
+				var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -276,8 +299,43 @@ function holdit(btn, mode) {
 			}
 					
 			holdit(btn, mode);
-		}, 100);
-  }
+		}, 300);
+	} else if (hold == -1){
+		setTimeout(function(){
+			wait = 0;
+			if(mode === "up"){
+				//console.log("a " + document.getElementById(btn).value);
+				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+				//console.log("b " + newDate);
+				//console.log(Date.parse(date1Field.value));
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				//console.log("c " + document.getElementById(btn).value);
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			} else {
+				var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+				if(btn == "date2"){
+					brush.extent([date1, newDate]);
+					date2 = newDate;
+				} else {
+					brush.extent([newDate, date2]);
+					date1 = newDate;
+				}
+				extent = brush.extent();
+				brushed();
+			}
+					
+			holdit(btn, mode);
+		}, 1);
+	}
 };
 
 function brushed() {
@@ -286,10 +344,10 @@ function brushed() {
 
 function brushmove() {
 	extent = brush.extent();
-	date1 = window.extent[0];
-	date2 = window.extent[1];
-	document.getElementById("date1").value = window.extent[0].toString().substr(4,11);
-	document.getElementById("date2").value = window.extent[1].toString().substr(4,11);
+	date1 = moment(window.extent[0]);
+	date2 = moment(window.extent[1]);
+	document.getElementById("date1").value = date1.format('YYYY-MM-DD');
+	document.getElementById("date2").value = date2.format('YYYY-MM-DD');
 }
 
 function brushend() {

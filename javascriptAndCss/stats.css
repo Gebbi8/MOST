@@ -90,7 +90,7 @@ footer {
 
 /* BUTTONS */
 .buttons {
-    float: left;
+	display: flex;
     padding-bottom: 20px;
     clear: both;
 }
@@ -163,9 +163,20 @@ footer {
 	height: 100px;
 }
 
+.floatlogo {
+    float: left;
+    width: 150px;
+    height: 75px;
+    margin: 10px; 
+}
+
 
 
 /* MENU */
+#menu {
+	 text-align: center 
+}
+
 #menu li{
 	display: table-cell;
 	padding: 20px;

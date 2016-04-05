@@ -3,6 +3,7 @@
 <head>
 	<title>Stats-website</title>
   <meta charset="UTF-8">
+<link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
 </head>
 <body>
@@ -15,12 +16,12 @@
 			<div class="infoBox" id="timeSpanBox"></div>
 		</div>
 				<div class="buttons">
-					<input type="date" id="date1" value="Jan 01 2010">
+					<input type="date" id="date1" value="2010-01-01">
 						<a href="#" class="button left up" id="date1Up"></a>
 						<a href="#" class="button right down" id="date1Down"></a>
 				</div>
 				<div class="buttons">
-					<input type="date" id="date2" value="Jan 01 2011">
+					<input type="date" id="date2" value="2011-01-01">
 						<a href="#" class="button left up" id="date2Up"></a>
 						<a href="#" class="button right down" id="date2Down"></a>
 				</div>
@@ -45,9 +46,11 @@
 					<h3>Acknowledgments</h3>
 					<p id="acknowledgments">
 					</p>
-					<div id="bioModels"></div>
-					<div id="cellML"></div>
-					<div id="bives"></div>
+					<div id="linkLogos">
+						<a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
+						<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a>
+						<a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a>
+					</div>
 				</div>
 				
 				<div id="donutpage">
@@ -98,7 +101,7 @@
 
 <script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="thirdParty/date.js"></script>
+<script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
 <script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
@@ -144,8 +147,7 @@ function attachInfo (smallInfo, infoBox, infoMsg)
 
 var filestats = {};
 var diffstats = {};
-var extent =[Date.parse("Jan 01 2010"), Date.parse("Jan 01 2011")];
-var infoMode = "start";
+var extent =[moment("2010-01-01"), moment("2011-01-01	")];
 
 var charts = [
 "landingpage",
