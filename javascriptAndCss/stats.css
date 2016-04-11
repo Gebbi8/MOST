@@ -28,6 +28,7 @@ body { /*vorher midDiv*/
   margin-left: 350px;
 	overflow: auto;
 	height: inherit;
+	padding-left: 5px;
 }
 
 #choiceDiv {
@@ -37,6 +38,7 @@ body { /*vorher midDiv*/
 	min-height: 900px;
   background-color: #004A99;
 	height: inherit;
+	padding-left: 5px;
 }
 
 #choiceChart{
@@ -369,7 +371,7 @@ body {
 
 #dataButton{
 	position: absolute;
-	left:60px;
+	left:65px;
 	top: 810px;
 }
 
@@ -424,4 +426,37 @@ body {
 	left: 35px;
 	color: white;
 	
+}
+#bivesResult td
+{
+	color: black;
+}
+#bivesResult tr:nth-child(even) {background: #e6f2ff}
+#bivesResult tr:nth-child(odd) {background: #fff}
+#bivesResult th,
+#bivesResult td.highlighttd
+{
+	color: white;
+	background-color: #004A99;
+}
+#bivesResult .attr
+{
+	color: #004A99;
+}
+#bivesResult .delete
+{
+	color: #ff4141;
+}
+#bivesResult .insert
+{
+	color: #31c149;
+}
+#bivesResult .modified
+{
+	color: #db8838;
+}
+#bivesResult td, 
+#bivesResult th
+{
+	padding: 5px;
 }
