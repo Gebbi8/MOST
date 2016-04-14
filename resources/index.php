@@ -16,22 +16,49 @@ function prep ($str)
     return strip_tailing_slashes (base64_decode ($str));
 }
 
+function getXml ($userAgent, $httpAccept)
+{
+	// java tool always gets the xml
+	if (strpos($userAgent, 'Java') !== false)
+		return true;
+	
+	// otherwise we evaluate the Accept: contents of the header
+	if ($httpAccept)
+	{
+		$acc = explode (',', $httpAccept);
+		foreach ($acc as $a)
+		{
+			if (strpos($a, 'application/xml') !== false || strpos($a, 'text/xml') !== false)
+				return true;
+			if (strpos($a, 'html') !== false)
+				return false;
+		}
+	}
+	// default: html
+	return false;
+}
+
 
 $url = explode ("/", $_SERVER["REQUEST_URI"]);
 if (count ($url) != 5 || $url[1] != "resources")
     die ("access denied.");
 
 
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
 $repo = prep ($url[2]);
 $model = prep ($url[3]);
 $version = prep ($url[4]);
 
-
-$isRequestComingFromRealUser = strpos($userAgent, 'Java') === false;
 $isCellModelRepo = strpos($repo, 'biomodels') === false;
 
-if( $isRequestComingFromRealUser)
+$httpAccept = "";
+$userAgent = "";
+if (isset ($_SERVER["HTTP_ACCEPT"]))
+	$httpAccept = $_SERVER["HTTP_ACCEPT"];
+if (isset ($_SERVER["HTTP_USER_AGENT"]))
+	$userAgent = $_SERVER["HTTP_USER_AGENT"];
+
+
+if( !getXml ($userAgent, $httpAccept) )
 {
     if($isCellModelRepo)
     {
