@@ -6,7 +6,7 @@ function getBivesData(v1, v2, command, place){
 	$("#bivesInfo").show ();
 	
 	$("#bivesOriginalModel").attr ("href", v1.url).text (v1.model + " in version " + v1.versionid);
-	$("#bivesModifiedModel").attr ("href", v2.url).text (v1.model + " in version " + v1.versionid);
+	$("#bivesModifiedModel").attr ("href", v2.url).text (v2.model + " in version " + v2.versionid);
 	
 	$("#bivesOriginalModelSupp").text ("(" + v1.date + ")");
 	$("#bivesModifiedModelSupp").text ("(" + v1.date + ")");
