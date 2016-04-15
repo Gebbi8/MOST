@@ -54,11 +54,7 @@ function init ()
 			activateFilesFilter (filterTimeFiles);
 			activateDiffsFilter (filterTimeDiffs);
 			
-			
-			filestats = applyFilesFilters ();
-			diffstats = applyDiffsFilters ();
-			console.log (diffstats);
-			console.log (diffstats.length);
+			applyFilters ();
 			
 			// if that's done we can initialise the choise chart
 			initialiseChoiceChart ();
@@ -245,22 +241,22 @@ labels = form.selectAll("label")
 var hold = -1; var wait = 1;
 
 var date1Up = document.getElementById("date1Up");
-date1Up.onmouseup = function(){ hold = 0;};
+date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
 date1Up.onmouseout = function(){ hold = 0;};
 date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
 
 var date1Down = document.getElementById("date1Down");
-date1Down.onmouseup = function(){ hold = 0;};
+date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
 date1Down.onmouseout = function(){ hold = 0;};
 date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
 
 var date2Up = document.getElementById("date2Up");
-date2Up.onmouseup = function(){ hold = 0;};
+date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
 date2Up.onmouseout = function(){ hold = 0;};
 date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
 
 var date2Down = document.getElementById("date2Down");
-date2Down.onmouseup = function(){ hold = 0;};
+date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
 date2Down.onmouseout = function(){ hold = 0;};
 date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
 
@@ -279,6 +275,7 @@ date1Field.addEventListener("keydown", function (e) {
 			brush.extent([newDate, date2]);
 			date1 = newDate;
 			extent = brush.extent();
+	console.log ("date1Field.addEventListener");
 			brushed();
 		} else {
 			alert("Please enter a correct date.");
@@ -301,6 +298,7 @@ date2Field.addEventListener("keydown", function (e) {
 			brush.extent([date1, newDate]);
 			date2 = newDate;
 			extent = brush.extent();
+	console.log ("date2Field.addEventListener");
 			brushed();
 		} else {
 			alert("Please enter a correct date.");
@@ -408,10 +406,7 @@ function brushend() {
 // 	alert("brushEND");
 	svg.select(".brush").call(brush);
 	extent = brush.extent();
-	
-	
-	filestats = applyFilesFilters ();
-	diffstats = applyDiffsFilters ();
+	applyFilters ();
 }
 
 }

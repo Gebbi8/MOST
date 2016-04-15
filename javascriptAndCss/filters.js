@@ -13,6 +13,12 @@ var activeDiffsFilters = [];
 
 // APPLY FILTERS
 
+function applyFilters ()
+{
+	filestats = applyFilesFilters ();
+	diffstats = applyDiffsFilters ();
+}
+
 // apply active file filters
 function applyFilesFilters ()
 {
