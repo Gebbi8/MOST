@@ -62,7 +62,36 @@ function init ()
 	});
 
 
+$("#BioModelsFilter").click (function ()
+{
+	if (this.checked)
+	{
+		deactivateFilesFilter (filterRemoveSbmlFiles);
+		deactivateDiffsFilter (filterRemoveSbmlDiffs);
+	}
+	else
+	{
+		activateFilesFilter (filterRemoveSbmlFiles);
+		activateDiffsFilter (filterRemoveSbmlDiffs);
+	}
+	applyFilters ();
+});
 
+
+$("#CellMLFilter").click (function ()
+{
+	if (this.checked)
+	{
+		deactivateFilesFilter (filterRemoveCellmlFiles);
+		deactivateDiffsFilter (filterRemoveCellmlDiffs);
+	}
+	else
+	{
+		activateFilesFilter (filterRemoveCellmlFiles);
+		activateDiffsFilter (filterRemoveCellmlDiffs);
+	}
+	applyFilters ();
+});
 
 
 
@@ -70,7 +99,7 @@ function init ()
 	selectChart("landingpage");
 
 	// register click-listeners to the tab-buttons
-	$("#donutbutton").click (function (){donut (window.extent[0], window.extent[1]);});
+	$("#donutbutton").click (function (){donut (diffstats);});
 	$("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
 	$("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
 	$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
@@ -82,13 +111,13 @@ function init ()
 
 	// load info material and fill the i-buttons
 	$.getJSON("javascriptAndCss/info.json", function(json){
-
-		attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan);
-		attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset);
-		attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage);
-		attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage);
-		attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage);
-		attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage);
+		
+		attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan, -20, 80);
+		attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset, -20, 80);
+		attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage, 150, -80);
+		attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage, 150, -80);
+		attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage, 150, -80);
+		attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage, 150, -80);
 
 		//load startpage info from json
 		$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
@@ -110,20 +139,9 @@ function init ()
 
 function initialiseChoiceChart ()
 {
-	rows=originalDiffstats;
-//  	console.log (rows[0]);
-	
-	rows.sort(function(a, b) {
-                return d3.ascending(a.version2id, b.version2id);
-        });	
-	
 	var counts = {};
-	rows.forEach(function(r) {
-		
-		
-		
+	originalDiffstats.forEach(function(r) {
 		var datum = originalFilestats[ r["model"] + r["version2id"]  ].date;
-		
     if (!counts[datum]) {
         counts[datum] = 0;
     }
@@ -148,7 +166,7 @@ function initialiseChoiceChart ()
 	
 	
 	
-var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
+var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 200;
 var x = d3.time.scale().range([0, timewidth]);
 var y = d3.scale.linear().range([timeheight, 0]);
 var xAxis = d3.svg.axis().scale(x).ticks(5).tickFormat(d3.time.format("%Y"));
@@ -191,7 +209,7 @@ var svg = d3.select("#choiceChartChart").append("svg")
 					.enter()
 					.append("rect")
 				  .attr("class", "bar")
-				  .attr("x", function(d) { var meinx = x(d.datum); if (isNaN (meinx)){ console.log ("das is nan: " + meinx); /*console.log (d.datum); console.log (new Date(d.datum)); console.log (x(new Date(d.datum)));*/} return meinx; })
+				  .attr("x", function(d) { return x(d.datum); })
 				  .attr("width", timewidth / data.length) 
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
@@ -211,32 +229,6 @@ svg.append("g")
 	.call(brush)
 .selectAll('rect')
 	.attr('height', timeheight);
-
-
-var modelType = ["BioModels", "CellML"], 
-    j = 0;  // Choose the rectangle as default
-
-// Create the shape selectors
-/*var dataset = d3.select('#choiceChart')
-	.append("text")
-	.text("Dataset");
-
-var form = d3.select("#choiceChart").append("form");
-
-labels = form.selectAll("label")
-    .data(modelType)
-    .enter()
-    .append("label")
-    .text(function(d) {return d;})
-    .insert("input")
-    .attr({
-		id: function(d, i) { return d;},
-        type: "checkbox",
-        class: "modelType",
-        name: "mode",
-        value: function(d, i) {return i;}
-    })
-    .property("checked", function(d, i) {return i===j;});*/
 
 var hold = -1; var wait = 1;
 
@@ -275,7 +267,7 @@ date1Field.addEventListener("keydown", function (e) {
 			brush.extent([newDate, date2]);
 			date1 = newDate;
 			extent = brush.extent();
-	console.log ("date1Field.addEventListener");
+	applyFilters ();
 			brushed();
 		} else {
 			alert("Please enter a correct date.");
@@ -298,7 +290,7 @@ date2Field.addEventListener("keydown", function (e) {
 			brush.extent([date1, newDate]);
 			date2 = newDate;
 			extent = brush.extent();
-	console.log ("date2Field.addEventListener");
+	applyFilters ();
 			brushed();
 		} else {
 			alert("Please enter a correct date.");
@@ -307,26 +299,12 @@ date2Field.addEventListener("keydown", function (e) {
 });
 
 function holdit(btn, mode) {
-	console.log(hold, wait)
-/* 	var testDay = moment("01/01/2010");
-	console.log(moment(testDay).format('DD/MM/YYYY'));
-	console.log(testDay);
-	testDay.add(1, 'days');
-	console.log(testDay);	
-	console.log(moment(testDay).format('DD/MM/YYYY'));
-	testDay.add(1, 'days');
-	console.log(testDay);	
-	console.log(moment(testDay).format('DD/MM/YYYY')); */
 	if (hold == -1 && wait == 1){
 		setTimeout(function(){
 			wait = 0;
 			if(mode === "up"){
-				//console.log("a " + document.getElementById(btn).value);
 				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
-				//console.log("b " + newDate);
-				//console.log(Date.parse(date1Field.value));
 				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
-				//console.log("c " + document.getElementById(btn).value);
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;
@@ -356,12 +334,8 @@ function holdit(btn, mode) {
 		setTimeout(function(){
 			wait = 0;
 			if(mode === "up"){
-				//console.log("a " + document.getElementById(btn).value);
 				var newDate = moment(document.getElementById(btn).value).add(1, 'd');
-				//console.log("b " + newDate);
-				//console.log(Date.parse(date1Field.value));
 				document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
-				//console.log("c " + document.getElementById(btn).value);
 				if(btn == "date2"){
 					brush.extent([date1, newDate]);
 					date2 = newDate;

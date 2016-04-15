@@ -104,9 +104,9 @@ function deactivateFilesFilter (filter)
 // deactivate a diff filter
 function deactivateDiffsFilter (filter)
 {
-	for (var i = activeFilesFilters.length - 1; i >= 0; i--)
-		if (activeFilesFilters[i] == filter)
-			activeFilesFilters.splice(i, 1)
+	for (var i = activeDiffsFilters.length - 1; i >= 0; i--)
+		if (activeDiffsFilters[i] == filter)
+			activeDiffsFilters.splice(i, 1)
 }
 
 
@@ -141,6 +141,21 @@ function filterRemoveSbmlFiles (table)
 	return filtered;
 }
 
+function filterRemoveSbmlDiffs (table)
+{
+	var filtered = [];
+	for (var id = 0; id < table.length; id++)
+	{
+		if (table[id]["modeltype"] != "SBML")
+			filtered.push (table[id]);
+	}
+	return filtered;
+}
+
+
+
+
+
 
 function filterRemoveCellmlFiles (table)
 {
@@ -152,6 +167,23 @@ function filterRemoveCellmlFiles (table)
 	}
 	return filtered;
 }
+
+function filterRemoveCellmlDiffs (table)
+{
+	var filtered = [];
+	for (var id = 0; id < table.length; id++)
+	{
+		if (table[id]["modeltype"] != "CellML")
+			filtered.push (table[id]);
+	}
+	return filtered;
+}
+
+
+
+
+
+
 
 
 // filter for times in the files table
@@ -170,22 +202,14 @@ function filterTimeFiles (table)
 // filter for times in the diffs table
 function filterTimeDiffs (table)
 {
-	var n = 0;
 	var filtered = [];
 	for (var id = 0; id < table.length; id++)
 	{
-// 		if (n++ < 10)
-// 			console.log (id + " -- " + table[id]);
+		var datum1 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
+		var datum2 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
 		
-		
-		if (table.hasOwnProperty(id))
-		{
-			var datum1 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
-			var datum2 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
-			
-			if (datum1 >= extent[0] && datum1 <= extent[1] && datum2 >= extent[0] && datum2 <= extent[1])
-				filtered.push (table[id]);
-		}
+		if (datum1 >= extent[0] && datum1 <= extent[1] && datum2 >= extent[0] && datum2 <= extent[1])
+			filtered.push (table[id]);
 	}
 	return filtered;
 }

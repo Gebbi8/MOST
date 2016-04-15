@@ -9,7 +9,7 @@ function getBivesData(v1, v2, command, place){
 	$("#bivesModifiedModel").attr ("href", v2.url).text (v2.model + " in version " + v2.versionid);
 	
 	$("#bivesOriginalModelSupp").text ("(" + v1.date + ")");
-	$("#bivesModifiedModelSupp").text ("(" + v1.date + ")");
+	$("#bivesModifiedModelSupp").text ("(" + v2.date + ")");
 	
 	var bivesJob = {
 		files:

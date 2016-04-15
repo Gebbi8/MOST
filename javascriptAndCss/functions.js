@@ -16,16 +16,20 @@ function selectChart (chart)
 * infoBox: the grey box that will pop-up
 * infoMsg: the message to be displayed
 */
-function attachInfo (smallInfo, infoBox, infoMsg)
+function attachInfo (smallInfo, infoBox, infoMsg, top, left)
 {
-	$(smallInfo).click (function(){
-		if( $(infoBox).is(':empty') ){
-			$(infoBox).append(infoMsg);
-		} else {
-			$(infoBox).contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
+	$(infoBox).append(infoMsg);
+ 	$(infoBox).hide();
+	$(smallInfo).click (function(event){
+        $(infoBox).popup({
+            tooltipanchor: event.target,
+            autoopen: true,
+            type: 'tooltip',
+  opacity: 0.3,
+  transition: 'all 0.3s',
+	offsettop: top,
+	offsetleft: left
+        });
 	});
 }
 

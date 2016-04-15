@@ -358,39 +358,28 @@ body {
 	transform: translate(0%, -50%);
 }
 
-#timeSpanBox{
-	top: 235px;
-	left: 105px;
-	transform: translate(0%,-100%);
-}
-
-#smallInfoTimespan{
+#smallInfoTimespan,
+#smallInfoDataset
+{
 	margin-left: 5px;
 	margin-bottom: 5px;
 }
 
-#dataButton{
-	position: absolute;
-	left:65px;
-	top: 810px;
-}
-
-#datasetBox{
-	top: 10px;
-	right: -305px;
-	color: white;
-	transform: translate(0%,-100%);
-}
-
-#donutButton{
+#donutButton
+{
 	position: relative;
 	left: 500px;
 	top: 60px;
 	display: none;
 }
 
-#donutBox{
-	left: 35px;
+#donutBox,
+#datasetBox,
+#timeSpanBox,
+#heatBox,
+#box1Box,
+#box2Box
+{
 	color: white;
 }
 
@@ -400,10 +389,6 @@ body {
 	display: none;
 }
 
-#heatBox{
-	left: 35px;
-	color: white;
-}
 
 #box1Button{
 	position: relative;
@@ -411,21 +396,10 @@ body {
 	display: none;
 }
 
-#box1Box{
-	left: 35px;
-	color: white;
-}
-
 #box2Button{
 	position: relative;
 	left: 650px;
 	display: none;
-}
-
-#box2Box{
-	left: 35px;
-	color: white;
-	
 }
 #bivesResult td
 {

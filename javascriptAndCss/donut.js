@@ -1,4 +1,4 @@
-function donut(date1, date2){
+function donut(table){
 	$('.menuInfoButton').fadeOut();
 	d3.selectAll('#donutpage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
@@ -19,7 +19,7 @@ function donut(date1, date2){
 	    .sort(null);
  	
 	var arc = d3.svg.arc()
-	    .innerRadius(radius - 125)
+	    .innerRadius(radius - 155)
 	    .outerRadius(radius - 45);
 
 	//text field overlay
@@ -34,33 +34,17 @@ function donut(date1, date2){
 	    .attr("height", height)
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
 			
-			var data = diffstats.filter(function(d){
-				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
-				return date1 < ddatum && ddatum < date2;
-			});
 			
-			console.log (data);
-			
-			if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
-				if(document.getElementById('BioModels').checked) {
-					data = data.filter(function(d){return d.modeltype == 'SBML'})
-				} else {
-					data = data.filter(function(d){return d.modeltype == 'CellML'})
-				}
-			}
-			var path = svg.datum(data).selectAll("path")
+			var path = svg.datum(table).selectAll("path")
 			    .data(pie)
 			  	.enter().append("path")
 			    .attr("fill", function(d, i) { return color(i); })
 			    .attr("d", arc)
-			    //.each(function(d) { this._current = d; }) // store the initial angles
 					.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id], filestats[this.__data__.data.model + this.__data__.data.version2id],["reportHtml","reactionsDot"], "#info")});
-
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.data.model + this.__data__.data.version1id], originalFilestats[this.__data__.data.model + this.__data__.data.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
 	function type(d) {
 		d.unix = +d.unix;	

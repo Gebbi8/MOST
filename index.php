@@ -11,8 +11,9 @@
 <script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="javascriptAndCss/functions.js"></script>
+<script type="text/javascript" src="thirdParty/jquery.popupoverlay.js"></script>
 
+<script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
 <script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
@@ -43,8 +44,10 @@
 			</div>
 			<div id="choiceChartChart" class="chart">
 			</div>
-			Dataset<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div></div>
-			<form><label>BioModels<input value="0" name="mode" class="modelType" id="BioModels" type="checkbox"></label><label>CellML<input value="1" name="mode" class="modelType" id="CellML" type="checkbox"></label></form>
+			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
+			<form>
+				<label>BioModels<input value="0" name="mode" class="modelType" id="BioModelsFilter" type="checkbox"></label>
+				<label>CellML<input value="1" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
 			<div class="choiceInfo">
 				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
 			</div>
