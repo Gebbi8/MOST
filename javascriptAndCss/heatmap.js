@@ -101,7 +101,7 @@ svg.append("rect")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
 			var bivinsert = svg.selectAll(".bar")
 						.data(table)
@@ -123,7 +123,7 @@ svg.append("rect")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
 			var bivmove = svg.selectAll(".bar2")
 						.data(table)
@@ -145,7 +145,7 @@ svg.append("rect")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
 				var bivupdate = svg.selectAll(".bar3")
 						.data(table)
@@ -167,6 +167,6 @@ svg.append("rect")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
 }
