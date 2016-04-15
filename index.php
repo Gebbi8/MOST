@@ -45,6 +45,9 @@
 			</div>
 			Dataset<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div></div>
 			<form><label>BioModels<input value="0" name="mode" class="modelType" id="BioModels" type="checkbox"></label><label>CellML<input value="1" name="mode" class="modelType" id="CellML" type="checkbox"></label></form>
+			<div class="choiceInfo">
+				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
+			</div>
 	  </div>
 	</div>
 

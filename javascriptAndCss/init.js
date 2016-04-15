@@ -411,6 +411,7 @@ function brushend() {
 	
 	
 	filestats = applyFilesFilters ();
+	diffstats = applyDiffsFilters ();
 }
 
 }

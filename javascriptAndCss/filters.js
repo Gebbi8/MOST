@@ -21,6 +21,7 @@ function applyFilesFilters ()
 	{
 		result = filter (result);
 	});
+	$("#choiceSelectedVersions").text(Object.keys (result).length);
 	return result;
 }
 // apply active diffs filters
@@ -31,6 +32,7 @@ function applyDiffsFilters ()
 	{
 		result = filter (result);
 	});
+	$("#choiceSelectedDiffs").text(result.length);
 	return result;
 }
 
