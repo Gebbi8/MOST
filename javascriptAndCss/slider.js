@@ -1,4 +1,4 @@
-formatDate = d3.time.format("%Y-%m-%d");
+
 
 // parameters
 var margin = {

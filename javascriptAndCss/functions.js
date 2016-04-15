@@ -33,6 +33,6 @@ function attachInfo (smallInfo, infoBox, infoMsg)
 
 // parse the date for D3
 var parseDate = d3.time.format("%Y-%m-%d").parse;
-
+var formatDate = d3.time.format("%Y-%m-%d");
 
 

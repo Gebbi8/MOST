@@ -35,8 +35,6 @@ function donut(date1, date2){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-// 		d3.tsv("statsTables/diffstats", type, function(error, data) {
-			//filter by date
 			
 			var data = diffstats.filter(function(d){
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];

@@ -28,19 +28,23 @@
 	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
 	  <div id="choiceChart" class="chart">
-	    <div class="title">Timespan<button id="smallInfoTimespan" class="smallInfo">i</button>
-			<div class="infoBox" id="timeSpanBox"></div>
-		</div>
-				<div class="buttons">
-					<input type="date" id="date1" value="2010-01-01">
-						<a href="#" class="button left up" id="date1Up"></a>
-						<a href="#" class="button right down" id="date1Down"></a>
-				</div>
-				<div class="buttons">
-					<input type="date" id="date2" value="2011-01-01">
-						<a href="#" class="button left up" id="date2Up"></a>
-						<a href="#" class="button right down" id="date2Down"></a>
-				</div>
+	    <div class="title">
+				Timespan<button id="smallInfoTimespan" class="smallInfo">i</button><div class="infoBox" id="timeSpanBox"></div>
+			</div>
+			<div class="buttons">
+				<input type="date" id="date1" value="2010-01-01">
+				<a href="#" class="button left up" id="date1Up"></a>
+				<a href="#" class="button right down" id="date1Down"></a>
+			</div>
+			<div class="buttons">
+				<input type="date" id="date2" value="2011-01-01">
+				<a href="#" class="button left up" id="date2Up"></a>
+				<a href="#" class="button right down" id="date2Down"></a>
+			</div>
+			<div id="choiceChartChart" class="chart">
+			</div>
+			Dataset<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div></div>
+			<form><label>BioModels<input value="0" name="mode" class="modelType" id="BioModels" type="checkbox"></label><label>CellML<input value="1" name="mode" class="modelType" id="CellML" type="checkbox"></label></form>
 	  </div>
 	</div>
 
@@ -112,25 +116,8 @@
 			</div>
 		</div>
 	</div>
-
-<div id="dataButton"><button id="smallInfoDataset" class="smallInfo">i</button>
-	<div class="infoBox" id="datasetBox"></div>
-</div>
-
-<script type="text/javascript">
-var filestats = {};
-var diffstats = {};
-var extent =[moment("2010-01-01"), moment("2011-01-01	")];
-
-var charts = [
-"landingpage",
-"donutpage",
-"heatmappage",
-"box1page",
-"box2page",
-"bivesInfo"
-];
-init ();
-</script>
+	<script type="text/javascript">
+		init ();
+	</script>
 </body>
 </html>

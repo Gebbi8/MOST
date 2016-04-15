@@ -1,30 +1,30 @@
+var originalFilestats = {};
+var originalDiffstats = {};
 
+var filestats = {};
+var diffstats = {};
 
+var extent =[moment("2010-01-01"), moment("2011-01-01	")];
 
-	var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
-
-var x = d3.time.scale()
-					.range([0, timewidth]);
-
-var y = d3.scale.linear()
-					.range([timeheight, 0]);
-
-var xAxis = d3.svg.axis()
-							.scale(x)
-							.ticks(5)
-							.tickFormat(d3.time.format("%Y"));
-							
-var yAxis = d3.svg.axis()
-							.scale(y)
-							.orient("left");		//evtl. tickFormat für Achsensplit????
-
+var charts = [
+"landingpage",
+"donutpage",
+"heatmappage",
+"box1page",
+"box2page",
+"bivesInfo"
+];
 
 
 
 
 
 
-							
+
+
+
+
+
 							
 function init ()
 {
@@ -34,7 +34,7 @@ function init ()
 		for (var i = 0; i < dd.length; i++)
 		{
 			dd[i]["date"] = new Date (dd[i]["date"]);
-			filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+			originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
 		}
 		
 		
@@ -48,7 +48,17 @@ function init ()
 				d[i]["bives"] = +d[i]["bives"]; 
 				
 			}
-			diffstats=d;
+			originalDiffstats=d;
+			
+			// per default time filters are active
+			activateFilesFilter (filterTimeFiles);
+			activateDiffsFilter (filterTimeDiffs);
+			
+			
+			filestats = applyFilesFilters ();
+			diffstats = applyDiffsFilters ();
+			console.log (diffstats);
+			console.log (diffstats.length);
 			
 			// if that's done we can initialise the choise chart
 			initialiseChoiceChart ();
@@ -104,8 +114,8 @@ function init ()
 
 function initialiseChoiceChart ()
 {
-	rows=diffstats;
- 	console.log (rows[0]);
+	rows=originalDiffstats;
+//  	console.log (rows[0]);
 	
 	rows.sort(function(a, b) {
                 return d3.ascending(a.version2id, b.version2id);
@@ -114,7 +124,9 @@ function initialiseChoiceChart ()
 	var counts = {};
 	rows.forEach(function(r) {
 		
-		var datum = filestats[ r["model"] + r["version2id"]  ].date;
+		
+		
+		var datum = originalFilestats[ r["model"] + r["version2id"]  ].date;
 		
     if (!counts[datum]) {
         counts[datum] = 0;
@@ -138,12 +150,20 @@ function initialiseChoiceChart ()
 	var minVersion2 = d3.min(data, function (d){ return d.datum });
 	var maxVersion2 = d3.max(data, function (d){ return d.datum });
 	
+	
+	
+var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
+var x = d3.time.scale().range([0, timewidth]);
+var y = d3.scale.linear().range([timeheight, 0]);
+var xAxis = d3.svg.axis().scale(x).ticks(5).tickFormat(d3.time.format("%Y"));
+var yAxis = d3.svg.axis().scale(y).orient("left");		//evtl. tickFormat für Achsensplit????
+	
 
 	y.domain([0, max]).nice();
 	x.domain([minVersion2, maxVersion2]).nice();
 
 	
-var svg = d3.select("#choiceChart").append("svg")
+var svg = d3.select("#choiceChartChart").append("svg")
 		  .attr("width", timewidth + margin.left + margin.right)
 		  .attr("height", timeheight + margin.top + margin.bottom)
 		.append("g")
@@ -201,7 +221,7 @@ var modelType = ["BioModels", "CellML"],
     j = 0;  // Choose the rectangle as default
 
 // Create the shape selectors
-var dataset = d3.select('#choiceChart').append("dataset")
+/*var dataset = d3.select('#choiceChart')
 	.append("text")
 	.text("Dataset");
 
@@ -220,7 +240,7 @@ labels = form.selectAll("label")
         name: "mode",
         value: function(d, i) {return i;}
     })
-    .property("checked", function(d, i) {return i===j;});
+    .property("checked", function(d, i) {return i===j;});*/
 
 var hold = -1; var wait = 1;
 
@@ -388,6 +408,9 @@ function brushend() {
 // 	alert("brushEND");
 	svg.select(".brush").call(brush);
 	extent = brush.extent();
+	
+	
+	filestats = applyFilesFilters ();
 }
 
 }
