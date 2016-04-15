@@ -12,8 +12,6 @@ function donut(table){
 
 	var color = d3.scale.category20();
 
-	var parseDate = d3.time.format("%Y-%m-%d").parse;
-
 	var pie = d3.layout.pie()	
 			.value(function(d){ return d.bives; })
 	    .sort(null);
@@ -46,28 +44,28 @@ function donut(table){
 					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.data.model + this.__data__.data.version1id], originalFilestats[this.__data__.data.model + this.__data__.data.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
-	function type(d) {
-		d.unix = +d.unix;	
-		d.unixinsert = +d.unixinsert;
-		d.unixdelete = +d.unixdelete;
-		d.bives = +d.bives;
-		d.bivesinsert = +d.bivesinsert;
-		d.bivesdelete = +d.bivesdelete;
-		d.bivesmove = +d.bivesmove;
-		d.bivesupdate = +d.bivesupdate;
-		d.bivestriggeredinsert = +d.bivestriggeredinsert;
-		d.bivestriggereddelete = +d.bivestriggereddelete;
-		d.bivestriggeredmove = +d.bivestriggeredmove;
-		d.bivestriggeredupdate = +d.bivestriggeredupdate;
-		d.bivesnode = +d.bivesnode;
-		d.bivesattribute = +d.bivesattribute;
-		d.bivestext = +d.bivestext;
-		d.version1 = parseDate(d.version1);
-		d.version2 = parseDate(d.version2);
-		d.model = d.model;
-		d.modeltype = d.modeltype;
-	  return d;
-	}
+// 	function type(d) {
+// 		d.unix = +d.unix;	
+// 		d.unixinsert = +d.unixinsert;
+// 		d.unixdelete = +d.unixdelete;
+// 		d.bives = +d.bives;
+// 		d.bivesinsert = +d.bivesinsert;
+// 		d.bivesdelete = +d.bivesdelete;
+// 		d.bivesmove = +d.bivesmove;
+// 		d.bivesupdate = +d.bivesupdate;
+// 		d.bivestriggeredinsert = +d.bivestriggeredinsert;
+// 		d.bivestriggereddelete = +d.bivestriggereddelete;
+// 		d.bivestriggeredmove = +d.bivestriggeredmove;
+// 		d.bivestriggeredupdate = +d.bivestriggeredupdate;
+// 		d.bivesnode = +d.bivesnode;
+// 		d.bivesattribute = +d.bivesattribute;
+// 		d.bivestext = +d.bivestext;
+// 		d.version1 = parseDate(d.version1);
+// 		d.version2 = parseDate(d.version2);
+// 		d.model = d.model;
+// 		d.modeltype = d.modeltype;
+// 	  return d;
+// 	}
 
 	// Store the displayed angles in _current.
 	// Then, interpolate from _current to the new angles.

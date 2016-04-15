@@ -21,15 +21,15 @@ function attachInfo (smallInfo, infoBox, infoMsg, top, left)
 	$(infoBox).append(infoMsg);
  	$(infoBox).hide();
 	$(smallInfo).click (function(event){
-        $(infoBox).popup({
-            tooltipanchor: event.target,
-            autoopen: true,
-            type: 'tooltip',
-  opacity: 0.3,
-  transition: 'all 0.3s',
-	offsettop: top,
-	offsetleft: left
-        });
+		$(infoBox).popup({
+			tooltipanchor: event.target,
+			autoopen: true,
+			type: 'tooltip',
+			opacity: 0.3,
+			transition: 'all 0.3s',
+			offsettop: top,
+			offsetleft: left
+		});
 	});
 }
 
