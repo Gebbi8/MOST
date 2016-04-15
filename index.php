@@ -88,6 +88,10 @@
 					</div>
 				</div>
 				<div id="bivesResult">
+					<div id="bivesReport">
+					</div>
+					<div id="bivesGraph">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -107,6 +111,7 @@
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
+<script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript">
 
 
@@ -158,6 +163,9 @@ var charts = [
 "bivesInfo"
 ];
 
+
+
+
 // select the landing page as start
 selectChart("landingpage");
 
@@ -182,6 +190,9 @@ $.getJSON("javascriptAndCss/info.json", function(json){
 	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
 	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
 });
+
+
+
 
 
 </script>
