@@ -182,48 +182,6 @@ selectChart("heatmappage");
 // 		});
 
 
-	// add legend
-/*
-	var legend = svg.append("g")
-			.attr("class", "legend")
-			//.attr("x", w - 65)
-			//.attr("y", 50)
-			.attr("height", 100)
-			.attr("width", 100)
-			.attr('transform', 'translate(-20,50)');
-
-	var legendRect = legend.selectAll('rect').data(colors);
-
-	legendRect.enter()
-		  .append("rect")
-		  .attr("x", width - 65)
-		  .attr("width", 10)
-		  .attr("height", 10);
-
-	legendRect
-		  .attr("y", function(d, i) {
-		      return i * 20;
-		  })
-		  .style("fill", function(d) {
-		      return d[1];
-		  });
-
-	var legendText = legend.selectAll('text').data(colors);
-
-	legendText.enter()
-		  .append("text")
-			.attr("fill", "white")
-		  .attr("x", width - 52);
-
-	legendText
-		  .attr("y", function(d, i) {
-		      return i * 20 + 9;
-		  })
-		  .text(function(d) {
-		      return d[0];
-		  });
-	}
-*/
 
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
 

@@ -5,6 +5,22 @@
   <meta charset="UTF-8">
 <link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
+	
+	
+
+<script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="javascriptAndCss/functions.js"></script>
+
+<script type="text/javascript" src="bives/bivesTool.js"></script>
+<script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
+<script type="text/javascript" src="javascriptAndCss/donut.js"></script>
+<script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
+<script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
+<script type="text/javascript" src="javascriptAndCss/filters.js"></script>
+<script type="text/javascript" src="javascriptAndCss/init.js"></script>
+	
 </head>
 <body>
 
@@ -101,55 +117,7 @@
 	<div class="infoBox" id="datasetBox"></div>
 </div>
 
-</body>
-
-<script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="bives/bivesTool.js"></script>
-<script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
-<script type="text/javascript" src="javascriptAndCss/donut.js"></script>
-<script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
-<script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
-<script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript">
-
-
-
-/*
-* selectChart can be used to select one of the charts (or tabs). all other content will be hidden.
-*/
-function selectChart (chart)
-{
-	for (var i = 0; i < charts.length; i++)
-		$("#"+charts[i]).hide();
-	$("#"+chart).show();
-}
-
-/*
-* attachInfo can be used to attache some informational strings to one of the "i" boxes on the web page
-* smallInfo: the i-button
-* infoBox: the grey box that will pop-up
-* infoMsg: the message to be displayed
-*/
-function attachInfo (smallInfo, infoBox, infoMsg)
-{
-	$(smallInfo).click (function(){
-		if( $(infoBox).is(':empty') ){
-			$(infoBox).append(infoMsg);
-		} else {
-			$(infoBox).contents().filter(function () {
-				return this.nodeType === 3; // Text nodes only
-			}).remove();
-		}
-	});
-}
-
-
-
-
-
-
 var filestats = {};
 var diffstats = {};
 var extent =[moment("2010-01-01"), moment("2011-01-01	")];
@@ -162,39 +130,7 @@ var charts = [
 "box2page",
 "bivesInfo"
 ];
-
-
-
-
-// select the landing page as start
-selectChart("landingpage");
-
-// register click-listeners to the tab-buttons
-$("#donutbutton").click (function (){donut (window.extent[0], window.extent[1]);});
-$("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
-$("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
-$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
-$("#logolink").click (function (){selectChart("landingpage");;});
-
-// load info material and fill the i-buttons
-$.getJSON("javascriptAndCss/info.json", function(json){
-
-	attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan);
-	attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset);
-	attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage);
-	attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage);
-	attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage);
-	attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage);
-
-	//load startpage info from json
-	$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
-	$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
-});
-
-
-
-
-
+init ();
 </script>
-<script type="text/javascript" src="javascriptAndCss/choiceChart.js"></script>
+</body>
 </html>

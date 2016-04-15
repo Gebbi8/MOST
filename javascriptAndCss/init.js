@@ -1,4 +1,7 @@
-var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
+
+
+
+	var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 400;
 
 var x = d3.time.scale()
 					.range([0, timewidth]);
@@ -15,44 +18,78 @@ var yAxis = d3.svg.axis()
 							.scale(y)
 							.orient("left");		//evtl. tickFormat für Achsensplit????
 
-var svg = d3.select("#choiceChart").append("svg")
-		  .attr("width", timewidth + margin.left + margin.right)
-		  .attr("height", timeheight + margin.top + margin.bottom)
-		.append("g")
-		  .attr("transform", "translate(50,30)");		
-
-var parseDate = d3.time.format("%Y-%m-%d").parse;
-//var parseDate = d3.time.format("%d/%m/%Y").parse;
-//var year = d3.time.format("%m/%Y");
 
 
 
-d3.tsv("statsTables/filestats", function(dd) {
-for (var i = 0; i < dd.length; i++)
+
+
+
+							
+							
+function init ()
 {
-	dd[i]["date"] = new Date (dd[i]["date"]);
-
-	
-	filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
-	//console.log(dd[0]);
-}
-d3.tsv("statsTables/diffstats", function(d) {
-	for (var i=0; i < d.length; i++){
-		d[i]["bivesinsert"] = +d[i]["bivesinsert"];
-		d[i]["bivesmove"] = +d[i]["bivesmove"];
-		d[i]["bivesdelete"] = +d[i]["bivesdelete"];
-		d[i]["bivesupdate"] = +d[i]["bivesupdate"];
-		d[i]["bives"] = +d[i]["bives"]; 
+	// load the tables
+	d3.tsv("statsTables/filestats", function(dd) {
+		// get the file's table and immediately parse the date
+		for (var i = 0; i < dd.length; i++)
+		{
+			dd[i]["date"] = new Date (dd[i]["date"]);
+			filestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+		}
 		
-	}
-	diffstats=d;
-	
-	console.log ("ready");
-	tuwatt ();
-});
+		
+		d3.tsv("statsTables/diffstats", function(d) {
+			// get the diffs table and parse numbers
+			for (var i=0; i < d.length; i++){
+				d[i]["bivesinsert"] = +d[i]["bivesinsert"];
+				d[i]["bivesmove"] = +d[i]["bivesmove"];
+				d[i]["bivesdelete"] = +d[i]["bivesdelete"];
+				d[i]["bivesupdate"] = +d[i]["bivesupdate"];
+				d[i]["bives"] = +d[i]["bives"]; 
+				
+			}
+			diffstats=d;
+			
+			// if that's done we can initialise the choise chart
+			initialiseChoiceChart ();
+		});
+	});
 
 
-});
+
+
+
+
+	// select the landing page as start
+	selectChart("landingpage");
+
+	// register click-listeners to the tab-buttons
+	$("#donutbutton").click (function (){donut (window.extent[0], window.extent[1]);});
+	$("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
+	$("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
+	$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
+	$("#logolink").click (function (){selectChart("landingpage");;});
+
+
+
+
+
+	// load info material and fill the i-buttons
+	$.getJSON("javascriptAndCss/info.json", function(json){
+
+		attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan);
+		attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset);
+		attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage);
+		attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage);
+		attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage);
+		attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage);
+
+		//load startpage info from json
+		$("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
+		$("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
+	});
+
+}
 
 
 
@@ -61,7 +98,11 @@ d3.tsv("statsTables/diffstats", function(d) {
 
 
 
-function tuwatt ()
+
+
+
+
+function initialiseChoiceChart ()
 {
 	rows=diffstats;
  	console.log (rows[0]);
@@ -92,20 +133,21 @@ function tuwatt ()
 		if (counts[key] > max)
 			max = counts[key];
 	});
-	
-// 	console.log (data);
 
 
 	var minVersion2 = d3.min(data, function (d){ return d.datum });
 	var maxVersion2 = d3.max(data, function (d){ return d.datum });
 	
-// 	console.log (minVersion2);
-// 	console.log (maxVersion2);
-	
 
 	y.domain([0, max]).nice();
 	x.domain([minVersion2, maxVersion2]).nice();
 
+	
+var svg = d3.select("#choiceChart").append("svg")
+		  .attr("width", timewidth + margin.left + margin.right)
+		  .attr("height", timeheight + margin.top + margin.bottom)
+		.append("g")
+		  .attr("transform", "translate(50,30)");		
 	svg.append("g")
 		    .attr("class", "y axis")
 				.attr("fill", "white")
@@ -138,14 +180,6 @@ function tuwatt ()
 				  .attr("y", function(d) { return y(d.count) })
 				  .attr("height", function(d) { return timeheight - y(d.count);})
 					.attr("fill", "white");	
-
-var parseDate = d3.time.format("%Y-%m-%d").parse;
-//var parseDate2 = d3.time.format("%b %d %Y").parse;
-//var parseDate = d3.time.format("%d/%m/%Y").parse;
-var parseDate2 = d3.time.format("%Y-%m-%d").parse;
-
-/* var date1 = parseDate2(document.getElementById("date1").value);
-var date2 = parseDate2(document.getElementById("date2").value); */
 
 var date1 = moment(document.getElementById("date1").value);
 var date2 = moment(document.getElementById("date2").value);
@@ -351,10 +385,10 @@ function brushmove() {
 }
 
 function brushend() {
-	//alert("brushEND");
+// 	alert("brushEND");
 	svg.select(".brush").call(brush);
 	extent = brush.extent();
 }
 
-} 
+}
 
