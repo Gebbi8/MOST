@@ -18,9 +18,9 @@ function getBivesData(v1, v2, command, place){
 			v2.url
 		],
 		commands:
-		[
+		
 			command
-		]
+		
 	};
 
 	// call the bives wrapper script
@@ -32,7 +32,8 @@ function getBivesData(v1, v2, command, place){
 			
 			console.log(data);
 			
-			$("#bivesResult").html ($.parseJSON (data).reportHtml);
+			$("#bivesReport").html ($.parseJSON (data).reportHtml);
+			$("#bivesGraph").html ($.parseJSON (data).reactionsDot);
 		}
 	);
 }

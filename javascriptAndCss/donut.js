@@ -61,7 +61,7 @@ function donut(date1, date2){
 					.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 					.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id], filestats[this.__data__.data.model + this.__data__.data.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(filestats[this.__data__.data.model + this.__data__.data.version1id], filestats[this.__data__.data.model + this.__data__.data.version2id],["reportHtml","reactionsDot"], "#info")});
 
 
 	function type(d) {
