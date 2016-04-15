@@ -100,7 +100,7 @@ $("#CellMLFilter").click (function ()
 
 	// register click-listeners to the tab-buttons
 	$("#donutbutton").click (function (){donut (diffstats);});
-	$("#heatmapbutton").click (function (){bivesOverview(window.extent[0], window.extent[1]);});
+	$("#heatmapbutton").click (function (){heatmap(diffstats);});
 	$("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
 	$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
 	$("#logolink").click (function (){selectChart("landingpage");;});

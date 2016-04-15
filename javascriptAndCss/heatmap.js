@@ -1,4 +1,4 @@
-function bivesOverview(date1, date2){
+function heatmap(table){
 	$('.menuInfoButton').fadeOut();
 	d3.selectAll('#heatmappage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
@@ -33,36 +33,15 @@ selectChart("heatmappage");
 				.tickFormat(function(d){return Math.round(d);}); //Number of axis-splits
 
 
-// 		d3.tsv("statsTables/diffstats", type, function(error, data) {
-// 			if (error) throw error;
-				
-// 			data = data.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
-				
-				
-			var data = diffstats.filter(function(d){
-				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
-				return date1 < ddatum && ddatum < date2;
-			});
-				
-				
-			//filter by modelType
-			if(document.getElementById('BioModels').checked != document.getElementById('CellML').checked){
-				if(document.getElementById('BioModels').checked) {
-					data = data.filter(function(d){return d.modeltype == 'SBML'})
-				} else {
-					data = data.filter(function(d){return d.modeltype == 'CellML'})
-				}
-			}
-
-			y.domain([1, d3.max(data, function(d) { return d.bives; })]).nice();
+			y.domain([1, d3.max(table, function(d) { return d.bives; })]).nice();
 
 
-			//compute svg width depending on data length
-			var rectWidth = width/data.length;
-	
-			if (rectWidth < 5) rectWidth = 1;
+			//compute svg width depending on table length
+			var rectWidth = width/table.length;
+			if (rectWidth < 5)
+				rectWidth = 1;
 			
-			var svgWidth = rectWidth * data.length;
+			var svgWidth = rectWidth * table.length;
 			
 			var svgDiv = d3.select("#heatmappage").append("div")
 										.attr("id", "svgDiv");
@@ -81,6 +60,11 @@ selectChart("heatmappage");
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "black");
+		
 			svg.append("g")
 					.attr("class", "y axis")
 					.call(yAxis)
@@ -93,7 +77,7 @@ selectChart("heatmappage");
 					.text("Changes");
 
 			var bivdelete = svg.selectAll(".bar1")
-						.data(data)
+						.data(table)
 					.enter().append("rect")
 						.attr("class", "bar1")
 						.attr("insert", function(d, i) {return(d.bivesinsert)})
@@ -105,108 +89,84 @@ selectChart("heatmappage");
 						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (y(H));
 								})
 						.attr("height", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (height - y(H))*d.bivesdelete/H;
 								})
 						.attr("fill", "red")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.model + this.__data__.version1id], filestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
 
 			var bivinsert = svg.selectAll(".bar")
-						.data(data)
+						.data(table)
 					.enter().append("rect")
 						.attr("class", "bar")
 						.attr("x", function(d, i) { return i * (rectWidth)+2; })
 						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (y(H)+(height - y(H))*d.bivesdelete/H);
 								})
 						.attr("height", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (height - y(H))*d.bivesinsert/H;
 								})
 						.attr("fill", "green")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.model + this.__data__.version1id], filestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
 
 			var bivmove = svg.selectAll(".bar2")
-						.data(data)
+						.data(table)
 					.enter().append("rect")
 						.attr("class", "bar2")
 						.attr("x", function(d, i) { return i * (rectWidth)+2; })
 						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (y(H)+(height - y(H))*(d.bivesdelete+d.bivesinsert)/H);
 								})
 						.attr("height", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (height - y(H))*d.bivesmove/H;
 								})
 						.attr("fill", "blue")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.model + this.__data__.version1id], filestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
 
 				var bivupdate = svg.selectAll(".bar3")
-						.data(data)
+						.data(table)
 					.enter().append("rect")
 						.attr("class", "bar3")
 						.attr("x", function(d, i) { return i * (rectWidth)+2; })
 						.attr("width", rectWidth) //add -0.1 for padding
 						.attr("y", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (y(H)+(height - y(H))*(d.bivesdelete+d.bivesinsert+d.bivesmove)/H);
 								})
 						.attr("height", function(d) {
 								var H = d.bivesupdate+d.bivesinsert+d.bivesdelete+d.bivesmove;
+								if (H == 0) return 0;
 								return (height - y(H))*d.bivesupdate/H;
 								})
 						.attr("fill", "yellow")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
 						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(filestats[this.__data__.model + this.__data__.version1id], filestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
+					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],"reportHtml", "#info")});
 
-
-
-// 		});
-
-
-
-	var parseDate = d3.time.format("%Y-%m-%d").parse;
-
-	function type(d) {
-		d.bives = getInt(d.bives);
-		d.bivesinsert = getInt(d.bivesinsert);
-		d.bivesdelete = getInt(d.bivesdelete);
-		d.bivesmove = getInt(d.bivesmove);
-		d.bivesupdate = getInt(d.bivesupdate);
-		d.version1 = parseDate(d.version1);
-		d.version2 = parseDate(d.version2);	
-		return d;
-	}
-
-	function getInt(l){
-		if(+l == 0){
-			return 0;
-		} else {
-			return +l;
-			//return Math.log(+l)+1;
-		}
-	}
-
-	function barDetail(){
-		console.log("barDetail");
-		return;
-	}
 }
