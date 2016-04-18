@@ -105,7 +105,11 @@ $("#CellMLFilter").click (function ()
 	$("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
 	$("#logolink").click (function (){selectChart("landingpage");;});
 
-
+	// register click-listeners to the bives-tabs
+	$("#reportTab").click(function (){showBivesContent("#bivesReport", "#reportTab");});
+	$("#graphTab").click(function (){showBivesContent("#bivesGraph", "#graphTab")});
+	$("#xmlTab").click(function (){showBivesContent("#bivesXmlDiff", "#xmlTab")});
+	$("#annotations").click(function (){showBivesContent("#bivesAnnotations", "#annotations")});
 
 
 
@@ -384,4 +388,3 @@ function brushend() {
 }
 
 }
-

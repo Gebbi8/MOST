@@ -434,3 +434,31 @@ body {
 {
 	padding: 5px;
 }
+
+.bivesNavi {
+	margin-top: 10px;
+	display: block;
+}
+
+.naviTab.active {
+    background-color: #bfdfff;
+}
+
+.naviTab {
+    padding: 5px;
+    border: 1px solid #29AAE1;
+	border-top: 3px solid #004A99;
+    font-weight: bold;
+    margin-bottom: 20px;
+    cursor: pointer;
+	margin-left: 3px;
+	margin-bottom: 3px;
+}
+
+.bivesContent{
+	display: none;
+}
+
+#bivesReport{
+	display: block;
+}
