@@ -23,17 +23,23 @@ function getBivesData(v1, v2, command, place){
 		
 	};
 
+	
 	// call the bives wrapper script
 	$.post (
 		"bives/bives.php",
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
-		{
+		{	
 			
-			console.log(data);
+			//console.log(data);
 			
 			$("#bivesReport").html ($.parseJSON (data).reportHtml);
 			$("#bivesGraph").html ($.parseJSON (data).reactionsDot);
+			$("#bivesXmlDiff").html ($.parseJSON (data).xmlDiff);
+			$("#bivesGraphML").html ($.parseJSON (data).seperateAnnotations);
+			$("#loading").hide();
+			//alert($.parseJSON (data).xmlDiff);
+			//
 		}
 	);
 }

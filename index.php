@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
 <link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
+	<link rel="stylesheet" type="text/css" href="javascriptAndCss/jquery.snippet.css" />
 	
 	
 
@@ -46,8 +47,8 @@
 			</div>
 			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
 			<form>
-				<label>BioModels<input value="0" name="mode" class="modelType" id="BioModelsFilter" type="checkbox"></label>
-				<label>CellML<input value="1" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
+				<label>BioModels<input checked="checked" name="mode" class="modelType" id="BioModelsFilter" type="checkbox"></label>
+				<label>CellML<input checked="checked" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
 			<div class="choiceInfo">
 				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
 			</div>
@@ -113,11 +114,24 @@
 						<a id="bivesModifiedModel"></a> <span id="bivesModifiedModelSupp"></span>
 					</div>
 				</div>
+				<div class="bivesNavi">
+					<a class="naviTab active" id="reportTab"> Report </a>
+					<a class="naviTab" id="graphTab"> Graph </a>
+					<a class="naviTab" id="xmlTab"> XML-Diff </a>
+					<a class="naviTab" id="annotations"> Annotations </a>
+				</div>
+				<div id="loading">
+					<img src="image/loading142.gif" title="loading..." alt="loading..."><img>
+				</div>
 				<div id="bivesResult">
-					<div id="bivesReport">
+					<div class="bivesContent" id="bivesReport">
 					</div>
-					<div id="bivesGraph">
+					<div class="bivesContent" id="bivesGraph">
 					</div>
+					<pre class="bivesContent" id="bivesXmlDiff">
+					</pre>
+					<pre class="bivesContent" id="bivesAnnotations">
+					</pre>
 				</div>
 			</div>
 		</div>

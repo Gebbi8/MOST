@@ -33,6 +33,15 @@ function attachInfo (smallInfo, infoBox, infoMsg, top, left)
 	});
 }
 
+//handle bivesTabs
+function showBivesContent(show, tab){
+	$(".naviTab").attr("class", "naviTab");
+	$(tab).attr("class", "naviTab active");
+	
+	$('.bivesContent').hide();
+	$(show).show();
+}
+
 
 
 // parse the date for D3
