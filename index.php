@@ -66,6 +66,13 @@
 			
 			<div id="charts">
 				<div id="landingpage">
+					<h3>General Statistics</h3>
+					<table id="generalStatsTable"><col><col>
+						<tbody>
+							<tr id="generalStatsTableDummy"><td>loading...</td><td>please be patient</td></tr>
+						</tbody>
+					</table>
+				
 					<h3>Project info</h3>
 					<p id="projectInfo"> </p>
 													

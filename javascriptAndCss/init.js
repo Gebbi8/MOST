@@ -1,5 +1,6 @@
 var originalFilestats = {};
 var originalDiffstats = {};
+var models = {};
 
 var filestats = {};
 var diffstats = {};
@@ -19,7 +20,49 @@ var charts = [
 
 
 
+function addGeneralStatsTableRow (table, key, val)
+{
+	table.append('<tr><td>' + key + '</td><td>' + val + '</td></tr>');
+}
 
+function fillGeneralStatsTable ()
+{
+	var table = $('#generalStatsTable > tbody:last')
+	
+	addGeneralStatsTableRow (table, "#Models", Object.keys(models).length);
+	addGeneralStatsTableRow (table, "#Versions", Object.keys(originalFilestats).length);
+	addGeneralStatsTableRow (table, "#Deltas", originalDiffstats.length);
+	
+	// number of versions in biomodels for the first 5 years
+	var sbmlChangesInFirstFive = {};
+	var numChanges = 0;
+	Object.keys(models).forEach(function(modelKey)
+	{
+		var model = models[modelKey];
+		
+		Object.keys(model).forEach(function(versionKey)
+		{
+			var version = model[versionKey];
+			if (!version.values)
+			{
+				return;
+			}
+			var oneYearPlusMinus = 1000*60*60*24*365.25;
+			//console.log (model.earliest, version.values.date, (version.values.date - model.earliest)/oneYearPlusMinus);
+			if ((version.values.date - model.earliest) / oneYearPlusMinus < 5 && version.preDiff && version.preDiff.bives > 0)
+			{
+				if (!sbmlChangesInFirstFive[modelKey])
+					sbmlChangesInFirstFive[modelKey] = [];
+				sbmlChangesInFirstFive[modelKey].push (model.earliest + " -- " + version.values.date);
+				numChanges++;
+			}
+		});
+	});
+	addGeneralStatsTableRow (table, "#changes within first five years of publishing", Math.round(100 * numChanges / Object.keys (sbmlChangesInFirstFive).length) / 100);
+	
+	// remove dummy row...
+	$('#generalStatsTableDummy').remove ();
+}
 
 
 
@@ -35,6 +78,12 @@ function init ()
 		{
 			dd[i]["date"] = new Date (dd[i]["date"]);
 			originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+			
+			if (!models[dd[i]["model"]])
+				models[dd[i]["model"]] = {};
+			models[dd[i]["model"]][dd[i]["versionid"]] = { "values" : dd[i] };
+			if (!models[dd[i]["model"]].earliest || models[dd[i]["model"]].earliest > dd[i]["date"])
+				models[dd[i]["model"]].earliest = dd[i]["date"];
 		}
 		
 		
@@ -47,6 +96,14 @@ function init ()
 				d[i]["bivesupdate"] = +d[i]["bivesupdate"];
 				d[i]["bives"] = +d[i]["bives"]; 
 				
+				if (!models[d[i]["model"]][d[i]["version1id"]].postDiff)
+					models[d[i]["model"]][d[i]["version1id"]].postDiff = [];
+				models[d[i]["model"]][d[i]["version1id"]].postDiff = d[i];
+				
+				if (!models[d[i]["model"]][d[i]["version2id"]].preDiff)
+					models[d[i]["model"]][d[i]["version2id"]].preDiff = [];
+				models[d[i]["model"]][d[i]["version2id"]].preDiff = d[i];
+				
 			}
 			originalDiffstats=d;
 			
@@ -55,6 +112,9 @@ function init ()
 			activateDiffsFilter (filterTimeDiffs);
 			
 			applyFilters ();
+			
+			// fill general info table
+			fillGeneralStatsTable ();
 			
 			// if that's done we can initialise the choise chart
 			initialiseChoiceChart ();
