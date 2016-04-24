@@ -34,31 +34,21 @@ function fillGeneralStatsTable ()
 	addGeneralStatsTableRow (table, "#Deltas", originalDiffstats.length);
 	
 	// number of versions in biomodels for the first 5 years
-	var sbmlChangesInFirstFive = {};
+	var changesInFirstFive = {};
 	var numChanges = 0;
-	Object.keys(models).forEach(function(modelKey)
-	{
-		var model = models[modelKey];
-		
-		Object.keys(model).forEach(function(versionKey)
+	
+	var oneYearPlusMinus = 1000*60*60*24*365.25;
+	originalDiffstats.forEach(function(r) {
+		var datum = originalFilestats[ r["model"] + r["version2id"]  ].date;
+    if ((datum - models[r["model"]].earliest) / oneYearPlusMinus < 5 && r.bives > 0)
 		{
-			var version = model[versionKey];
-			if (!version.values)
-			{
-				return;
-			}
-			var oneYearPlusMinus = 1000*60*60*24*365.25;
-			//console.log (model.earliest, version.values.date, (version.values.date - model.earliest)/oneYearPlusMinus);
-			if ((version.values.date - model.earliest) / oneYearPlusMinus < 5 && version.preDiff && version.preDiff.bives > 0)
-			{
-				if (!sbmlChangesInFirstFive[modelKey])
-					sbmlChangesInFirstFive[modelKey] = [];
-				sbmlChangesInFirstFive[modelKey].push (model.earliest + " -- " + version.values.date);
+				if (!changesInFirstFive[r["model"]])
+					changesInFirstFive[r["model"]] = [];
+				changesInFirstFive[r["model"]].push (models[r["model"]].earliest + " -- " + datum);
 				numChanges++;
-			}
-		});
+		}
 	});
-	addGeneralStatsTableRow (table, "#changes within first five years of publishing", Math.round(100 * numChanges / Object.keys (sbmlChangesInFirstFive).length) / 100);
+	addGeneralStatsTableRow (table, "#changes within first five years of publishing", Math.round(100 * numChanges / Object.keys (changesInFirstFive).length) / 100);
 	
 	// remove dummy row...
 	$('#generalStatsTableDummy').remove ();
@@ -80,10 +70,14 @@ function init ()
 			originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
 			
 			if (!models[dd[i]["model"]])
-				models[dd[i]["model"]] = {};
-			models[dd[i]["model"]][dd[i]["versionid"]] = { "values" : dd[i] };
-			if (!models[dd[i]["model"]].earliest || models[dd[i]["model"]].earliest > dd[i]["date"])
+				models[dd[i]["model"]] = {
+					"earliest": dd[i]["date"],
+					"versions": []
+				};
+			
+			if (models[dd[i]["model"]].earliest > dd[i]["date"])
 				models[dd[i]["model"]].earliest = dd[i]["date"];
+			models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
 		}
 		
 		
@@ -94,16 +88,7 @@ function init ()
 				d[i]["bivesmove"] = +d[i]["bivesmove"];
 				d[i]["bivesdelete"] = +d[i]["bivesdelete"];
 				d[i]["bivesupdate"] = +d[i]["bivesupdate"];
-				d[i]["bives"] = +d[i]["bives"]; 
-				
-				if (!models[d[i]["model"]][d[i]["version1id"]].postDiff)
-					models[d[i]["model"]][d[i]["version1id"]].postDiff = [];
-				models[d[i]["model"]][d[i]["version1id"]].postDiff = d[i];
-				
-				if (!models[d[i]["model"]][d[i]["version2id"]].preDiff)
-					models[d[i]["model"]][d[i]["version2id"]].preDiff = [];
-				models[d[i]["model"]][d[i]["version2id"]].preDiff = d[i];
-				
+				d[i]["bives"] = +d[i]["bives"];
 			}
 			originalDiffstats=d;
 			
