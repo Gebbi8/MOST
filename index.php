@@ -42,8 +42,18 @@
 				<input type="date" id="date2" value="2011-01-01">
 				<a href="#" class="button left up" id="date2Up"></a>
 				<a href="#" class="button right down" id="date2Down"></a>
-			</div>
-			<div id="choiceChartChart" class="chart">
+				</div>
+			<!--<div class="choiseSwitches">
+				<input id="toggle-btn-changes" class="toggle-btn" type="checkbox"/>
+				<label for="toggle-btn-changes" data-on="Changes" data-off="Changes"></label>
+				<input id="toggle-btn-props" class="toggle-btn" type="checkbox"/>
+				<label for="toggle-btn-props" data-on="Properties" data-off="Properties"></label>
+				</div>-->
+			<div class="choiceSwitches">
+				<button id='choiceChanges' class='btn-changes-on'>changes</button>
+				<button id='choiceProperties' class='btn-changes-off'>properties</button>
+				<div id="choiceChartChartChanges" class="chart"></div>
+				<div id="choiceChartChartProperties" class="chart"></div>
 			</div>
 			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
 			<form>

@@ -1,7 +1,20 @@
 var originalFilestats = {};
 var originalDiffstats = {};
-var repoEvolution = {};
 var models = {};
+var repoEvolution = {
+	nodes: new Array (),
+	files: new Array (),
+	components: new Array (),
+	variables: new Array (),
+	units: new Array (),
+	species: new Array (),
+	reactions: new Array (),
+	compartments: new Array (),
+	funcitons: new Array (),
+	parameters: new Array (),
+	rules: new Array (),
+	events: new Array ()
+};
 
 var filestats = {};
 var diffstats = {};
@@ -80,31 +93,55 @@ function init ()
                 models[dd[i]["model"]].earliest = dd[i]["date"];
             models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
         }
+        
+        d3.tsv("statsTables/repo-evolution", function(ddd) {
+					
+					
+					
+					for (var i=0; i < ddd.length; i++)
+					{
+						if (ddd[i]["type"] != "ALL")
+							continue;
+						repoEvolution["files"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["nFiles"]});
+						repoEvolution["nodes"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["nodes"] / ddd[i]["nFiles"]});
+						repoEvolution["components"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["components"] / ddd[i]["nFiles"]});
+						repoEvolution["variables"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["variables"] / ddd[i]["nFiles"]});
+						repoEvolution["units"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["units"] / ddd[i]["nFiles"]});
+						repoEvolution["species"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["species"] / ddd[i]["nFiles"]});
+						repoEvolution["reactions"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["reactions"] / ddd[i]["nFiles"]});
+						repoEvolution["compartments"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["compartments"] / ddd[i]["nFiles"]});
+						repoEvolution["funcitons"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["funcitons"] / ddd[i]["nFiles"]});
+						repoEvolution["parameters"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["parameters"] / ddd[i]["nFiles"]});
+						repoEvolution["rules"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["rules"] / ddd[i]["nFiles"]});
+						repoEvolution["events"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["events"] / ddd[i]["nFiles"]});
+					}
+//  					console.log (repoEvolution);
+					
+					
+					d3.tsv("statsTables/diffstats", function(d) {
+							// get the diffs table and parse numbers
+							for (var i=0; i < d.length; i++){
+									d[i]["bivesinsert"] = +d[i]["bivesinsert"];
+									d[i]["bivesmove"] = +d[i]["bivesmove"];
+									d[i]["bivesdelete"] = +d[i]["bivesdelete"];
+									d[i]["bivesupdate"] = +d[i]["bivesupdate"];
+									d[i]["bives"] = +d[i]["bives"];
+							}
+							originalDiffstats=d;
 
+							// per default time filters are active
+							activateFilesFilter (filterTimeFiles);
+							activateDiffsFilter (filterTimeDiffs);
 
-        d3.tsv("statsTables/diffstats", function(d) {
-            // get the diffs table and parse numbers
-            for (var i=0; i < d.length; i++){
-                d[i]["bivesinsert"] = +d[i]["bivesinsert"];
-                d[i]["bivesmove"] = +d[i]["bivesmove"];
-                d[i]["bivesdelete"] = +d[i]["bivesdelete"];
-                d[i]["bivesupdate"] = +d[i]["bivesupdate"];
-                d[i]["bives"] = +d[i]["bives"];
-            }
-            originalDiffstats=d;
+							applyFilters ();
 
-            // per default time filters are active
-            activateFilesFilter (filterTimeFiles);
-            activateDiffsFilter (filterTimeDiffs);
+							// fill general info table
+							fillGeneralStatsTable ();
 
-            applyFilters ();
-
-            // fill general info table
-            fillGeneralStatsTable ();
-
-            // if that's done we can initialise the choise chart
-            initialiseChoiceChart ();
-        });
+							// if that's done we can initialise the choise chart
+							initialiseChoiceChart ();
+					});
+			});
     });
 
 
@@ -227,7 +264,7 @@ function initialiseChoiceChart ()
     x.domain([minVersion2, maxVersion2]).nice();
 
 
-    var svg = d3.select("#choiceChartChart").append("svg")
+    var svg = d3.select("#choiceChartChartChanges").append("svg")
         .attr("width", timewidth + margin.left + margin.right)
         .attr("height", timeheight + margin.top + margin.bottom)
         .append("g")
@@ -431,5 +468,103 @@ function initialiseChoiceChart ()
         svg.select(".brush").call(brush);
         extent = brush.extent();
         applyFilters ();
-    }
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		var xProps = d3.time.scale().range([0, timewidth]);
+		var yProps = d3.scale.linear().range([timeheight, 0]);
+		var xAxisProps = d3.svg.axis().scale(xProps).ticks(5).tickFormat(d3.time.format("%Y"));
+		var yAxisProps = d3.svg.axis().scale(yProps).orient("left");		//evtl. tickFormat für Achsensplit????
+		
+		var cur = repoEvolution ["nodes"];
+		yProps.domain([0, d3.max(cur, function (d){ return d.y})]).nice();
+		xProps.domain([minVersion2, maxVersion2]).nice();
+		
+		var propsChart = d3.select("#choiceChartChartProperties").append("svg")
+		.attr("width", timewidth + margin.left + margin.right)
+		.attr("height", timeheight + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(50,30)");
+		
+		propsChart.append("g")
+		.attr("class", "y axis")
+		.attr("fill", "white")
+		.call(yAxisProps)
+		.append("text")
+		.attr("x", 25)
+		.attr("y", -20)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.attr("fill", "white")
+		.text("Changes");
+		
+		
+		propsChart.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + timeheight + ")")
+		.attr("fill", "white")
+		.call(xAxisProps);
+		
+		
+		var lineGen = d3.svg.line()
+		.x(function(d) {
+			return xProps(d.date);
+		})
+		.y(function(d) {
+			return yProps(d.y);
+		});
+		
+		propsChart.append('svg:path')
+		.attr('d', lineGen(cur))
+		.attr('stroke', 'green')
+		.attr('stroke-width', 2)
+		.attr('fill', 'none');
+		
+		var cur = repoEvolution ["files"];
+		var yProps2 = d3.scale.linear().range([timeheight, 0]);
+		yProps2.domain([0, d3.max(cur, function (d){ return d.y})]).nice();
+		var lineGen = d3.svg.line()
+		.x(function(d) {
+			return xProps(d.date);
+		})
+		.y(function(d) {
+			return yProps(d.y);
+		});
+		propsChart.append('svg:path')
+		.attr('d', lineGen(cur))
+		.attr('stroke', 'red')
+		.attr('stroke-width', 2)
+		.attr('fill', 'none');
+		
+		
+		
+		$("#choiceChartChartProperties").hide ();
+		$("#choiceProperties").click (function ()
+		{
+			$("#choiceProperties").attr("class","btn-changes-on");
+			$("#choiceChanges").attr("class","btn-changes-off");
+			$("#choiceChartChartProperties").show ();
+			$("#choiceChartChartChanges").hide ();
+		});
+		
+		
+		$("#choiceChanges").click (function ()
+		{
+			$("#choiceProperties").attr("class","btn-changes-off");
+			$("#choiceChanges").attr("class","btn-changes-on");
+			$("#choiceChartChartProperties").hide ();
+			$("#choiceChartChartChanges").show ();
+		});
 }
