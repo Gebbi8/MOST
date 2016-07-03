@@ -2,18 +2,9 @@ var originalFilestats = {};
 var originalDiffstats = {};
 var models = {};
 var repoEvolution = {
-	nodes: new Array (),
-	files: new Array (),
-	components: new Array (),
-	variables: new Array (),
-	units: new Array (),
-	species: new Array (),
-	reactions: new Array (),
-	compartments: new Array (),
-	funcitons: new Array (),
-	parameters: new Array (),
-	rules: new Array (),
-	events: new Array ()
+	ALL: {maxFiles: 0, maxNodes: 0, values: []},
+	CellML: {maxFiles: 0, maxNodes: 0, values: []},
+	SBML: {maxFiles: 0, maxNodes: 0, values: []},
 };
 
 var filestats = {};
@@ -94,29 +85,39 @@ function init ()
             models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
         }
         
-        d3.tsv("statsTables/repo-evolution", function(ddd) {
-					
-					
-					
-					for (var i=0; i < ddd.length; i++)
+        d3.tsv("statsTables/repo-evolution", function(data) {
+					function scaleRow (data)
 					{
-						if (ddd[i]["type"] != "ALL")
-							continue;
-						repoEvolution["files"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["nFiles"]});
-						repoEvolution["nodes"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["nodes"] / ddd[i]["nFiles"]});
-						repoEvolution["components"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["components"] / ddd[i]["nFiles"]});
-						repoEvolution["variables"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["variables"] / ddd[i]["nFiles"]});
-						repoEvolution["units"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["units"] / ddd[i]["nFiles"]});
-						repoEvolution["species"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["species"] / ddd[i]["nFiles"]});
-						repoEvolution["reactions"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["reactions"] / ddd[i]["nFiles"]});
-						repoEvolution["compartments"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["compartments"] / ddd[i]["nFiles"]});
-						repoEvolution["funcitons"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["funcitons"] / ddd[i]["nFiles"]});
-						repoEvolution["parameters"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["parameters"] / ddd[i]["nFiles"]});
-						repoEvolution["rules"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["rules"] / ddd[i]["nFiles"]});
-						repoEvolution["events"].push ({date: new Date (ddd[i]["date"]), y: ddd[i]["events"] / ddd[i]["nFiles"]});
-					}
-//  					console.log (repoEvolution);
+						var n = +data["nFiles"];
+						data["nFiles"] = n;
+						data["nodes"] /= n;
+						data["components"] /= n;
+						data["variables"] /= n;
+						data["units"] /= n;
+						data["species"] /= n;
+						data["reactions"] /= n;
+						data["compartments"] /= n;
+						data["functions"] /= n;
+						data["parameters"] /= n;
+						data["rules"] /= n;
+						data["events"] /= n;
+						return data;
+					};
 					
+					for (var i=0; i < data.length; i++)
+					{
+						data[i] = scaleRow (data[i]);
+						repoEvolution[data[i]["type"]].values.push (data[i]);
+						
+						if (+data[i]["nFiles"] > repoEvolution[data[i]["type"]].maxFiles)
+						{
+							repoEvolution[data[i]["type"]].maxFiles = data[i]["nFiles"];
+						}
+						if (+data[i]["nodes"] > repoEvolution[data[i]["type"]].maxNodes)
+						{
+							repoEvolution[data[i]["type"]].maxNodes = data[i]["nodes"];
+						}
+					}
 					
 					d3.tsv("statsTables/diffstats", function(d) {
 							// get the diffs table and parse numbers
@@ -464,91 +465,14 @@ function initialiseChoiceChart ()
     }
 
     function brushend() {
-        // 	alert("brushEND");
         svg.select(".brush").call(brush);
         extent = brush.extent();
         applyFilters ();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		var xProps = d3.time.scale().range([0, timewidth]);
-		var yProps = d3.scale.linear().range([timeheight, 0]);
-		var xAxisProps = d3.svg.axis().scale(xProps).ticks(5).tickFormat(d3.time.format("%Y"));
-		var yAxisProps = d3.svg.axis().scale(yProps).orient("left");		//evtl. tickFormat für Achsensplit????
-		
-		var cur = repoEvolution ["nodes"];
-		yProps.domain([0, d3.max(cur, function (d){ return d.y})]).nice();
-		xProps.domain([minVersion2, maxVersion2]).nice();
-		
-		var propsChart = d3.select("#choiceChartChartProperties").append("svg")
-		.attr("width", timewidth + margin.left + margin.right)
-		.attr("height", timeheight + margin.top + margin.bottom)
-		.append("g")
-		.attr("transform", "translate(50,30)");
-		
-		propsChart.append("g")
-		.attr("class", "y axis")
-		.attr("fill", "white")
-		.call(yAxisProps)
-		.append("text")
-		.attr("x", 25)
-		.attr("y", -20)
-		.attr("dy", ".71em")
-		.style("text-anchor", "end")
-		.attr("fill", "white")
-		.text("Changes");
-		
-		
-		propsChart.append("g")
-		.attr("class", "x axis")
-		.attr("transform", "translate(0," + timeheight + ")")
-		.attr("fill", "white")
-		.call(xAxisProps);
-		
-		
-		var lineGen = d3.svg.line()
-		.x(function(d) {
-			return xProps(d.date);
-		})
-		.y(function(d) {
-			return yProps(d.y);
-		});
-		
-		propsChart.append('svg:path')
-		.attr('d', lineGen(cur))
-		.attr('stroke', 'green')
-		.attr('stroke-width', 2)
-		.attr('fill', 'none');
-		
-		var cur = repoEvolution ["files"];
-		var yProps2 = d3.scale.linear().range([timeheight, 0]);
-		yProps2.domain([0, d3.max(cur, function (d){ return d.y})]).nice();
-		var lineGen = d3.svg.line()
-		.x(function(d) {
-			return xProps(d.date);
-		})
-		.y(function(d) {
-			return yProps(d.y);
-		});
-		propsChart.append('svg:path')
-		.attr('d', lineGen(cur))
-		.attr('stroke', 'red')
-		.attr('stroke-width', 2)
-		.attr('fill', 'none');
-		
-		
+		margin.left = 0;
+		margin.right = 60;
+		drawPropertiesChart (repoEvolution["ALL"], margin, timewidth + 35, timeheight);
 		
 		$("#choiceChartChartProperties").hide ();
 		$("#choiceProperties").click (function ()
@@ -568,3 +492,123 @@ function initialiseChoiceChart ()
 			$("#choiceChartChartChanges").show ();
 		});
 }
+
+
+
+function drawPropertiesChart (repoEvo, margin, width, height)
+{
+	data = repoEvo.values;
+	
+	var parseDate = d3.time.format("%Y-%m-%d").parse;
+	
+	var x = d3.time.scale()
+	.range([0, width]);
+	
+	var y = d3.scale.linear()
+	.range([height, 0]);
+	
+	var yNodes = d3.scale.linear()
+	.range([height, 0]);
+	
+	var yFiles = d3.scale.linear()
+	.range([height, 0]);
+	
+	var color = d3.scale.category10();
+	
+	var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient("bottom");
+	
+	var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient("left");
+	
+	var line = d3.svg.line()
+	.interpolate("basis")
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return y(d.value); });
+	
+	var lineFiles = d3.svg.line()
+	.interpolate("basis")
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return yFiles(d.value); });
+	
+	var lineNodes = d3.svg.line()
+	.interpolate("basis")
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return yNodes(d.value); });
+	
+	var svg = d3.select("#choiceChartChartProperties").append("svg")
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+ 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+	
+	
+	var neglect = ["date", "type", "nodes", "nFiles", "rules", "components", "compartments", "events", "functions"];
+	
+	color.domain(d3.keys(data[0]).filter(function(key) { return neglect.indexOf (key) < 0; }));
+	
+	data.forEach(function(d) {
+		d.date = parseDate(d.date);
+	});
+	
+	var properties = color.domain().map(function(name) {
+		return {
+			name: name,
+			values: data.map(function(d) {
+				return {date: d.date, value: +d[name]};
+			})
+		};
+	});
+	var nodes = {name: "nodes", values: data.map(function(d) {return {date: d.date, value: +d["nodes"]};})};
+	var files = {name: "files", values: data.map(function(d) {return {date: d.date, value: +d["nFiles"]};})};
+	
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	
+	y.domain([
+	0,d3.max(properties, function(c) { return d3.max(c.values, function(v) { return v.value; }); })
+	]);
+	
+	yNodes.domain([0, repoEvo.maxNodes]);
+	yFiles.domain([0, repoEvo.maxFiles]);
+	
+	svg.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + height + ")")
+	.call(xAxis);
+	
+	var property = svg.selectAll(".property")
+	.data(properties)
+	.enter().append("g")
+	.attr("class", "property");
+	
+	property.append("path")
+	.attr("class", "line")
+	.attr("d", function(d) { return line(d.values); })
+	.style("stroke", function(d) { return color(d.name); });
+	
+	property.append("text")
+	.datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+	.attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
+	.attr("x", 3)
+	.attr("dy", ".35em")
+	.style("fill", function(d) { return color(d.name); })
+	.text(function(d) { return d.name; });
+	
+	svg.append('path')
+	.attr("class", "line")
+	.attr('d', lineFiles (files.values))
+	.attr('stroke', 'black')
+	.attr('fill', 'none');
+	
+	svg.append("text")
+	.datum({name: "files", value: files.values[files.values.length - 1]})
+	.attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + yFiles(d.value.value) + ")"; })
+	.attr("x", 3)
+	.attr("dy", ".35em")
+	.text("files");
+}
+
+

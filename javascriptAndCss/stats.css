@@ -486,3 +486,15 @@ body {
 {
 	background: #dfdfdf;
 }
+
+
+
+
+#choiceChartChartProperties
+{
+	font-size: 11px;
+}
+.line {
+	fill: none;
+	stroke-width: 1.5px;
+}
