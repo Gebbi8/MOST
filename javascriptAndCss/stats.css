@@ -14,9 +14,7 @@ body { /*vorher midDiv*/
 }
 
 #logo{
-	left: 10px;
-	top: 10px;
-	width: 300px;
+	margin-left:10px;
 }
 
 #topDiv {
@@ -33,12 +31,11 @@ body { /*vorher midDiv*/
 
 #choiceDiv {
 	color: white;
-  float: left;
-  width: 350px;
+	float: left;
+	width: 370px;
 	min-height: 900px;
-  background-color: #004A99;
+	background-color: #004A99;
 	height: inherit;
-	padding-left: 5px;
 }
 
 #choiceChart{
@@ -497,4 +494,45 @@ body {
 .line {
 	fill: none;
 	stroke-width: 1.5px;
+}
+
+#feedback a {
+	position: absolute;
+	top: 35%;
+    display: block;
+    width: 32px;
+    height: 91px;
+    background: no-repeat scroll center #EEE;
+    background-image: url('../image/feedback.png');
+    border: 2px dashed #555;
+    border-radius: 5px;
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    text-decoration: none;
+    color: #c00;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#feedback  a:hover{
+	background-color: #c00;
+	background-image: url('../image/feedback-highlight.png');
+}
+
+#feedback{
+	float: left;
+}
+
+#choice{
+	margin-left: 40px;
+	float: right;
+}
+
+.title, .buttons, .choiceSwitches, #datasetFilter{
+	margin-left: 70px;
+}
+
+#choiceChartChartChanges{
+	margin-left: -40px;
 }

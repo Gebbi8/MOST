@@ -195,6 +195,8 @@ function init ()
     $("#xmlTab").click(function (){showBivesContent("#bivesXmlDiff", "#xmlTab")});
     $("#annotations").click(function (){showBivesContent("#bivesAnnotations", "#annotations")});
 
+	// register click-listener to feedback
+	$("#feedback").click(function (){giveFeedback();});
 
 
     // load info material and fill the i-buttons

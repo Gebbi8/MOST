@@ -21,12 +21,16 @@
 <script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
+<script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
+
 	
 </head>
 <body>
-
 	<div id="choiceDiv">
+	<div id="feedback">
+		<a href="#"/> 
+	</div>
 	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
 	  <div id="choiceChart" class="chart">
@@ -55,12 +59,14 @@
 				<div id="choiceChartChartChanges" class="chart"></div>
 				<div id="choiceChartChartProperties" class="chart"></div>
 			</div>
+			<div id="datasetFilter">
 			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
 			<form>
 				<label>BioModels<input checked="checked" name="mode" class="modelType" id="BioModelsFilter" type="checkbox"></label>
 				<label>CellML<input checked="checked" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
 			<div class="choiceInfo">
 				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
+			</div>
 			</div>
 	  </div>
 	</div>
