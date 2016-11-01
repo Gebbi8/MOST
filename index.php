@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
 <link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
-	<link rel="stylesheet" type="text/css" href="javascriptAndCss/jquery.snippet.css" />
+	<!--<link rel="stylesheet" type="text/css" href="javascriptAndCss/jquery.snippet.css" />-->
 	
 	
 
@@ -16,7 +16,7 @@
 
 <script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
-<script type="text/javascript" src="javascriptAndCss/heatmap.js"></script>
+<script type="text/javascript" src="javascriptAndCss/heat_map.js"></script>
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>

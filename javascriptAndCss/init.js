@@ -21,7 +21,7 @@ var charts = [
     "bivesInfo"
 ];
 
-
+var timewidth = 250, timeheight = 200;
 
 
 
@@ -256,7 +256,7 @@ function initialiseChoiceChart ()
 
 
 
-    var margin = {top: 10, right: 25, bottom: 70, left: 65}, timewidth = 250, timeheight = 200;
+    var margin = {top: 10, right: 25, bottom: 70, left: 65};
     var x = d3.time.scale().range([0, timewidth]);
     var y = d3.scale.linear().range([timeheight, 0]);
     var xAxis = d3.svg.axis().scale(x).ticks(5).tickFormat(d3.time.format("%Y"));
@@ -319,74 +319,8 @@ function initialiseChoiceChart ()
         .call(brush)
         .selectAll('rect')
         .attr('height', timeheight);
-
-    var hold = -1; var wait = 1;
-
-    var date1Up = document.getElementById("date1Up");
-    date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
-    date1Up.onmouseout = function(){ hold = 0;};
-    date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
-
-    var date1Down = document.getElementById("date1Down");
-    date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
-    date1Down.onmouseout = function(){ hold = 0;};
-    date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
-
-    var date2Up = document.getElementById("date2Up");
-    date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
-    date2Up.onmouseout = function(){ hold = 0;};
-    date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
-
-    var date2Down = document.getElementById("date2Down");
-    date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
-    date2Down.onmouseout = function(){ hold = 0;};
-    date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
-
-    var date1Field = document.getElementById("date1");
-    date1Field.addEventListener("keydown", function (e) {
-        if(e.keyCode === 13){
-            var newDate = Date.parse(date1Field.value);
-            console.log(newDate);
-            alert("jupp");
-            if(newDate != null){
-                if(newDate < minVersion2){
-                    newDate = minVersion2;
-                } else if(newDate > maxVersion2){
-                    newDate = maxVersion2;
-                }
-                brush.extent([newDate, date2]);
-                date1 = newDate;
-                extent = brush.extent();
-                applyFilters ();
-                brushed();
-            } else {
-                alert("Please enter a correct date.");
-            }
-
-        }
-    });
-
-
-    var date2Field = document.getElementById("date2");
-    date2Field.addEventListener("keydown", function (e) {
-        if(e.keyCode === 13){
-            var newDate = Date.parse(date2Field.value);
-            if(newDate != null){
-                if(newDate < minVersion2){
-                    newDate = minVersion2;
-                } else if(newDate > maxVersion2){
-                    newDate = maxVersion2;
-                }
-                brush.extent([date1, newDate]);
-                date2 = newDate;
-                extent = brush.extent();
-                applyFilters ();
-                brushed();
-            } else {
-                alert("Please enter a correct date.");
-            }
-        }
-    });
+		
+	var hold = -1; var wait = 1;
 
     function holdit(btn, mode) {
         if (hold == -1 && wait == 1){
@@ -454,7 +388,7 @@ function initialiseChoiceChart ()
         }
     };
 
-    function brushed() {
+	function brushed() {
         svg.select(".brush").call(brush);
     }
 
@@ -470,29 +404,97 @@ function initialiseChoiceChart ()
         svg.select(".brush").call(brush);
         extent = brush.extent();
         applyFilters ();
-		}
+	}
+    
 		
 		margin.left = 0;
 		margin.right = 60;
 		drawPropertiesChart (repoEvolution["ALL"], margin, timewidth + 35, timeheight);
 		
 		$("#choiceChartChartProperties").hide ();
-		$("#choiceProperties").click (function ()
-		{
-			$("#choiceProperties").attr("class","btn-changes-on");
-			$("#choiceChanges").attr("class","btn-changes-off");
-			$("#choiceChartChartProperties").show ();
-			$("#choiceChartChartChanges").hide ();
-		});
-		
+				
 		
 		$("#choiceChanges").click (function ()
 		{
+			date1 = moment(document.getElementById("date1").value);
+			date2 = moment(document.getElementById("date2").value);
+			
+			brush.extent([date1, date2]);
+			brushed();
+
+			var date1Up = document.getElementById("date1Up");
+			date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
+			date1Up.onmouseout = function(){ hold = 0;};
+			date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
+
+			var date1Down = document.getElementById("date1Down");
+			date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
+			date1Down.onmouseout = function(){ hold = 0;};
+			date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
+
+			var date2Up = document.getElementById("date2Up");
+			date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
+			date2Up.onmouseout = function(){ hold = 0;};
+			date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
+
+			var date2Down = document.getElementById("date2Down");
+			date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
+			date2Down.onmouseout = function(){ hold = 0;};
+			date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
+
+			var date1Field = document.getElementById("date1");
+			date1Field.addEventListener("keydown", function (e) {
+				if(e.keyCode === 13){
+					var newDate = Date.parse(date1Field.value);
+					console.log(newDate);
+					alert("jupp");
+					if(newDate != null){
+						if(newDate < minVersion2){
+							newDate = minVersion2;
+						} else if(newDate > maxVersion2){
+							newDate = maxVersion2;
+						}
+						brush.extent([newDate, date2]);
+						date1 = newDate;
+						extent = brush.extent();
+						applyFilters ();
+						brushed();
+					} else {
+						alert("Please enter a correct date.");
+					}
+
+				}
+			});
+
+
+			var date2Field = document.getElementById("date2");
+			date2Field.addEventListener("keydown", function (e) {
+				if(e.keyCode === 13){
+					var newDate = Date.parse(date2Field.value);
+					if(newDate != null){
+						if(newDate < minVersion2){
+							newDate = minVersion2;
+						} else if(newDate > maxVersion2){
+							newDate = maxVersion2;
+						}
+						brush.extent([date1, newDate]);
+						date2 = newDate;
+						extent = brush.extent();
+						applyFilters ();
+						brushed();
+					} else {
+						alert("Please enter a correct date.");
+					}
+				}
+			});
+			
 			$("#choiceProperties").attr("class","btn-changes-off");
 			$("#choiceChanges").attr("class","btn-changes-on");
 			$("#choiceChartChartProperties").hide ();
 			$("#choiceChartChartChanges").show ();
 		});
+		
+		$( "#choiceChanges" ).trigger( "click" );
 }
 
 
@@ -611,6 +613,193 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	.attr("x", 3)
 	.attr("dy", ".35em")
 	.text("files");
+	
+	var hold = -1; var wait = 1;
+
+    
+	var date1 = moment(document.getElementById("date1").value);
+    var date2 = moment(document.getElementById("date2").value);
+
+    var brush = d3.svg.brush()
+        .x(x)
+        .extent([date1, date2])
+        .on("brush", brushmove)
+        .on("brushend", brushend);
+
+    svg.append("g")
+        .attr("class", "brush")
+        .call(brush)
+        .selectAll('rect')
+        .attr('height', timeheight);
+	
+    
+
+    function holdit(btn, mode) {
+        if (hold == -1 && wait == 1){
+            setTimeout(function(){
+                wait = 0;
+                if(mode === "up"){
+                    var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    if(btn == "date2"){
+                        brush.extent([date1, newDate]);
+                        date2 = newDate;
+                    } else {
+                        brush.extent([newDate, date2]);
+                        date1 = newDate;
+                    }
+                    extent = brush.extent();
+                    brushed();
+                } else {
+                    var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    if(btn == "date2"){
+                        brush.extent([date1, newDate]);
+                        date2 = newDate;
+                    } else {
+                        brush.extent([newDate, date2]);
+                        date1 = newDate;
+                    }
+                    extent = brush.extent();
+                    brushed();
+                }
+
+                holdit(btn, mode);
+            }, 300);
+        } else if (hold == -1){
+            setTimeout(function(){
+                wait = 0;
+                if(mode === "up"){
+                    var newDate = moment(document.getElementById(btn).value).add(1, 'd');
+                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    if(btn == "date2"){
+                        brush.extent([date1, newDate]);
+                        date2 = newDate;
+                    } else {
+                        brush.extent([newDate, date2]);
+                        date1 = newDate;
+                    }
+                    extent = brush.extent();
+                    brushed();
+                } else {
+                    var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
+                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    if(btn == "date2"){
+                        brush.extent([date1, newDate]);
+                        date2 = newDate;
+                    } else {
+                        brush.extent([newDate, date2]);
+                        date1 = newDate;
+                    }
+                    extent = brush.extent();
+                    brushed();
+                }
+
+                holdit(btn, mode);
+            }, 1);
+        }
+    };
+
+	function brushed() {
+        svg.select(".brush").call(brush);
+		console.log("brushed");
+    }
+
+    function brushmove() {
+		console.log("brushmove");
+        extent = brush.extent();
+        date1 = moment(window.extent[0]);
+        date2 = moment(window.extent[1]);
+        document.getElementById("date1").value = date1.format('YYYY-MM-DD');
+        document.getElementById("date2").value = date2.format('YYYY-MM-DD');
+    }
+
+    function brushend() {
+		console.log("brushend");
+        svg.select(".brush").call(brush);
+        extent = brush.extent();
+        applyFilters ();
+	}
+	
+	$("#choiceProperties").click (function ()
+		{
+			date1 = moment(document.getElementById("date1").value);
+			date2 = moment(document.getElementById("date2").value);
+						
+			brush.extent([date1, date2]);
+			brushed();
+			
+			
+			var date1Up = document.getElementById("date1Up");
+			date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
+			date1Up.onmouseout = function(){ hold = 0;};
+			date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
+
+			var date1Down = document.getElementById("date1Down");
+			date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
+			date1Down.onmouseout = function(){ hold = 0;};
+			date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
+
+			var date2Up = document.getElementById("date2Up");
+			date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
+			date2Up.onmouseout = function(){ hold = 0;};
+			date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
+
+			var date2Down = document.getElementById("date2Down");
+			date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
+			date2Down.onmouseout = function(){ hold = 0;};
+			date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
+			
+			var date1Field = document.getElementById("date1");
+			date1Field.addEventListener("keydown", function (e) {
+				if(e.keyCode === 13){
+					var newDate = Date.parse(date1Field.value);
+					console.log(newDate);
+					alert("jupp");
+					if(newDate != null){
+						if(newDate < minVersion2){
+							newDate = minVersion2;
+						} else if(newDate > maxVersion2){
+							newDate = maxVersion2;
+						}
+						brush.extent([newDate, date2]);
+						date1 = newDate;
+						extent = brush.extent();
+						applyFilters ();
+						brushed();
+					} else {
+						alert("Please enter a correct date.");
+					}
+
+				}
+			});
+
+
+			var date2Field = document.getElementById("date2");
+			date2Field.addEventListener("keydown", function (e) {
+				if(e.keyCode === 13){
+					var newDate = Date.parse(date2Field.value);
+					if(newDate != null){
+						if(newDate < minVersion2){
+							newDate = minVersion2;
+						} else if(newDate > maxVersion2){
+							newDate = maxVersion2;
+						}
+						brush.extent([date1, newDate]);
+						date2 = newDate;
+						extent = brush.extent();
+						applyFilters ();
+						brushed();
+					} else {
+						alert("Please enter a correct date.");
+					}
+				}
+			});
+			
+			d3.selectAll("#choiceChartChartProperties").select(".brush").call(brush);
+			$("#choiceProperties").attr("class","btn-changes-on");
+			$("#choiceChanges").attr("class","btn-changes-off");
+			$("#choiceChartChartProperties").show ();
+			$("#choiceChartChartChanges").hide ();
+		});
 }
-
-
