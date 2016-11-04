@@ -533,6 +533,10 @@ body {
 	margin-left: 70px;
 }
 
-#choiceChartChartChanges{
+#choiceChartChartChanges, #choiceChartChartProperties{
 	margin-left: -40px;
+}
+
+.bivesButton, #loading, .bivesNavi{
+	display: none;
 }

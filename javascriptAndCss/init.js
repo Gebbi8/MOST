@@ -10,7 +10,7 @@ var repoEvolution = {
 var filestats = {};
 var diffstats = {};
 
-var extent =[moment("2010-01-01"), moment("2011-01-01	")];
+var extent =[moment("2010-01-01"), moment("2011-01-01")];
 
 var charts = [
     "landingpage",
@@ -187,10 +187,10 @@ function init ()
     $("#heatmapbutton").click (function (){heatmap(diffstats);});
     $("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
     $("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
-    $("#logolink").click (function (){selectChart("landingpage");;});
+    $("#logolink").click (function (){selectChart("landingpage");});
 
     // register click-listeners to the bives-tabs
-    $("#reportTab").click(function (){showBivesContent("#bivesReport", "#reportTab");});
+    $("#reportTab").click(function (){showBivesContent("#bivesReport", "#reportTab")});
     $("#graphTab").click(function (){showBivesContent("#bivesGraph", "#graphTab")});
     $("#xmlTab").click(function (){showBivesContent("#bivesXmlDiff", "#xmlTab")});
     $("#annotations").click(function (){showBivesContent("#bivesAnnotations", "#annotations")});
@@ -407,8 +407,8 @@ function initialiseChoiceChart ()
 	}
     
 		
-		margin.left = 0;
-		margin.right = 60;
+		margin.left = 65;
+		margin.right = 25;
 		drawPropertiesChart (repoEvolution["ALL"], margin, timewidth + 35, timeheight);
 		
 		$("#choiceChartChartProperties").hide ();
@@ -506,10 +506,10 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
 	
 	var x = d3.time.scale()
-	.range([0, width]);
+	.range([0, timewidth]);
 	
 	var y = d3.scale.linear()
-	.range([height, 0]);
+	.range([timeheight, 0]);
 	
 	var yNodes = d3.scale.linear()
 	.range([height, 0]);
@@ -519,13 +519,10 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	
 	var color = d3.scale.category10();
 	
-	var xAxis = d3.svg.axis()
-	.scale(x)
-	.orient("bottom");
+	//var xAxis = d3.svg.axis().scale(x).orient("bottom");
+	var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5).tickFormat(d3.time.format("%Y"));
 	
-	var yAxis = d3.svg.axis()
-	.scale(y)
-	.orient("left");
+	var yAxis = d3.svg.axis().scale(y).orient("left").ticks(7);
 	
 	var line = d3.svg.line()
 	.interpolate("basis")
@@ -542,11 +539,13 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	.x(function(d) { return x(d.date); })
 	.y(function(d) { return yNodes(d.value); });
 	
+	
 	var svg = d3.select("#choiceChartChartProperties").append("svg")
-	.attr("width", width + margin.left + margin.right)
-	.attr("height", height + margin.top + margin.bottom)
+	.attr("width", timewidth + margin.left + margin.right)
+	.attr("height", timeheight + margin.top + margin.bottom)
 	.append("g")
- 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	.attr("transform", "translate(50,30)");		//
+ 	//.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
 	
 	
@@ -580,8 +579,21 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	
 	svg.append("g")
 	.attr("class", "x axis")
-	.attr("transform", "translate(0," + height + ")")
+	.attr("transform", "translate(0," + timeheight + ")")
+	.attr("fill", "white")
 	.call(xAxis);
+	
+	svg.append("g")
+	.attr("class", "y axis")
+	.attr("fill", "white")
+	.call(yAxis)
+	.append("text")
+	.attr("x", 25)
+	.attr("y", -20)
+	.attr("dy", ".71em")
+	.style("text-anchor", "end")
+	.attr("fill", "white")
+	.text("Changes");
 	
 	var property = svg.selectAll(".property")
 	.data(properties)
@@ -613,6 +625,22 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	.attr("x", 3)
 	.attr("dy", ".35em")
 	.text("files");
+	
+	var legendRectSize = 18;
+	var legendSpacing = 4;
+	
+	var legend = svg.selectAll('.legend')
+		.data(color.domain())
+		.enter()
+		.append('g')
+		.attr('class', 'legend')
+		.attr('transform', function(d, i){
+			var height = legendRectSize + legendSpacing;
+			var offset = height * color.domain().length/2;
+			var horz = -2 * legendRectSize;
+			var vert = i *height - offset;
+			return 'translate(' + horz + ',' + vert + ')';
+		});
 	
 	var hold = -1; var wait = 1;
 

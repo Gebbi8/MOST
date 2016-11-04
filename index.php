@@ -106,6 +106,7 @@
 				<div id="donutpage">
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
+					<button class="bivesButton" id="callBivesButton">Differences</button>
 				</div>
 				</div>
 				

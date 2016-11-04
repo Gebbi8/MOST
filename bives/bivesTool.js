@@ -1,15 +1,14 @@
 //Info-Content
 function getBivesData(v1, v2, command, place){
+	$(".bivesNavi").hide();
+	$(".bivesResult").hide();
+	$('#loading').show();
 	d3.selectAll(place + ' > *').remove();
 	
 	console.log(place, v1.url, v2.url);
 	$("#bivesInfo").show ();
 	
-	$("#bivesOriginalModel").attr ("href", v1.url).text (v1.model + " in version " + v1.versionid);
-	$("#bivesModifiedModel").attr ("href", v2.url).text (v2.model + " in version " + v2.versionid);
 	
-	$("#bivesOriginalModelSupp").text ("(" + v1.date + ")");
-	$("#bivesModifiedModelSupp").text ("(" + v2.date + ")");
 	
 	var bivesJob = {
 		files:
@@ -38,6 +37,8 @@ function getBivesData(v1, v2, command, place){
 			$("#bivesXmlDiff").text ($.parseJSON (data).xmlDiff);
 			$("#bivesGraphML").text ($.parseJSON (data).seperateAnnotations);
 			$("#loading").hide();
+			$(".bivesNavi").show();
+			$('#bivesResult').show();
 			//alert($.parseJSON (data).xmlDiff);
 			//
 		}

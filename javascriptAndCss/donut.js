@@ -42,7 +42,22 @@ function donut(table){
 			.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 			.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-			.on("click", function(){ getBivesData(originalFilestats[this.__data__.data.model + this.__data__.data.version1id], originalFilestats[this.__data__.data.model + this.__data__.data.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
+			.on("click", function(){
+				var version1 = originalFilestats[this.__data__.data.model + this.__data__.data.version1id];
+				var version2 = originalFilestats[this.__data__.data.model + this.__data__.data.version2id];
+				
+				$('#callBivesButton').show();
+				$('.bivesNavi').hide();
+				$('#bivesResult').hide();
+				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
+				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+				
+				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
+				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+				
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info");});}
+				);
+											
 
 // 	function type(d) {
 // 		d.unix = +d.unix;	
@@ -70,6 +85,7 @@ function donut(table){
 	// Store the displayed angles in _current.
 	// Then, interpolate from _current to the new angles.
 	// During the transition, _current is updated in-place by d3.interpolate.
+	
 	function arcTween(a) {
 	  var i = d3.interpolate(this._current, a);
 	  this._current = i(0);
