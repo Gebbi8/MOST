@@ -89,7 +89,7 @@ selectChart("box2page");
 // 		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
 		//filter by modelType
 		if(document.getElementById('BioModelsFilter').checked != document.getElementById('CellMLFilter').checked){
-			if(document.getElementById('BioModels').checked) {
+			if(document.getElementById('BioModelsFilter').checked) {
 				tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
 			} else {
 				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})

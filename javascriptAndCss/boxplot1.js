@@ -89,7 +89,7 @@ function boxplot(date1, date2){
 // 		var tsv = data
 		//filter by modelType
 		if(document.getElementById('BioModelsFilter').checked != document.getElementById('CellMLFilter').checked){
-			if(document.getElementById('BioModels').checked) {
+			if(document.getElementById('BioModelsFilter').checked) {
 				tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
 			} else {
 				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})

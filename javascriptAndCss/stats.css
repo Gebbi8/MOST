@@ -540,3 +540,11 @@ body {
 .bivesButton, #loading, .bivesNavi{
 	display: none;
 }
+
+.legend {
+	font-size: 12px;
+}
+
+.legendrect {
+	stroke-width: 2;
+}

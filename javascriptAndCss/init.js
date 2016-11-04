@@ -619,28 +619,49 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	.attr('stroke', 'black')
 	.attr('fill', 'none');
 	
-	svg.append("text")
+/*	svg.append("text")
 	.datum({name: "files", value: files.values[files.values.length - 1]})
 	.attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + yFiles(d.value.value) + ")"; })
 	.attr("x", 3)
 	.attr("dy", ".35em")
 	.text("files");
+*/	
+	var domain = color.domain().push("files");
+	console.log(domain);
+	console.log(d3.scale.category10().range());
+	console.log(["#000000"].concat(d3.scale.category10().range()));
 	
-	var legendRectSize = 18;
-	var legendSpacing = 4;
-	
+	var color = d3.scale.ordinal()
+	  .domain(["files", "variables", "units", "species", "reactions", "parameters"])
+	  .range(["#000000"].concat(d3.scale.category10().range()));
+	  
+	  console.log(color.domain());
+
 	var legend = svg.selectAll('.legend')
 		.data(color.domain())
 		.enter()
 		.append('g')
 		.attr('class', 'legend')
 		.attr('transform', function(d, i){
-			var height = legendRectSize + legendSpacing;
-			var offset = height * color.domain().length/2;
-			var horz = -2 * legendRectSize;
-			var vert = i *height - offset;
+			console.log(d);
+			var horz = 18;
+			var vert = i * 12 + 5;
 			return 'translate(' + horz + ',' + vert + ')';
 		});
+	
+		
+	legend.append('rect')
+	  .attr("class", "legendRect")
+	  .attr('width', 15)
+	  .attr('height', 1)
+	  .style('fill', color)
+	  .style('stroke', color);
+	  
+	legend.append('text')
+	 .attr('x', 18)
+	 .attr('y',3)
+	 .style('fill', 'white')
+	 .text(function(d) { return d; });
 	
 	var hold = -1; var wait = 1;
 
