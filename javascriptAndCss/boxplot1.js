@@ -8,26 +8,25 @@ function boxplot(date1, date2){
 
 // Variables for Boxplots
 	var mode = 0;
-	var min = Infinity,
-		  max = -Infinity;
+	var min = Infinity, max = -Infinity;
 
 	var data = [];
-			data[0] = [];
-			data[1] = [];
-			data[2] = [];
-			data[3] = [];
+		data[0] = [];
+		data[1] = [];
+		data[2] = [];
+		data[3] = [];
 
 	var boxData = [];
-			boxData[0] = [];
-			boxData[1] = [];
-			boxData[2] = [];
-			boxData[3] = [];
+		boxData[0] = [];
+		boxData[1] = [];
+		boxData[2] = [];
+		boxData[3] = [];
 
 	var boxData2 = [];
-			boxData2[0] = [];
-			boxData2[1] = [];
-			boxData2[2] = [];
-			boxData2[3] = [];
+		boxData2[0] = [];
+		boxData2[1] = [];
+		boxData2[2] = [];
+		boxData2[3] = [];
 
 //flip-button to switch between log and normal scale
 	var onOffSwitch = d3.select("#box1page")
@@ -77,16 +76,12 @@ function boxplot(date1, date2){
 				.style("display", "none")
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// 	d3.tsv("statsTables/diffstats", type, function(error, tsv) {
-// 		if (error) throw error;
-				
 				
 			var tsv = diffstats.filter(function(d){
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
 				return date1 < ddatum && ddatum < date2;
 			});
-// 		var tsv = data
+
 		//filter by modelType
 		if(document.getElementById('BioModelsFilter').checked != document.getElementById('CellMLFilter').checked){
 			if(document.getElementById('BioModelsFilter').checked) {
@@ -134,7 +129,6 @@ function boxplot(date1, date2){
 
 		x = d3.scale.log()
 			.base(Math.E)
-			//.domain([Math.exp(0), Math.exp(9)])//
 			.domain([1, max])	
 			.clamp(true)
 			.range([0, width]).nice();

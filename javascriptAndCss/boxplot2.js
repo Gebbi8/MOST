@@ -3,10 +3,27 @@ function boxplot2(date1, date2){
  	d3.selectAll('#box2page').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-selectChart("box2page");
+	selectChart("box2page");
 	$('#box2Button').fadeIn();
 
-	
+// Variables for Boxplots
+	var min = Infinity, max = -Infinity;
+	var mode = 0;
+
+	var data = [];
+		data[0] = [];
+		data[1] = [];
+		data[2] = [];
+
+	var boxData = [];
+		boxData[0] = [];
+		boxData[1] = [];
+		boxData[2] = [];
+
+	var boxData2 = [];
+		boxData2[0] = [];
+		boxData2[1] = [];
+		boxData2[2] = [];
 
 //flip-button to switch between log and normal scale
 	var onOffSwitch = d3.select("#box2page")
@@ -42,7 +59,7 @@ selectChart("box2page");
 	var svg = d3.select("#box2page").append("svg")
 				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
-				.attr("id", "logSvg")
+				.attr("id", "logSvg2")
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -51,42 +68,17 @@ selectChart("box2page");
 				.style("opacity", 1)
 				.attr("width", width + margin.left + 3*margin.right)
 				.attr("height", height + margin.top + 2*margin.bottom)
-				.attr("id", "normalSvg")
+				.attr("id", "normalSvg2")
 				.style("display", "none")
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	// Variables for Boxplots
-	var min = Infinity,
-	  max = -Infinity;
 	
-	var mode = 0;
-
-	var data = [];
-			data[0] = [];
-			data[1] = [];
-			data[2] = [];
-
-	var boxData = [];
-			boxData[0] = [];
-			boxData[1] = [];
-			boxData[2] = [];
-
-	var boxData2 = [];
-			boxData2[0] = [];
-			boxData2[1] = [];
-			boxData2[2] = [];
-
-// 	d3.tsv("statsTables/diffstats", type, function(error, tsv) {
-// 		if (error) throw error;
-			
-			
-			
 			var tsv = diffstats.filter(function(d){
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
 				return date1 < ddatum && ddatum < date2;
 			});
-// 		tsv = tsv.filter(function(d) {return (date1 < d.version1) && (d.version1 < date2); } );
+
 		//filter by modelType
 		if(document.getElementById('BioModelsFilter').checked != document.getElementById('CellMLFilter').checked){
 			if(document.getElementById('BioModelsFilter').checked) {
@@ -131,7 +123,6 @@ selectChart("box2page");
 
 		x = d3.scale.log()
 			.base(Math.E)
-			//.domain([Math.exp(0), Math.exp(9)])//
 			.domain([1, max])	
 			.clamp(true)
 			.range([0, width]).nice();
@@ -410,13 +401,13 @@ selectChart("box2page");
 	function rescale() {
 		if(mode == 0){
 			mode = 1;
-			$("#logSvg").fadeToggle(function(){
-				$("#normalSvg").fadeToggle();
+			$("#logSvg2").fadeToggle(function(){
+				$("#normalSvg2").fadeToggle();
 			});
 		} else {
 			mode = 0;
-			$("#normalSvg").fadeToggle(function(){
-					$("#logSvg").fadeToggle();
+			$("#normalSvg2").fadeToggle(function(){
+					$("#logSvg2").fadeToggle();
 				});
 		}
 
@@ -426,7 +417,7 @@ selectChart("box2page");
 
 
 
-		//console.log("TEST!!!!!!!!!!");
+		console.log("test");
   }
 
 }
