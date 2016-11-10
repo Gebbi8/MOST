@@ -83,8 +83,8 @@ function boxplot(date1, date2){
 			});
 
 		//filter by modelType
-		if(document.getElementById('BioModelsFilter').checked != document.getElementById('CellMLFilter').checked){
-			if(document.getElementById('BioModelsFilter').checked) {
+		if(document.getElementById('SBMLFilter').checked != document.getElementById('CellMLFilter').checked){
+			if(document.getElementById('SBMLFilter').checked) {
 				tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
 			} else {
 				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})

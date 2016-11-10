@@ -146,7 +146,7 @@ function init ()
     });
 
 
-    $("#BioModelsFilter").click (function ()
+    $("#SBMLFilter").click (function ()
             {
                 if (this.checked)
                 {
@@ -605,14 +605,14 @@ function drawPropertiesChart (repoEvo, margin, width, height)
 	.attr("d", function(d) { return line(d.values); })
 	.style("stroke", function(d) { return color(d.name); });
 	
-	property.append("text")
+/*	property.append("text")
 	.datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
 	.attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
 	.attr("x", 3)
 	.attr("dy", ".35em")
 	.style("fill", function(d) { return color(d.name); })
 	.text(function(d) { return d.name; });
-	
+*/	
 	svg.append('path')
 	.attr("class", "line")
 	.attr('d', lineFiles (files.values))

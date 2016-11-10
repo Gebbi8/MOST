@@ -62,7 +62,7 @@
 			<div id="datasetFilter">
 			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
 			<form>
-				<label>BioModels<input checked="checked" name="mode" class="modelType" id="BioModelsFilter" type="checkbox"></label>
+				<label>SBML<input checked="checked" name="mode" class="modelType" id="SBMLFilter" type="checkbox"></label>
 				<label>CellML<input checked="checked" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
 			<div class="choiceInfo">
 				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
@@ -107,7 +107,6 @@
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
-				<button class="bivesButton" id="callBivesButton">Differences</button>
 				</div>
 				
 				<div id="heatmappage">
@@ -137,6 +136,7 @@
 						<a id="bivesOriginalModel"></a> <span id="bivesOriginalModelSupp"></span><br />
 						<a id="bivesModifiedModel"></a> <span id="bivesModifiedModelSupp"></span>
 					</div>
+					<button class="bivesButton" id="callBivesButton">Differences</button>
 				</div>
 				<div class="bivesNavi">
 					<a class="naviTab active" id="reportTab"> Report </a>

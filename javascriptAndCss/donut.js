@@ -46,6 +46,7 @@ function donut(table){
 				var version1 = originalFilestats[this.__data__.data.model + this.__data__.data.version1id];
 				var version2 = originalFilestats[this.__data__.data.model + this.__data__.data.version2id];
 				
+				$("#bivesInfo").show();
 				$('#callBivesButton').show();
 				$('.bivesNavi').hide();
 				$('#bivesResult').hide();
