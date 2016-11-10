@@ -35,7 +35,7 @@ function getBivesData(v1, v2, command, place){
 			$("#bivesReport").html ($.parseJSON (data).reportHtml);
 			$("#bivesGraph").html ($.parseJSON (data).reactionsDot);
 			$("#bivesXmlDiff").text ($.parseJSON (data).xmlDiff);
-			$("#bivesGraphML").text ($.parseJSON (data).seperateAnnotations);
+			$("#bivesAnnotations").text ($.parseJSON (data).separateAnnotations);
 			$("#loading").hide();
 			$(".bivesNavi").show();
 			$('#bivesResult').show();
