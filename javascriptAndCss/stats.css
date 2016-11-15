@@ -1,41 +1,41 @@
-body {
-    background-color: white;
-}
-
 * {
   margin:0;
 }
 
-body { /*vorher midDiv*/
-  width: 100vw;
-  margin: 0 auto;
+body {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	min-width: 1080px;
 	min-height: 900px;
-	height: 100vh;
 }
 
 #logo{
 	margin-left:10px;
 }
 
-#topDiv {
-  background-color: #207a7a;
+#choiceDiv {
+	position:absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	color: white;
+	width: 370px;
+	background-color: #004A99;
 }
 
 #contentDiv {
-  background-color: white;
-  margin-left: 350px;
-	overflow: auto;
-	height: inherit;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 370px;
 	padding-left: 5px;
-}
-
-#choiceDiv {
-	color: white;
-	float: left;
-	width: 370px;
-	min-height: 900px;
-	background-color: #004A99;
 	height: inherit;
+	overflow-y: auto;
 }
 
 #choiceChart{
@@ -47,7 +47,6 @@ body { /*vorher midDiv*/
 }
 
 #charts{
-	width: 610px;
 	margin: 10px;
 }
 
@@ -60,13 +59,9 @@ ul {
 }
 
 #svgDiv{
-	overflow: auto;
+	overflow-x: auto;
 }
 
-footer {
-  clear: both;
-  background-color: #207a7a;
-}
 
 .axis text {
     font-family: sans-serif;
@@ -164,7 +159,7 @@ footer {
 
 .floatlogo {
     float: left;
-    width: 150px;
+	width: 150px;
     height: 75px;
     margin: 10px; 
 }
@@ -211,11 +206,6 @@ footer {
 }
 
 /* BOXPLOTS */
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 .box {
   font: 10px sans-serif;
 }
@@ -356,7 +346,8 @@ body {
 }
 
 #smallInfoTimespan,
-#smallInfoDataset
+#smallInfoDataset,
+#smallInfoDonut
 {
 	margin-left: 5px;
 	margin-bottom: 5px;
@@ -547,4 +538,39 @@ body {
 
 .legendrect {
 	stroke-width: 2;
+}
+
+#scaleHeatmap{
+	float: left;
+}
+
+.menuInfoButton{
+	width: 25px;
+}
+
+.tooltip{
+	position: absolute;
+}
+
+#donutTip{
+	width: 190px;
+	top: 400px;
+	left: 225px;
+	text-align: center;
+}
+
+#heatTip{
+	width: 290px;
+	top: 190px;
+	left: 235px;
+	text-align: center;
+}
+
+#heatTip > span{
+	color: white;
+}
+
+.tooltip > span{
+	word-wrap: break-word;
+	word-break: break-all;
 }

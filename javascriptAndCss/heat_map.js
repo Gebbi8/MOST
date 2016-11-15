@@ -3,6 +3,7 @@ function heatmap(table){
 	d3.selectAll('#heatmappage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
+	d3.selectAll('#heatTip > *').remove();
 selectChart("heatmappage");
 	$('#heatButton').fadeIn();
 
@@ -39,41 +40,46 @@ selectChart("heatmappage");
 			//compute svg width depending on table length
 			var rectWidth = width/table.length;
 			if (rectWidth < 5)
-				rectWidth = 1;
+				rectWidth = 5;
 			
 			var svgWidth = rectWidth * table.length;
 			
 			var svgDiv = d3.select("#heatmappage").append("div")
-										.attr("id", "svgDiv");
+					.attr("id", "svgDiv");
 
 	
 			//text field overlay
-			var tooltip = d3.select("body")
-				.append("div")
-				.style("position", "absolute")
-				.style("z-index", "10")
+			var tooltip = d3.select("#heatTip")
+				.append("span")
 				.style("visibility", "hidden");
 
 			var svg = d3.select("#svgDiv").append("svg")
 				.attr("width", svgWidth + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
+				.attr("height", height + margin.top + margin.bottom + 20)
+				.style("background-color", "black")
 			.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.append("rect")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr("fill", "black");
-		
-			svg.append("g")
+				.attr("transform", "translate("+0+"," + (margin.top + 20) + ")");
+				
+			var svgYAxis = d3.select("#scaleHeatmap").append("svg")
+				.attr("width", margin.left)
+				.attr("height", height + margin.top + margin.bottom + 20)
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + (margin.top +20) + ")");
+				
+	/*		svg.append("rect")
+				.attr("width", "100%")
+				.attr("height", "100%")
+				.attr("fill", "black");
+	*/	
+			svgYAxis.append("g")
 					.attr("class", "y axis")
 					.call(yAxis)
 				.append("text")
-					.attr("transform", "rotate(-90)")
-					.attr("y", 6)
-					.attr("dy", ".71em")
+					//.attr("transform", "rotate(-90)")
+					.attr("y", -15)
+					//.attr("dy", ".71em")
 					.style("text-anchor", "end")
-					.attr("fill", "white")
+					.attr("fill", "black")
 					.text("Changes");
 
 			var bivdelete = svg.selectAll(".bar1")
@@ -99,7 +105,7 @@ svg.append("rect")
 								})
 						.attr("fill", "red")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
-						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
@@ -121,7 +127,7 @@ svg.append("rect")
 								})
 						.attr("fill", "green")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
-						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
@@ -143,7 +149,7 @@ svg.append("rect")
 								})
 						.attr("fill", "blue")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
-						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
@@ -165,7 +171,7 @@ svg.append("rect")
 								})
 						.attr("fill", "yellow")
 						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
-						.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 

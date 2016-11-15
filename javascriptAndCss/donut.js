@@ -3,6 +3,7 @@ function donut(table){
 	d3.selectAll('#donutpage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
+	d3.selectAll('#donutTip > *').remove();
 	selectChart("donutpage");
 	$('#donutButton').fadeIn();
 	
@@ -20,27 +21,25 @@ function donut(table){
 	    .innerRadius(radius - 155)
 	    .outerRadius(radius - 45);
 
-	//text field overlay
-	var tooltip = d3.select("body")
-		.append("div")
-		.style("position", "absolute")
-		.style("z-index", "10")
-		.style("visibility", "hidden");
-
 	var svg = d3.select("#donutpage").append("svg")
+		.attr("id", "donutSvg")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 			
-			
+	var tooltip = d3.select("#donutTip")
+		.append("span")
+		.style("visibility", "hidden");	
+	
 	var path = svg.datum(table).selectAll("path")
 		.data(pie)
 		.enter().append("path")
 		.attr("fill", function(d, i) { return color(i); })
 		.attr("d", arc)
 			.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
-			.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+			//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+			//.on("mousemove", function(){return tooltip.style("top", (400)+"px").style("left",(225)+"px");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 			.on("click", function(){
 				var version1 = originalFilestats[this.__data__.data.model + this.__data__.data.version1id];

@@ -104,14 +104,18 @@
 				</div>
 				
 				<div id="donutpage">
+				<div class="tooltip" id="donutTip"></div>
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
 				</div>
 				
 				<div id="heatmappage">
+				<div class="tooltip" id="heatTip"></div>
 				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
 					<div class="infoBox" id="heatBox"></div>
+				</div>
+				<div id="scaleHeatmap">
 				</div>
 				</div>
 				
