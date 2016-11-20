@@ -562,7 +562,7 @@ ul {
 #heatTip{
 	width: 290px;
 	top: 190px;
-	left: 235px;
+	*left: 235px;
 	text-align: center;
 }
 
@@ -573,4 +573,8 @@ ul {
 .tooltip > span{
 	word-wrap: break-word;
 	word-break: break-all;
+}
+
+#download{
+	display: none;
 }

@@ -54,6 +54,7 @@ selectChart("heatmappage");
 				.style("visibility", "hidden");
 
 			var svg = d3.select("#svgDiv").append("svg")
+				.attr("id", "heatmapSvg")
 				.attr("width", svgWidth + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom + 20)
 				.style("background-color", "black")
@@ -104,7 +105,10 @@ selectChart("heatmappage");
 								return (height - y(H))*d.bivesdelete/H;
 								})
 						.attr("fill", "red")
-						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mouseover", function(){
+											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
+											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
@@ -126,7 +130,10 @@ selectChart("heatmappage");
 								return (height - y(H))*d.bivesinsert/H;
 								})
 						.attr("fill", "green")
-						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mouseover", function(){
+											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
+											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
@@ -148,7 +155,10 @@ selectChart("heatmappage");
 								return (height - y(H))*d.bivesmove/H;
 								})
 						.attr("fill", "blue")
-						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mouseover", function(){
+											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
+											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
@@ -170,9 +180,29 @@ selectChart("heatmappage");
 								return (height - y(H))*d.bivesupdate/H;
 								})
 						.attr("fill", "yellow")
-						.on("mouseover", function(){tooltip.text(this.__data__.model) ;return tooltip.style("visibility", "visible");})
+						.on("mouseover", function(){
+											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
+											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
 
+	$("#download").click(function(){
+		console.log ("hey");
+		domtoimage.toBlob(document.getElementById('heatmaptest'))
+			.then(function (blob) {
+				window.saveAs(blob, 'heatmapSvg.png');
+			});
+		
+		domtoimage.toPng(document.getElementById('heatmapSvg'))
+			.then(function (dataUrl){
+				var img = new Image();
+				img.src = dataUrl;
+				document.body.appendChild(img);
+			})
+			.catch(function (error) {
+			console.error('oops, something went wrong!', error);
+			});
+	})
 }

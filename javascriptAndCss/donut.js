@@ -93,4 +93,22 @@ function donut(table){
 	    return arc(i(t));
 	  };
 	}
+	
+	$("#download").click(function(){
+		console.log ("hey");
+		domtoimage.toBlob(document.getElementById('donutSvg').firstChild.innerHTML)
+			.then(function (blob) {
+				window.saveAs(blob, 'donutSvg.png');
+			});
+		
+/* 		domtoimage.toPng(document.getElementById('donutSvg'))
+			.then(function (dataUrl){
+				var img = new Image();
+				img.src = dataUrl;
+				document.body.appendChild(img);
+			})
+			.catch(function (error) {
+			console.error('oops, something went wrong!', error);
+			}); */
+	})
 }

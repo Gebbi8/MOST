@@ -57,7 +57,7 @@ function boxplot2(date1, date2){
 				height = 410 - margin.top - margin.bottom;
 
 	var svg = d3.select("#box2page").append("svg")
-				.attr("width", width + margin.left + 3*margin.right)
+				.attr("width", width + margin.left + 3*margin.right + 10)
 				.attr("height", height + margin.top + 2*margin.bottom)
 				.attr("id", "logSvg2")
 			.append("g")
@@ -66,7 +66,7 @@ function boxplot2(date1, date2){
 ///////////////////////
 	var svg2 = d3.select("#box2page").append("svg")
 				.style("opacity", 1)
-				.attr("width", width + margin.left + 3*margin.right)
+				.attr("width", width + margin.left + 3*margin.right + 10)
 				.attr("height", height + margin.top + 2*margin.bottom)
 				.attr("id", "normalSvg2")
 				.style("display", "none")

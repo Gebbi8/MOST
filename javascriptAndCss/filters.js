@@ -7,7 +7,7 @@
 var activeFilesFilters = [];
 var activeDiffsFilters = [];
 
-
+var modelsFilter = []; 
 
 
 
@@ -15,6 +15,7 @@ var activeDiffsFilters = [];
 
 function applyFilters ()
 {
+	console.log("applied");
 	filestats = applyFilesFilters ();
 	diffstats = applyDiffsFilters ();
 }
@@ -25,6 +26,7 @@ function applyFilesFilters ()
 	var result = originalFilestats;
 	activeFilesFilters.forEach (function (filter)
 	{
+		console.log(filter);
 		result = filter (result);
 	});
 	$("#choiceSelectedVersions").text(Object.keys (result).length);
@@ -189,12 +191,14 @@ function filterRemoveCellmlDiffs (table)
 // filter for times in the files table
 function filterTimeFiles (table)
 {
+	console.log(1, extent)
 	var filtered = {};
 	for (var id in table)
-	{
+	{	
 		if (table.hasOwnProperty(id) && table[id].date >= extent[0] && table[id].date <= extent[1])
 			filtered[id] = table[id];
 	}
+	console.log(extent);
 	return filtered;
 }
 
@@ -215,9 +219,27 @@ function filterTimeDiffs (table)
 }
 
 
+// filter by several model IDs in files table
+function filterIdFiles(table){
+	var filtered = {};
+ 	for(var id in table){
+		for(var i = 0; i < modelsFilter.length; i++){
+ 			if(table.hasOwnProperty(id) && modelsFilter.indexOf(table[id].model) > -1){
+				filtered[id] = table[id];
+			} 
+		}
+	} 
+	return filtered;
+}
 
-
-
-
-
-
+// filter by several model IDs in diffs table
+function filterIdDiffs (table)
+{
+	var filtered = [];
+ 	for (var id = 0; id < table.length; id++)
+	{
+		if (modelsFilter.indexOf(table[id]["model"]) > -1)
+			filtered.push (table[id]);
+	} 
+	return filtered;
+}

@@ -62,7 +62,7 @@ function boxplot(date1, date2){
 
 	var svg = d3.select("#box1page").append("svg")
 				.style("opacity", 1)
-				.attr("width", width + margin.left + 3*margin.right)
+				.attr("width", width + margin.left + 3*margin.right + 10)
 				.attr("height", height + margin.top + 2*margin.bottom)
 				.attr("id", "logSvg")
 			.append("g")
@@ -70,7 +70,7 @@ function boxplot(date1, date2){
 ///////////////////////
 	var svg2 = d3.select("#box1page").append("svg")
 				.style("opacity", 1)
-				.attr("width", width + margin.left + 3*margin.right)
+				.attr("width", width + margin.left + 3*margin.right + 10)
 				.attr("height", height + margin.top + 2*margin.bottom)
 				.attr("id", "normalSvg")
 				.style("display", "none")
@@ -101,7 +101,6 @@ function boxplot(date1, date2){
 			//discard diff if all values equal 0
 		
 			if(d.bivesmove + d.bivesdelete + d.bivesinsert + d.bivesupdate < 20) { //?????????????????????????
-				//console.log(d.bivesmove, d.bivesdelete, d.bivesinsert,d.bivesupdate);
 			}
 			else {
 				data[0].push(d.bivesmove);
