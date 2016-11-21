@@ -14,6 +14,7 @@
 <script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="thirdParty/jquery.popupoverlay.js"></script>
 
+
 <script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
 <script type="text/javascript" src="javascriptAndCss/heat_map.js"></script>
@@ -23,8 +24,10 @@
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
-
-	
+<script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
+<script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
+<script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
+<script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
 </head>
 <body>
 	<div id="choiceDiv">
@@ -81,6 +84,7 @@
 		<div id="midScroll">
 			
 			<div id="charts">
+				
 				<div id="landingpage">
 					<h3>General Statistics</h3>
 					<table id="generalStatsTable"><col><col>
@@ -130,7 +134,7 @@
 					<div class="infoBox" id="box2Box"></div>
 				</div>
 				</div>
-				
+				<button id="download">download</button>
 			</div>
 			
 			<div id="bivesInfo">
@@ -165,7 +169,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		init ();
+			$(document).ready(function () {init ();});
 	</script>
 </body>
 </html>
