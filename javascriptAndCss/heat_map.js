@@ -205,4 +205,5 @@ selectChart("heatmappage");
 			console.error('oops, something went wrong!', error);
 			});
 	})
+	setHash("v", "h");
 }

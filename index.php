@@ -26,6 +26,7 @@
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
 <script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
 <script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
+<script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
 </head>

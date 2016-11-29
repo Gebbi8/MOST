@@ -1,6 +1,6 @@
 function initialiseChoiceChart ()
 {
-	queryUrl();
+	queryUrl(callVis);
     var counts = {};
     originalDiffstats.forEach(function(r) {
         var datum = originalFilestats[ r["model"] + r["version2id"]  ].date;
@@ -77,8 +77,8 @@ function initialiseChoiceChart ()
         .attr("height", function(d) { return timeheight - y(d.count);})
         .attr("fill", "white");	
 
-    var date1 = moment(document.getElementById("date1").value);
-    var date2 = moment(document.getElementById("date2").value);
+    var date1 = new Date(document.getElementById("date1").value);
+    var date2 = new Date(document.getElementById("date2").value);
 
     var brush = d3.svg.brush()
         .x(x)
@@ -93,47 +93,11 @@ function initialiseChoiceChart ()
         .attr('height', timeheight);
 		    
 		
-		margin.left = 65;
-		margin.right = 25;
+	margin.left = 65;
+	margin.right = 25;
 //		drawPropertiesChart (repoEvolution["ALL"], margin, timewidth + 35, timeheight);
-		
-		$("#choiceChartChartProperties").hide ();
-				
-		
-			date1 = moment(document.getElementById("date1").value);
-			date2 = moment(document.getElementById("date2").value);
-			
-			brush.extent([date1, date2]);
 
-			var date1Up = document.getElementById("date1Up");
-			date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
-			date1Up.onmouseout = function(){ hold = 0;};
-			date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
-
-			var date1Down = document.getElementById("date1Down");
-			date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
-			date1Down.onmouseout = function(){ hold = 0;};
-			date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
-
-			var date2Up = document.getElementById("date2Up");
-			date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
-			date2Up.onmouseout = function(){ hold = 0;};
-			date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
-
-			var date2Down = document.getElementById("date2Down");
-			date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
-			date2Down.onmouseout = function(){ hold = 0;};
-			date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
-
-		$("#choiceProperties").click (function (){		
-			$("#choiceProperties").attr("class","btn-changes-on");
-			$("#choiceChanges").attr("class","btn-changes-off");
-			$("#choiceChartChartProperties").show();
-			$("#choiceChartChartChanges").hide();
-		});
-
-
-
+	$("#choiceChartChartProperties").hide ();
 
 	var repoEvo = repoEvolution["ALL"]; var width = timewidth + 35; var height = timeheight
 	
@@ -245,7 +209,6 @@ function initialiseChoiceChart ()
 	.attr('fill', 'none');
 	
 	var domain = color.domain().push("files");
-	console.log(["#000000"].concat(d3.scale.category10().range()));
 	
 	var color = d3.scale.ordinal()
 	  .domain(["files", "variables", "units", "species", "reactions", "parameters"])
@@ -274,17 +237,14 @@ function initialiseChoiceChart ()
 	 .attr('y',3)
 	 .style('fill', 'white')
 	 .text(function(d) { return d; });
-	
-	var hold = -1; var wait = 1;
-
-    
-	var date1 = moment(document.getElementById("date1").value);
-    var date2 = moment(document.getElementById("date2").value);
+	    
+	var date1 = new Date(document.getElementById("date1").value);
+    var date2 = new Date(document.getElementById("date2").value);
 
     var brush2 = d3.svg.brush()
         .x(x2)
         .extent([date1, date2])
-        .on("brush", brushmove)
+        .on("brush", brushmove2)
         .on("brushend", brushend2);
 
     svg2.append("g")
@@ -292,16 +252,46 @@ function initialiseChoiceChart ()
         .call(brush2)
         .selectAll('rect')
         .attr('height', timeheight);
+		
+	date1 = new Date(document.getElementById("date1").value);
+	date2 = moment(document.getElementById("date2").value);
 	
-    
+	brush.extent([date1, date2]);
+
+	var date1Up = document.getElementById("date1Up");
+	date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
+	date1Up.onmouseout = function(){ hold = 0;};
+	date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
+
+	var date1Down = document.getElementById("date1Down");
+	date1Down.onmouseup = function(){ hold = 0; applyFilters ();};
+	date1Down.onmouseout = function(){ hold = 0;};
+	date1Down.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "down");};
+
+	var date2Up = document.getElementById("date2Up");
+	date2Up.onmouseup = function(){ hold = 0; applyFilters ();};
+	date2Up.onmouseout = function(){ hold = 0;};
+	date2Up.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "up");};
+
+	var date2Down = document.getElementById("date2Down");
+	date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
+	date2Down.onmouseout = function(){ hold = 0;};
+	date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
+
+	$("#choiceProperties").click (function (){		
+		$("#choiceProperties").attr("class","btn-changes-on");
+		$("#choiceChanges").attr("class","btn-changes-off");
+		$("#choiceChartChartProperties").show();
+		$("#choiceChartChartChanges").hide();
+	});
 
     function holdit(btn, mode) {
         if (hold == -1 && wait == 1){
             setTimeout(function(){
                 wait = 0;
                 if(mode === "up"){
-                    var newDate = moment(document.getElementById(btn).value).add(1, 'd');
-                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    var newDate = new Date(document.getElementById(btn).value).add(1, 'd');
+                    document.getElementById(btn).value = new Date(newDate).toISOString().slice(0,10);
                     if(btn == "date2"){
 						brush.extent([date1, newDate]);
                         brush2.extent([date1, newDate]);
@@ -314,8 +304,8 @@ function initialiseChoiceChart ()
                     extent = brush2.extent();
                     brushed();
                 } else {
-                    var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
-                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    var newDate = new Date(document.getElementById(btn).value).add(-1, 'days');
+                    document.getElementById(btn).value = new Date(newDate).toISOString().slice(0,10);
                     if(btn == "date2"){
 						brush.extent([date1, newDate]);
                         brush2.extent([date1, newDate]);
@@ -335,8 +325,8 @@ function initialiseChoiceChart ()
             setTimeout(function(){
                 wait = 0;
                 if(mode === "up"){
-                    var newDate = moment(document.getElementById(btn).value).add(1, 'd');
-                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    var newDate = new Date(document.getElementById(btn).value).add(1, 'd');
+                    document.getElementById(btn).value = new Date(newDate).toISOString().slice(0,10);
                     if(btn == "date2"){
 						brush.extent([date1, newDate]);
                         brush2.extent([date1, newDate]);
@@ -349,8 +339,8 @@ function initialiseChoiceChart ()
                     extent = brush2.extent();
                     brushed();
                 } else {
-                    var newDate = moment(document.getElementById(btn).value).add(-1, 'days');
-                    document.getElementById(btn).value = moment(newDate).format('YYYY-MM-DD');
+                    var newDate = new Date(document.getElementById(btn).value).add(-1, 'days');
+                    document.getElementById(btn).value = new Date(newDate).toISOString().slice(0,10);
                     if(btn == "date2"){
 						brush.extent([date1, newDate]);
                         brush2.extent([date1, newDate]);
@@ -376,20 +366,25 @@ function initialiseChoiceChart ()
 
 	 function brushmove() {
         extent = brush.extent();
-        date1 = moment(window.extent[0]);
-        date2 = moment(window.extent[1]);
-        document.getElementById("date1").value = date1.format('YYYY-MM-DD');
-        document.getElementById("date2").value = date2.format('YYYY-MM-DD');
+        date1 = new Date(window.extent[0]);
+        date2 = new Date(window.extent[1]);
+        document.getElementById("date1").value = date1.toISOString().slice(0,10);
+        document.getElementById("date2").value = date2.toISOString().slice(0,10);
+		setHash('d1', date1.toISOString().slice(0,10));
+		setHash('d2', date2.toISOString().slice(0,10));
 		brushed();
     }
 
 	
     function brushmove2() {
         extent = brush2.extent();
-        date1 = moment(window.extent[0]);
-        date2 = moment(window.extent[1]);
-        document.getElementById("date1").value = date1.format('YYYY-MM-DD');
-        document.getElementById("date2").value = date2.format('YYYY-MM-DD');
+        date1 = new Date(window.extent[0]);
+        date2 = new Date(window.extent[1]);
+        document.getElementById("date1").value = date1.toISOString().slice(0,10);
+        document.getElementById("date2").value = date2.toISOString().slice(0,10);
+		console.log(date1.toISOString().slice(0,10));
+		setHash('d1', date1.toISOString().slice(0,10));
+		setHash('d2', date2.toISOString().slice(0,10));
 		brushed();
     }
 

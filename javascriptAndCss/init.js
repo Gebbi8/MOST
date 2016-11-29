@@ -10,7 +10,7 @@ var repoEvolution = {
 var filestats = {};
 var diffstats = {};
 
-var extent =[moment("2010-01-01"), moment("2011-01-01")];
+var extent =[new Date("2010-01-01"), new Date("2011-01-01")];
 
 var charts = [
     "landingpage",
@@ -159,6 +159,7 @@ function init ()
                     activateDiffsFilter (filterRemoveSbmlDiffs);
                 }
                 applyFilters ();
+				checkBoxes();
             });
 
 
@@ -175,6 +176,7 @@ function init ()
                     activateDiffsFilter (filterRemoveCellmlDiffs);
                 }
                 applyFilters ();
+				checkBoxes();
             });
 
 

@@ -15,7 +15,6 @@ var modelsFilter = [];
 
 function applyFilters ()
 {
-	console.log("applied");
 	filestats = applyFilesFilters ();
 	diffstats = applyDiffsFilters ();
 }
@@ -26,7 +25,6 @@ function applyFilesFilters ()
 	var result = originalFilestats;
 	activeFilesFilters.forEach (function (filter)
 	{
-		console.log(filter);
 		result = filter (result);
 	});
 	$("#choiceSelectedVersions").text(Object.keys (result).length);
@@ -191,14 +189,12 @@ function filterRemoveCellmlDiffs (table)
 // filter for times in the files table
 function filterTimeFiles (table)
 {
-	console.log(1, extent)
 	var filtered = {};
 	for (var id in table)
 	{	
 		if (table.hasOwnProperty(id) && table[id].date >= extent[0] && table[id].date <= extent[1])
 			filtered[id] = table[id];
 	}
-	console.log(extent);
 	return filtered;
 }
 

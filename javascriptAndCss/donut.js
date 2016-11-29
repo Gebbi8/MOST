@@ -111,4 +111,5 @@ function donut(table){
 			console.error('oops, something went wrong!', error);
 			}); */
 	})
+	setHash("v", "d");
 }

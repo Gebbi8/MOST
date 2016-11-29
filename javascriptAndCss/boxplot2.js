@@ -419,5 +419,5 @@ function boxplot2(date1, date2){
 
 		console.log("test");
   }
-
+	setHash("v", "b2");
 }
