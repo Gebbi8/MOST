@@ -15,9 +15,12 @@ function fillcomodiFig(annotations){
 			else re = new RegExp("#"+comodiTerms[j][i], 'g');
 			var matchCount = (annotations.match(re) || []).length;
 			console.log(matchCount);
-			if(matchCount > 0) matchCount = Math.log(matchCount);
-			counter.push([comodiTerms[j][i], matchCount]);
-			allCounts.push(matchCount);
+			if(matchCount > 0) {
+				matchCount = Math.log(matchCount);
+				counter.push([comodiTerms[j][i], matchCount]);
+				allCounts.push(matchCount);
+			}
+			
 		}
 		
 		var max = Math.max.apply(null, allCounts);
@@ -27,7 +30,7 @@ function fillcomodiFig(annotations){
 		console.log(allCounts, max, min);
 		for(var i = 0; i<counter.length; i++){
 			console.log(counter[i][0], counter[i][1]);
-			var opacity = (counter[i][1] - min )/(max-min);
+			var opacity = (counter[i][1] - min + 1)/(max-min+1);
 			d3.select("#" + counter[i][0]).style("fill-opacity", "" + opacity);
 			console.log("#" + counter[i][0], "" + opacity);
 		}
