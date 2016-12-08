@@ -9,8 +9,6 @@ body {
     left: 0;
     right: 0;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	min-width: 1080px;
-	min-height: 900px;
 }
 
 #logo{
@@ -18,7 +16,9 @@ body {
 }
 
 #choiceDiv {
-	position:absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position:fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -339,6 +339,7 @@ ul {
 
 /* INFOBOX */
 .infoBox{
+	margin: 5px;
 	position: absolute;
 	background-color: gray;
 	width: 300px;
@@ -488,7 +489,7 @@ ul {
 }
 
 #feedback a {
-	position: absolute;
+	position: fixed;
 	top: 340px;
     display: block;
     width: 32px;
@@ -577,4 +578,22 @@ ul {
 
 #download{
 	display: none;
+}
+
+#landingpage{
+	max-width: 550px;
+}
+
+@media all and (max-width: 1000px) {
+    .infoBox{
+        right: 5px;
+    }
+}
+
+#comodiFigureSvg{
+	width: 800px;
+}
+
+#XmlText{
+	fill-opacity: .5;
 }

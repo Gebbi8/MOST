@@ -1,12 +1,14 @@
 function callVis(vis){
+	console.log("call vis");
 	switch (vis){
 		case 'h': heatmap(diffstats); break;
 		case 'd': donut(diffstats); break;
-		case 'b1': boxplot1(boxplot(window.extent[0], window.extent[1])); break;
-		case 'b2': boxplot2(boxplot(window.extent[0], window.extent[1])); break;
+		case 'b1': console.log(window.extent); boxplot(window.extent[0], window.extent[1]); break;
+		case 'b2': boxplot2(window.extent[0], window.extent[1]); break;
 		default: console.log("invalid vis call: " + vis + "!");
 	}
 }
+
 function queryUrl(callback){
 	var url = location.hash.slice(1);
 	console.log(url);
@@ -26,6 +28,9 @@ function queryUrl(callback){
 				default: console.log("invalid var name: " + pair[0]);
 			}
 	}
+
+	applyFilters ();
+	
  	 if(typeof callback === 'function') callVis(vis); else {
 		 console.log(callVis +" is not a function");
 	 } 
@@ -39,8 +44,7 @@ function filterModel(models){
 	
 	activateFilesFilter(filterIdFiles);
 	activateDiffsFilter(filterIdDiffs);
-	
-	applyFilters ();
+
 };
 
 function setDate(datafield, date){

@@ -17,6 +17,7 @@ function applyFilters ()
 {
 	filestats = applyFilesFilters ();
 	diffstats = applyDiffsFilters ();
+	console.log("applied");
 }
 
 // apply active file filters

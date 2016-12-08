@@ -1,4 +1,5 @@
-function boxplot(date1, date2){
+function boxplot(table){
+
 	$('.menuInfoButton').fadeOut();
 	d3.selectAll('#box1page').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
@@ -77,9 +78,10 @@ function boxplot(date1, date2){
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 				
-			var tsv = diffstats.filter(function(d){
+			var tsv = table;
+/* 			.filter(function(d){
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
-				return date1 < ddatum && ddatum < date2;
+				return window.extent[0] < ddatum && ddatum < window.extent[1];
 			});
 
 		//filter by modelType
@@ -89,7 +91,7 @@ function boxplot(date1, date2){
 			} else {
 				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})
 			}
-		}
+		} */
 		var header = [["move"],["insert"],["delete"],["update"]];
 
 		tsv.forEach(function(d){

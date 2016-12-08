@@ -28,19 +28,15 @@ function getBivesData(v1, v2, command, place){
 		"bives/bives.php",
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
-		{	
-			
-			//console.log(data);
-			
+		{				
 			$("#bivesReport").html ($.parseJSON (data).reportHtml);
 			$("#bivesGraph").html ($.parseJSON (data).reactionsDot);
 			$("#bivesXmlDiff").text ($.parseJSON (data).xmlDiff);
-			$("#bivesAnnotations").text ($.parseJSON (data).separateAnnotations);
+			var annotations = $.parseJSON (data).separateAnnotations;
+			fillcomodiFig(annotations);
 			$("#loading").hide();
 			$(".bivesNavi").show();
 			$('#bivesResult').show();
-			//alert($.parseJSON (data).xmlDiff);
-			//
 		}
 	);
 }

@@ -23,12 +23,13 @@
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
-<script type="text/javascript" src="javascriptAndCss/init.js"></script>
 <script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
 <script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
+<script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
+<script type="text/javascript" src="javascriptAndCss/init.js"></script>
 </head>
 <body>
 	<div id="choiceDiv">
@@ -78,7 +79,7 @@
 	<div id="contentDiv"><p></p>
 		<div id="menu">
 			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
-			<li><img class="pictureMenu" src="image/bivesMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
+			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
 			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Boxplot</div></li>
 			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Boxplot</div></li>
 		</div>

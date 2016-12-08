@@ -179,7 +179,11 @@ function init ()
 				checkBoxes();
             });
 
-
+	//load comodi svg
+	d3.xml("image/comodi-figure.svg").mimeType("image/svg+xml").get(function(error, xml) {
+	  if (error) throw error;
+	  document.getElementById("bivesAnnotations").appendChild(xml.documentElement);
+	});
 
     // select the landing page as start
     selectChart("landingpage");
@@ -187,7 +191,7 @@ function init ()
     // register click-listeners to the tab-buttons
     $("#donutbutton").click (function (){donut (diffstats);});
     $("#heatmapbutton").click (function (){heatmap(diffstats);});
-    $("#boxplot1button").click (function (){boxplot(window.extent[0], window.extent[1]);});
+    $("#boxplot1button").click (function (){boxplot(diffstats);});
     $("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
     $("#logolink").click (function (){selectChart("landingpage");});
 
@@ -214,6 +218,5 @@ function init ()
         //load startpage info from json
         $("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
         $("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
-    });
-
+    });	
 }
