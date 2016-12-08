@@ -8,12 +8,14 @@ function fillcomodiFig(annotations){
 	for(var j = 0; j<comodiTerms.length; j++){
 		var counter = [];
 		var allCounts = [];
-		for(var i=0; i<comodiTerms[j].length; i++){
+		for(var i = 0; i<comodiTerms[j].length; i++){
 			//console.log(comodiTerms[i]);
 			var re;
-			if(j==0) re = new RegExp("comodi:"+comodiTerms[j][i], 'g');
+			if(j == 0) re = new RegExp("comodi:"+comodiTerms[j][i], 'g');
 			else re = new RegExp("#"+comodiTerms[j][i], 'g');
-			var matchCount = Math.log((annotations.match(re) || []).length+1);
+			var matchCount = (annotations.match(re) || []).length;
+			console.log(matchCount);
+			if(matchCount > 0) matchCount = Math.log(matchCount);
 			counter.push([comodiTerms[j][i], matchCount]);
 			allCounts.push(matchCount);
 		}
@@ -24,7 +26,8 @@ function fillcomodiFig(annotations){
 		console.log(counter);
 		console.log(allCounts, max, min);
 		for(var i = 0; i<counter.length; i++){
-			var opacity = (counter[i][1] - min + 1)/(max-min+1);
+			console.log(counter[i][0], counter[i][1]);
+			var opacity = (counter[i][1] - min )/(max-min);
 			d3.select("#" + counter[i][0]).style("fill-opacity", "" + opacity);
 			console.log("#" + counter[i][0], "" + opacity);
 		}
