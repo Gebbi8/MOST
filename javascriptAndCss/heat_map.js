@@ -111,8 +111,24 @@ selectChart("heatmappage");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
-
+					.on("click", function(){
+				var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
+				var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
+				
+				$("#bivesInfo").show();
+				$('#callBivesButton').show();
+				$('.bivesNavi').hide();
+				$('#bivesResult').hide();
+				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
+				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+				
+				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
+				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+				
+				$('#callBivesButton').off('click');
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
+				);
+				
 			var bivinsert = svg.selectAll(".bar")
 						.data(table)
 					.enter().append("rect")
@@ -136,8 +152,24 @@ selectChart("heatmappage");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
-
+					.on("click", function(){
+				var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
+				var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
+				
+				$("#bivesInfo").show();
+				$('#callBivesButton').show();
+				$('.bivesNavi').hide();
+				$('#bivesResult').hide();
+				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
+				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+				
+				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
+				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+				
+				$('#callBivesButton').off('click');
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
+				);
+				
 			var bivmove = svg.selectAll(".bar2")
 						.data(table)
 					.enter().append("rect")
@@ -161,8 +193,24 @@ selectChart("heatmappage");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
-
+					.on("click", function(){
+				var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
+				var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
+				
+				$("#bivesInfo").show();
+				$('#callBivesButton').show();
+				$('.bivesNavi').hide();
+				$('#bivesResult').hide();
+				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
+				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+				
+				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
+				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+				
+				$('#callBivesButton').off('click');
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
+				);
+					
 				var bivupdate = svg.selectAll(".bar3")
 						.data(table)
 					.enter().append("rect")
@@ -186,8 +234,25 @@ selectChart("heatmappage");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
 						.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
-
+					//.on("click", function(){ getBivesData(originalFilestats[this.__data__.model + this.__data__.version1id], originalFilestats[this.__data__.model + this.__data__.version2id],["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info")});
+					.on("click", function(){
+				var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
+				var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
+				
+				$("#bivesInfo").show();
+				$('#callBivesButton').show();
+				$('.bivesNavi').hide();
+				$('#bivesResult').hide();
+				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
+				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+				
+				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
+				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+				
+				$('#callBivesButton').off('click');
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
+				);
+				
 	$("#download").click(function(){
 		console.log ("hey");
 		domtoimage.toBlob(document.getElementById('heatmaptest'))

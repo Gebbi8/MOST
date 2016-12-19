@@ -55,7 +55,8 @@ function donut(table){
 				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
 				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
 				
-				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsDot", "xmlDiff", "separateAnnotations"], "#info");});}
+				$('#callBivesButton').off('click');
+				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
 				);
 											
 

@@ -592,8 +592,80 @@ ul {
 
 #comodiFigureSvg{
 	width: 800px;
+	height: 600px;
 }
 
 #XmlText{
 	fill-opacity: .5;
+}
+
+/* DIVIL */
+
+.node{
+	stroke: black;
+}
+
+.compartment{
+	stroke-width: 3px;
+	fill: transparent;
+}
+
+
+/* BIVES TOOL */
+
+.bives-insert {
+    color: #01df01;
+}
+.bives-delete {
+    color: #ff4000;
+}
+.bives-attr {
+    font-style: italic;
+    font-weight: bold;
+}
+.bives-suppl {
+    color: #a4a4a4;
+}
+.bives-update {
+    color: #dfa601;
+}
+.bives-move {
+    color: #014adf;
+}
+
+marker{
+	stroke: black;
+}
+
+marker.update{
+	stroke: orange;
+}
+
+marker#modulation {
+	z-index: 20;
+	fill: white;
+}
+
+.link{
+	stroke: black;
+}
+
+.update{
+	stroke: orange;
+}
+
+.move{
+	stroke: green;
+}
+
+.insert{
+	stroke: blue;
+}
+
+.delete{
+	stroke: red;
+}
+
+#bivesGraph > text{
+	fill: black;
 }

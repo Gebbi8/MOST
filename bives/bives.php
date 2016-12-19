@@ -1,6 +1,6 @@
 <?php
 
-$BIVES="http://bives.sems.uni-rostock.de/";
+$BIVES="http://localhost:8080/bives/";
 
 
 if (!isset ($_POST["bivesJob"]) || empty ($_POST["bivesJob"]))
