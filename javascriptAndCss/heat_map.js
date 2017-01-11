@@ -104,7 +104,7 @@ selectChart("heatmappage");
 								if (H == 0) return 0;
 								return (height - y(H))*d.bivesdelete/H;
 								})
-						.attr("fill", "red")
+						.style("fill", "red")
 						.on("mouseover", function(){
 											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
@@ -145,7 +145,7 @@ selectChart("heatmappage");
 								if (H == 0) return 0;
 								return (height - y(H))*d.bivesinsert/H;
 								})
-						.attr("fill", "green")
+						.style("fill", "green")
 						.on("mouseover", function(){
 											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
@@ -186,7 +186,7 @@ selectChart("heatmappage");
 								if (H == 0) return 0;
 								return (height - y(H))*d.bivesmove/H;
 								})
-						.attr("fill", "blue")
+						.style("fill", "blue")
 						.on("mouseover", function(){
 											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
@@ -227,7 +227,7 @@ selectChart("heatmappage");
 								if (H == 0) return 0;
 								return (height - y(H))*d.bivesupdate/H;
 								})
-						.attr("fill", "yellow")
+						.style("fill", "yellow")
 						.on("mouseover", function(){
 											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");

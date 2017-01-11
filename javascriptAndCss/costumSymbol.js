@@ -57,6 +57,7 @@ var customSymbolTypes = d3.map({
   },
   'unspecifiedentity': function(size) {
 	size = size;
+	if(size > 150) size = 150;
 	return "m -" + size * 0.5 + " -" + size * 0 + 
     " a " + size*0.25 + " " + size*0.5 + " -90 0 1 " +  size + " 0" +
 	" a " + size*0.25 + " " + size*0.5 + " -90 0 1 -" +  size + " 0";
@@ -102,7 +103,6 @@ d3.svg.customSymbol = function() {
 };
 
 function getSymbol(sbo, size) {
-	console.log(size);
 	var type = sboSwitch(sbo)
 	size = size || 64;
 	if (d3.svg.symbolTypes.indexOf(type) !== -1) {

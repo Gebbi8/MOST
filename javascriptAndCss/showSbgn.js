@@ -2,9 +2,7 @@ function showSbgn(data){
 	d3.selectAll("#bivesGraph").selectAll("svg").remove();
 
 	var obj = JSON.parse(data);
-	
-	console.log(obj);
-	
+		
 	var width = 1000,
 		height = 800,
 		size = (width - 50) / 10 ;
@@ -318,8 +316,8 @@ function showSbgn(data){
 
 	console.log(nested_data);
 	var compartmentPath = function(d) {
-		var size = 400;
-		return "m -" + size*0.5 + " -" + size*0.5 + 
+		var size = 800;
+		return "m -" + size*0.5 + " -" + (size*0.5-20) + 
 		" m  0 " + size*0.05 +
 		" q " + size*0.2 + " -" + size* 0.05 + " " + size*0.4 + " -" + size*0.05 +
 		" l " + size*0.2 + " 0" +
@@ -350,6 +348,7 @@ function showSbgn(data){
 		.data(nested_data)
 		.attr("d", compartmentPath)
 	  .enter().append("g")
+		.filter(function(d) { return d.key != "null"})
 		.attr("class", "compartment")	
 		.attr("id", function(d) {return d.key})
 		.attr("transform", "translate(" + focis[0][0].x +","+ focis[0][0].y+")");
@@ -369,7 +368,7 @@ function showSbgn(data){
 		  .style("font-size", "12px")
 		  .attr("id", function(d) {return d.key + "-text";})
 		  .attr('dy', "0.25em")
-		  .attr("transform", "translate(" + 0 +",-"+ (200 - 12)+")")
+		  .attr("transform", "translate(" + 0 +",-"+ (400 -20 - 12)+")")
 		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
 		  .text(function(d) { return d.key });
 	  
@@ -399,7 +398,14 @@ function showSbgn(data){
 			var nodeWidth = size;
 			if(d.label != null && d.class != "SBO:0000290") {nodeWidth = d.label.length * 9; if(nodeWidth < 35) nodeWidth = 35;} // biggest size of a Char is ca. 9
 			//console.log("#"+d.id+"-text", nodeWidth);
-			return getSymbol(d.class, nodeWidth || size); 
+			var class1;
+			if(d.label == null && sboSwitch(d.class) != "process") class1= "SBO:0000291";
+						else class1= d.class;
+			return getSymbol(
+				
+					class1
+				
+				, nodeWidth || size); 
 		  });		  
 		 
 		node.append("text")
@@ -408,15 +414,25 @@ function showSbgn(data){
 		  .style("fill", "black")
 		  .style("font-size", "12px")
 		  .attr("id", function(d) {return d.id + "-text";})
-		  .attr('y', function(d) { if(d.class == "SBO:0000290") return -450;})
 		  .attr('dy', "0.25em")
-		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
-		  .text(function(d) { return d.label });
+		  .each(function (d) {
+				if(d.label == null) return;
+				var lines = d.label.split(" ");
+				console.log(lines);
+				for(var i=0; i<lines.length; i++){
+					d3.select(this)
+						.append("tspan")
+						.attr("y", function(d) {return (-(lines.length-1))*8+i*18 })
+						.attr("x", "0")
+						.text(lines[i]);
+				}
+			  });
+				
 
-
-
-
-	  force.on("tick", tick);
+		
+				
+	
+	force.on("tick", tick);
 	  
 	function tick(e) {
 		//compartments
@@ -428,7 +444,7 @@ function showSbgn(data){
 			if(sboSwitch(o.class) != "compartment"){
 				if(compartments.length == 1){
 					for(var j=0; j<compartments.length; j++){
-						o.y += (compartments[o.compartment].y - o.y) * k;
+						o.y += (compartments[o.id].y - o.y) * k;
 						o.x += (compartments[o.id].x - o.x) * k;
 					}
 				}
