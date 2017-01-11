@@ -1,6 +1,6 @@
 // DEFINE A COUPLE OF CUSTOM SYMBOLS
 var customSymbolTypes = d3.map({
-  'compartment': function(size) {
+  'compartment': function(size) { //size depends on node content
 	  size = size *8;
 	return "m -" + size*0.5 + " -" + size*0.5 + 
 	" m  0 " + size*0.05 +
@@ -16,10 +16,11 @@ var customSymbolTypes = d3.map({
   'process': function(size) {
 	size = size*0.15;
 	return "m -" + size*0.5 + " -" + size*0.5 +
-	" l " + size + " 0" + 
-	" l 0 " + size + 
-	" l -" + size + " 0" +
-	" z ";
+	" h " + size + 
+	" v " + size + 
+	" h -" + size +
+	" z " + " m 0 " + size/2 + " h -" + size/2 +
+	" m " + size*2 + " 0 h -" + size/2;
   },
   'macromolecule': function(size) {
 	return "m -" + size*0.5 + " -" +size*0.5 + 
@@ -62,12 +63,18 @@ var customSymbolTypes = d3.map({
   },
   
   'simplechemical': function(size) {
-	size = size*0.25;
-	return "m -" + size * 0.5 + " -" + size * 0.5 + 
-	" m -" + size*0.5 + " " + size*0.5 +
-    " a " + size + " " + size + " 0 1 0 " +  size * 2 + " 0" +
-	" a " + size + " " + size + " 0 1 0 -" +  size * 2 + " 0";
-	
+	if (size > 35) {
+		return "m -" + size/2 + " 0" +
+		" m 17.5 -17.5" +
+		" a  -17.5 17.5 0.5 1 0 0 35" +  
+		" l " + (size - 35) + " 0 " +
+		" a  -17.5 17.5 0.5 1 0 0 -35" 
+		+ " z ";
+	} else {
+		return "m -" + size/2 + " 0" +
+		" a " + size/2 + " " + size/2 + " 0 1 0 " +  size  + " 0" +
+		" a " + size/2 + " " + size/2 + " 0 1 0 -" +  size  + " 0";
+	}
   },
 });
 
@@ -95,6 +102,7 @@ d3.svg.customSymbol = function() {
 };
 
 function getSymbol(sbo, size) {
+	console.log(size);
 	var type = sboSwitch(sbo)
 	size = size || 64;
 	if (d3.svg.symbolTypes.indexOf(type) !== -1) {
