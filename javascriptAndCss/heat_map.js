@@ -3,7 +3,7 @@ function heatmap(table){
 	d3.selectAll('#heatmappage').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
 	d3.selectAll('#info > *').remove();
-	d3.selectAll('#heatTip > *').remove();
+	d3.selectAll('#heatTip').remove();
 selectChart("heatmappage");
 	$('#heatButton').fadeIn();
 
@@ -47,11 +47,7 @@ selectChart("heatmappage");
 			var svgDiv = d3.select("#heatmappage").append("div")
 					.attr("id", "svgDiv");
 
-	
-			//text field overlay
-			var tooltip = d3.select("#heatTip")
-				.append("span")
-				.style("visibility", "hidden");
+
 
 			var svg = d3.select("#svgDiv").append("svg")
 				.attr("id", "heatmapSvg")
@@ -83,6 +79,15 @@ selectChart("heatmappage");
 					.attr("fill", "black")
 					.text("Changes");
 
+						//text field overlay
+			var tooltip = d3.select("#svgDiv")
+				.append("span")
+				.attr("id", "heatTip")
+				.attr("class", "tooltip")
+				.style("visibility", "hidden")
+				.style("position", "absolute")
+				.style("transform", "translate(-25%,0)");
+				
 			var bivdelete = svg.selectAll(".bar1")
 						.data(table)
 					.enter().append("rect")
@@ -106,7 +111,7 @@ selectChart("heatmappage");
 								})
 						.style("fill", "red")
 						.on("mouseover", function(){
-											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											var left = Math.min((d3.select("#heatmappage").node().getBoundingClientRect().width-45), (d3.select("#heatmapSvg").node().getBoundingClientRect().width-45))/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
@@ -147,7 +152,7 @@ selectChart("heatmappage");
 								})
 						.style("fill", "green")
 						.on("mouseover", function(){
-											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											var left = Math.min((d3.select("#heatmappage").node().getBoundingClientRect().width-45), (d3.select("#heatmapSvg").node().getBoundingClientRect().width-45))/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
@@ -188,7 +193,7 @@ selectChart("heatmappage");
 								})
 						.style("fill", "blue")
 						.on("mouseover", function(){
-											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											var left = Math.min((d3.select("#heatmappage").node().getBoundingClientRect().width-45), (d3.select("#heatmapSvg").node().getBoundingClientRect().width-45))/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
@@ -229,7 +234,7 @@ selectChart("heatmappage");
 								})
 						.style("fill", "yellow")
 						.on("mouseover", function(){
-											var left = (d3.select("#svgDiv").node().getBoundingClientRect().width - 145)/2;
+											var left = Math.min((d3.select("#heatmappage").node().getBoundingClientRect().width-45), (d3.select("#heatmapSvg").node().getBoundingClientRect().width-45))/2;
 											tooltip.text(this.__data__.model) ; tooltip.style("visibility", "visible");
 											d3.select("#heatTip").style("left", left + 'px');})
 						//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})

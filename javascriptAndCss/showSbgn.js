@@ -315,7 +315,7 @@ function showSbgn(data){
 		.entries(obj.nodes);
 
 	console.log(nested_data);
-	var compartmentPath = function(d) {
+	var compartmentPath = function(d) { // future compute path basend on xmin/max and ymin/max 
 		var size = 800;
 		return "m -" + size*0.5 + " -" + (size*0.5-20) + 
 		" m  0 " + size*0.05 +
@@ -368,7 +368,7 @@ function showSbgn(data){
 		  .style("font-size", "12px")
 		  .attr("id", function(d) {return d.key + "-text";})
 		  .attr('dy', "0.25em")
-		  .attr("transform", "translate(" + 0 +",-"+ (400 -20 - 12)+")")
+		  .attr("transform", "translate(" + 0 +",-"+ (400 -20 - 12)+")") //just a compartment hack
 		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
 		  .text(function(d) { return d.key });
 	  
@@ -397,15 +397,7 @@ function showSbgn(data){
 		  .attr('d', function(d) { 
 			var nodeWidth = size;
 			if(d.label != null && d.class != "SBO:0000290") {nodeWidth = d.label.length * 9; if(nodeWidth < 35) nodeWidth = 35;} // biggest size of a Char is ca. 9
-			//console.log("#"+d.id+"-text", nodeWidth);
-			var class1;
-			if(d.label == null && sboSwitch(d.class) != "process") class1= "SBO:0000291";
-						else class1= d.class;
-			return getSymbol(
-				
-					class1
-				
-				, nodeWidth || size); 
+			return getSymbol(d.class, nodeWidth || size); 
 		  });		  
 		 
 		node.append("text")

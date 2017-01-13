@@ -121,7 +121,6 @@
 				</div>
 				
 				<div id="heatmappage">
-				<div class="tooltip" id="heatTip"></div>
 				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
 					<div class="infoBox" id="heatBox"></div>
 				</div>

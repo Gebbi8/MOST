@@ -30,12 +30,14 @@ function getBivesData(v1, v2, command, place){
 		function (data)
 		{				
 			dataCatch = data;
+			//console.log(data);
 		}
 	).done(function(){
 			$("#bivesReport").html ($.parseJSON (dataCatch).reportHtml);
 			var annotations = $.parseJSON (dataCatch).separateAnnotations;
 			fillcomodiFig(annotations);
 			var sbgnJson = $.parseJSON (dataCatch).reactionsSbgnJson;
+			console.log(sbgnJson);
 			showSbgn(sbgnJson);
 			$("#bivesXmlDiff").text ($.parseJSON (dataCatch).xmlDiff);
 			$("#loading").hide();
