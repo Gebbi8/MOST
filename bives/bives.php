@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 600);
 $BIVES="http://localhost:8080/bives/";
 
 

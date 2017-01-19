@@ -1,6 +1,11 @@
 function fillcomodiFig(annotations){
 	//d3.selectAll("#bivesAnnotations").selectAll("svg").remove();
-
+	$('#annotations').show();
+	if(annotations == "" || annotations == null || annotations == "null"){
+		console.log(annotations, "!!!");
+		$('#annotations').hide();
+		return;
+	}
 	var comodiTerms = [
 					["Deletion","Insertion","Update","PermutationOfEntities","Move"],
 					["EntityName","XmlNode","XmlAttribute","EntityIdentifier","ModelId","ModelName","XmlText"],

@@ -1,6 +1,10 @@
 function showSbgn(data){
 	d3.selectAll("#bivesGraph").selectAll("svg").remove();
-
+	$('#graphTab').show();
+	if(data == "") {
+		$('#graphTab').hide();
+		return;
+	}
 	var obj = JSON.parse(data);
 		
 	var width = 1000,

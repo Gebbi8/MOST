@@ -5,11 +5,8 @@ function getBivesData(v1, v2, command, place){
 	$('#loading').show();
 	d3.selectAll(place + ' > *').remove();
 	
-	console.log(place, v1.url, v2.url);
 	$("#bivesInfo").show ();
-	
-	
-	
+		
 	var bivesJob = {
 		files:
 		[
@@ -28,16 +25,17 @@ function getBivesData(v1, v2, command, place){
 		"bives/bives.php",
 		"bivesJob=" + JSON.stringify (bivesJob),
 		function (data)
-		{				
+		{	
 			dataCatch = data;
-			//console.log(data);
 		}
 	).done(function(){
+			console.log(dataCatch, "!!!");
 			$("#bivesReport").html ($.parseJSON (dataCatch).reportHtml);
 			var annotations = $.parseJSON (dataCatch).separateAnnotations;
+			//console.log("annotations: ",annotations);
 			fillcomodiFig(annotations);
 			var sbgnJson = $.parseJSON (dataCatch).reactionsSbgnJson;
-			console.log(sbgnJson);
+			if(sbgnJson == undefined) console.log(dataCatch); else console.log("sbgnJson: ",sbgnJson);
 			showSbgn(sbgnJson);
 			$("#bivesXmlDiff").text ($.parseJSON (dataCatch).xmlDiff);
 			$("#loading").hide();
