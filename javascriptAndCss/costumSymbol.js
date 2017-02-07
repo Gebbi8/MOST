@@ -55,7 +55,7 @@ var customSymbolTypes = d3.map({
 	" l 0 -" + size*0.8 + 
 	" z ";
   },
-  'unspecifiedentity': function(size) {
+  'unspecified entity': function(size) {
 	size = size;
 	if(size > 150) size = 150;
 	return "m -" + size * 0.5 + " -" + size * 0 + 
@@ -63,7 +63,7 @@ var customSymbolTypes = d3.map({
 	" a " + size*0.25 + " " + size*0.5 + " -90 0 1 -" +  size + " 0";
   },
   
-  'simplechemical': function(size) {
+  'simple chemical': function(size) {
 	if (size > 35) {
 		return "m -" + size/2 + " 0" +
 		" m 17.5 -17.5" +

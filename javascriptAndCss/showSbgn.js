@@ -1,12 +1,19 @@
 function showSbgn(data){
+
+	
 	d3.selectAll("#bivesGraph").selectAll("svg").remove();
 	$('#graphTab').show();
+	$('#donwload').show();
+	
 	if(data == "") {
 		$('#graphTab').hide();
 		return;
 	}
 	var obj = JSON.parse(data);
-		
+
+	// register click-listeners to the download button
+    $("#download").click (function (){download (obj);});
+	
 	var width = 1000,
 		height = 800,
 		size = (width - 50) / 10 ;
@@ -21,6 +28,7 @@ function showSbgn(data){
 		.size([width, height]);
 
 	var svg = d3.select("#bivesGraph").append("svg")
+		.attr("id", 'bivesGraphSvg')
 		.attr("width", width)
 		.attr("height", height);
 	
@@ -272,6 +280,7 @@ function showSbgn(data){
 	  });
 	  
 	  console.log(compartments);
+	  console.log(nodeById);
 	  
 	  
 
@@ -353,7 +362,8 @@ function showSbgn(data){
 		.attr("d", compartmentPath)
 	  .enter().append("g")
 		.filter(function(d) { return d.key != "null"})
-		.attr("class", "compartment")	
+		.attr("class", "compartment")
+		.attr("label", function(d) {return nodeById.get(d.key).label;} )
 		.attr("id", function(d) {return d.key})
 		.attr("transform", "translate(" + focis[0][0].x +","+ focis[0][0].y+")");
 		
@@ -374,7 +384,7 @@ function showSbgn(data){
 		  .attr('dy', "0.25em")
 		  .attr("transform", "translate(" + 0 +",-"+ (400 -20 - 12)+")") //just a compartment hack
 		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
-		  .text(function(d) { return d.key });
+		  .text(function(d) { return nodeById.get(d.key).label });
 	  
 	  var link = svg.selectAll(".link")
 		  .data(obj.links)
@@ -383,12 +393,21 @@ function showSbgn(data){
 		  .attr("id", function(d) {return d.id})
 		  .attr("class", function(d) { return "link " + d.bivesClass;})
 		  .style("stroke-width", 2)
-		  .style("fill", "none");
+		  .style("stroke", function(d) { return getColor(d.bivesClass);})
 		  
+	function getColor(bivesColor){
+		switch (bivesColor){
+			case 'insert': return "green"; break;
+			case 'delete': return "red"; break;
+			case 'move': return "blue"; break;
+			case 'update': return "orange"; break;
+			default: return "black";
+		}
+	}
+	
 	  var node = svg.selectAll(".node")
-		  .data(obj.nodes)
+		  .data(obj.nodes.filter(function(d) { return sboSwitch(d.class) != "compartment"}))
 		.enter().append("g")
-			.filter(function(d) { return sboSwitch(d.class) != "compartment"})
 			.attr("class", function(d) {return "node " + sboSwitch(d.class);})
 			.attr("fill", function(d) { if(d.class != "SBO:0000290") return "white";})
 				.call(drag)
@@ -414,7 +433,6 @@ function showSbgn(data){
 		  .each(function (d) {
 				if(d.label == null) return;
 				var lines = d.label.split(" ");
-				console.log(lines);
 				for(var i=0; i<lines.length; i++){
 					d3.select(this)
 						.append("tspan")
@@ -607,7 +625,6 @@ function showSbgn(data){
 			}
 			
 			if(targetClass == "process" && sboSwitch(d.class) != "consumption"){
-				console.log(d.class);
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/2;
 				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;

@@ -28,11 +28,11 @@
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
-	<script type="text/javascript" src="javascriptAndCss/sboTermMapping.js"></script>
-	<script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
-	<script type="text/javascript" src="javascriptAndCss/showSbgn.js"></script>
-	<script type="text/javascript" src="javascriptAndCss/costumSymbol.js"></script>
-	<script type="text/javascript" src="javascriptAndCss/download.js"></script>
+<script type="text/javascript" src="javascriptAndCss/sboTermMapping.js"></script>
+<script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
+<script type="text/javascript" src="javascriptAndCss/showSbgn.js"></script>
+<script type="text/javascript" src="javascriptAndCss/costumSymbol.js"></script>
+<script type="text/javascript" src="javascriptAndCss/download.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
 </head>
 <body>
@@ -139,7 +139,6 @@
 					<div class="infoBox" id="box2Box"></div>
 				</div>
 				</div>
-				<button id="download">download</button>
 			</div>
 			
 			<div id="bivesInfo">
@@ -164,6 +163,7 @@
 					<div class="bivesContent" id="bivesReport">
 					</div>
 					<div class="bivesContent" id="bivesGraph">
+						<button id="download">download</button>
 					</div>
 					<pre class="bivesContent" id="bivesXmlDiff">
 					</pre>

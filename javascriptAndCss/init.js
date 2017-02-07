@@ -218,5 +218,5 @@ function init ()
         //load startpage info from json
         $("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
         $("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
-    });	
+    });
 }
