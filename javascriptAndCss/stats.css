@@ -651,11 +651,11 @@ marker#modulation {
 }
 
 .move{
-	stroke: green;
+	stroke: blue;
 }
 
 .insert{
-	stroke: blue;
+	stroke: green;
 }
 
 .delete{

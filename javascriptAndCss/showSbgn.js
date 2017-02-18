@@ -1,11 +1,9 @@
 function showSbgn(data){
-
-	
 	d3.selectAll("#bivesGraph").selectAll("svg").remove();
 	$('#graphTab').show();
 	$('#donwload').show();
 	
-	if(data == "") {
+	if(data == "" || data == undefined) {
 		$('#graphTab').hide();
 		return;
 	}
@@ -86,7 +84,7 @@ function showSbgn(data){
 				"viewBox":"0 -6 11 12",
 				"fill":"white",
 				"stroke-width":"1",
-				"refX":5,
+				"refX":10,
 				"refY":0,
 				"markerWidth":marker,
 				"markerHeight":marker,
@@ -103,7 +101,7 @@ function showSbgn(data){
 				"viewBox":"0 -6 11 12",
 				"fill":"white",
 				"stroke-width":"1",
-				"refX":5,
+				"refX":10,
 				"refY":0,
 				"markerWidth":marker,
 				"markerHeight":marker,
@@ -120,13 +118,13 @@ function showSbgn(data){
 				"viewBox":"0 -6 11 12",
 				"fill":"white",
 				"stroke-width":"1",
-				"refX":5,
+				"refX":10,
 				"refY":0,
 				"markerWidth":marker,
 				"markerHeight":marker,
 				"orient":"auto"
 			})
-			.style("stroke", "blue")
+			.style("stroke", "green")
 			.append("path")
 				.attr("d", "M0,0L5,5L10,0L5,-5Z")
 				.attr("class","arrowHead");
@@ -195,7 +193,7 @@ function showSbgn(data){
 				"markerHeight":marker,
 				"orient":"auto"
 			})
-			.style("stroke", "blue")
+			.style("stroke", "green")
 			.append("path")
 				.attr("d", "M1,-5L1,4L10,0Z")
 				.attr("class","arrowHead");
@@ -393,6 +391,7 @@ function showSbgn(data){
 		  .attr("id", function(d) {return d.id})
 		  .attr("class", function(d) { return "link " + d.bivesClass;})
 		  .style("stroke-width", 2)
+		  .style("fill", "none")
 		  .style("stroke", function(d) { return getColor(d.bivesClass);})
 		  
 	function getColor(bivesColor){
@@ -409,7 +408,7 @@ function showSbgn(data){
 		  .data(obj.nodes.filter(function(d) { return sboSwitch(d.class) != "compartment"}))
 		.enter().append("g")
 			.attr("class", function(d) {return "node " + sboSwitch(d.class);})
-			.attr("fill", function(d) { if(d.class != "SBO:0000290") return "white";})
+			.attr("fill", function(d) { if(d.class != "SBO:0000290") return "white"; if(sboSwitch(d.class)=='association') return black})
 				.call(drag)
 				;//.call(node_drag);
 			
@@ -479,6 +478,7 @@ function showSbgn(data){
 	//links for costum symbols and multiple links for inserts and updates
 		  
 		link.attr("d", function(d){
+		
 			var x1 = d.source.x,
 				y1 = d.source.y,
 				y2 = d.target.y,
@@ -492,7 +492,7 @@ function showSbgn(data){
 			}
 			
 			var targetClass = sboSwitch(d.target.class);
-			if((targetClass == "simplechemical" && d3.select("#"+d.target.id).node().getBoundingClientRect().width <= 35.1) || targetClass == "source and sink"){
+			if((targetClass == "simple chemical" && d3.select("#"+d.target.id).node().getBoundingClientRect().width <= 35.1) || targetClass == "source and sink"){
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				//var n = 0//d.source.y  - m*d.source.x;
 				var rQuad = Math.pow(d3.select("#"+d.target.id).node().getBoundingClientRect().width/2, 2);
@@ -520,7 +520,7 @@ function showSbgn(data){
 						y2 =  d.target.y + yCross2;
 					}		
 				}
-			} else if (targetClass == "simplechemical"){
+			} else if (targetClass == "simple chemical"){
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width-17.5;
 				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
@@ -625,6 +625,8 @@ function showSbgn(data){
 			}
 			
 			if(targetClass == "process" && sboSwitch(d.class) != "consumption"){
+				if("Z" == d.source.label) console.log("test");
+				
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/2;
 				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
@@ -652,8 +654,9 @@ function showSbgn(data){
 				}				
 			}
 			
-			if(targetClass == "unspecifiedentity"){
+			if(targetClass == "unspecified entity"){
 				
+
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				var w = d3.select("#"+d.target.id).node().getBoundingClientRect().width;
 				var h = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
@@ -689,20 +692,20 @@ function showSbgn(data){
 			var dr = Math.sqrt((x2-d.source.x) * (x2-d.source.x) + (y2-d.source.y) * (y2-d.source.y));
 			//console.log("M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + x2 + "," + y2);
 					
-			var distance = distanceHack(sboSwitch(d.target.class), size);
+			//var distance = distanceHack(sboSwitch(d.target.class), size);
 			
 			switch(d.bivesClass){
-				case "insert": if(d.source.y < d.target.y){
-					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + (x2 + distance/2) + "," + y2;
+			/*	case "insert": if(d.source.y < d.target.y){
+					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + (x2 ) + "," + y2;
 				} else {
-					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + (x2 - distance/2) + "," + y2;
+					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + (x2) + "," + y2;
 				}; break;
 				case "delete": if(d.source.y < d.target.y){
-					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,0 " + (x2 - distance/2) + "," + y2;
+					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,0 " + (x2) + "," + y2;
 				} else {
-					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,0 " + (x2 + distance/2) + "," + y2;
-				}; break;
-				default: return "M" + x1 + "," + y1 + "L" + (x2 + distance/2) + "," + y2;
+					return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,0 " + (x2) + "," + y2;
+				}; break;*/
+				default: return "M" + x1 + "," + y1 + "L" + (x2 + 0) + "," + y2;
 			}
 			
 			//return "M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + x2 + "," + y2;

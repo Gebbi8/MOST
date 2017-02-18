@@ -29,13 +29,14 @@ function getBivesData(v1, v2, command, place){
 			dataCatch = data;
 		}
 	).done(function(){
-			console.log(dataCatch, "!!!");
+			//console.log(dataCatch, "!!!");
 			$("#bivesReport").html ($.parseJSON (dataCatch).reportHtml);
 			var annotations = $.parseJSON (dataCatch).separateAnnotations;
 			//console.log("annotations: ",annotations);
 			fillcomodiFig(annotations);
 			var sbgnJson = $.parseJSON (dataCatch).reactionsSbgnJson;
-			if(sbgnJson == undefined) console.log(dataCatch); else console.log("sbgnJson: ",sbgnJson);
+			if(sbgnJson == undefined) console.log(dataCatch); 
+			else console.log("sbgnJson: ",sbgnJson);
 			showSbgn(sbgnJson);
 			$("#bivesXmlDiff").text ($.parseJSON (dataCatch).xmlDiff);
 			$("#loading").hide();
