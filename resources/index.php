@@ -78,7 +78,7 @@ else
     }
     else
     {
-        header("Location: http://biomodels.lesscomplex.org/releases/$model.xml/$version/$model.xml");
+        header("Location: http://biomodels.bio.informatik.uni-rostock.de/$model.xml/$version/$model.xml");
     }
 }
 ?>
