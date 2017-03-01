@@ -34,7 +34,7 @@ function fillGeneralStatsTable ()
 {
     var table = $('#generalStatsTable > tbody:last')
 
-        addGeneralStatsTableRow (table, "#Models", Object.keys(models).length);
+    addGeneralStatsTableRow (table, "#Models", Object.keys(models).length);
     addGeneralStatsTableRow (table, "#Versions", Object.keys(originalFilestats).length);
     addGeneralStatsTableRow (table, "#Deltas", originalDiffstats.length);
 

@@ -325,7 +325,6 @@ function showSbgn(data){
 		.key(function(d) { return d.compartment; })
 		.entries(obj.nodes);
 
-	console.log(nested_data);
 	var compartmentPath = function(d) { // future compute path basend on xmin/max and ymin/max 
 		var size = 800;
 		return "m -" + size*0.5 + " -" + (size*0.5-20) + 
@@ -355,34 +354,6 @@ function showSbgn(data){
                  .attr("y2",y2New);
              }).on('dragend', function(){
            }); 
-		var compartment = svg.selectAll(".compartment")
-		.data(nested_data)
-		.attr("d", compartmentPath)
-	  .enter().append("g")
-		.filter(function(d) { return d.key != "null"})
-		.attr("class", "compartment")
-		.attr("label", function(d) {return nodeById.get(d.key).label;} )
-		.attr("id", function(d) {return d.key})
-		.attr("transform", "translate(" + focis[0][0].x +","+ focis[0][0].y+")");
-		
-	compartment.append("path")
-		.style("fill", "steelblue")
-		.style("fill-opacity", "0.2")
-		.style("stroke","black")
-		.style("stroke-width", "2px")
-		.attr("d", compartmentPath)
-		.call(drag);
-		
-	compartment.append("text")
-		  .style("text-anchor", "middle")
-		  .style("stroke-width", "0px")
-		  .style("fill", "black")
-		  .style("font-size", "12px")
-		  .attr("id", function(d) {return d.key + "-text";})
-		  .attr('dy', "0.25em")
-		  .attr("transform", "translate(" + 0 +",-"+ (400 -20 - 12)+")") //just a compartment hack
-		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
-		  .text(function(d) { return nodeById.get(d.key).label });
 	  
 	  var link = svg.selectAll(".link")
 		  .data(obj.links)
@@ -402,6 +373,40 @@ function showSbgn(data){
 			case 'update': return "orange"; break;
 			default: return "black";
 		}
+	}
+	
+	function compartmentFlex(id){
+		//find min and max values of contained nodes
+		var xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity 
+		nested_data.forEach(function(d){
+			if(d.key == id){
+				//console.log(d.values);
+				d.values.forEach(function(e){
+					xMin = Math.min(xMin, e.px-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					xMax = Math.max(xMax, e.px+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					yMin = Math.min(yMin, e.py-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					yMax = Math.max(yMax, e.py+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					//console.log(e.px, e.py, e.id);
+					//console.log(d3.select("#"+e.id).node().getBoundingClientRect());
+				})
+				//console.log(xMin, xMax, yMin, yMax);
+			}
+		});
+		if(xMin==Infinity)  return;
+		var x= (-xMin+xMax)/3;
+		var y= (yMin+yMax)*0.05;
+		return "M " + xMin + " " + yMin + 
+		" Q " + (xMin+x/2) + " " + (yMin-8) + " " + (xMin+x) + " " +(yMin-8) +
+		" H " + (xMin + 2*x) + 
+		" Q " + (xMax-x/2) + " " + (yMin-8) + " " + xMax + " " +(yMin) +
+		//" q " + size*0.2 + " 0 " + size*0.4 + " " + size*0.05 +
+		" V " + yMax +
+		//" q -" + size*0.2 + " " + size*0.05 + " -" + size*0.4 + " " + size*0.05 +
+		" Q " + (xMax-x/2) + " " + (yMax+8) + " " + (xMax-x) + " " +(yMax+8) +
+		" H " + (xMin + x) + 
+		" Q " + (xMin+x/2) + " " + (yMax+8) + " " + (xMin) + " " +(yMax) +
+		//" q -" + size*0.2 + " 0 -" + size*0.4 + " -" + size*0.05 + 
+		" z ";
 	}
 	
 	  var node = svg.selectAll(".node")
@@ -441,16 +446,64 @@ function showSbgn(data){
 				}
 			  });
 				
-
+	var compartment = svg.selectAll(".compartment")
+		.data(nested_data)
+		//.attr("d", compartmentPath)
+	  .enter().insert("g", ":first-child")
+		.filter(function(d) { return d.key != "null"})
+		.attr("class", "compartment")
+		.attr("label", function(d) {return nodeById.get(d.key).label;} )
+		.attr("id", function(d) {return d.key})
+		
+	compartment.append("path")
+		.style("fill", "steelblue")
+		.style("fill-opacity", "0.2")
+		.style("stroke","black")
+		.style("stroke-width", "2px")
+		.attr("d", function(d) {return compartmentFlex(d.label)})
+		.call(drag);
+		
+	compartment.append("text")
+		  .style("text-anchor", "middle")
+		  .style("stroke-width", "0px")
+		  .style("fill", "black")
+		  .style("font-size", "12px")
+		  .attr("id", function(d) {return d.key + "-text";})
+		  .attr('dy', "0.25em")
+		  .attr("transform", function(d) {return compartmentText(d.key)}) //just a compartment hack
+		  //.attr('x', function(d) { if(d.class == "SBO:0000290") return -100;})
+		  .text(function(d) { return nodeById.get(d.key).label });
 		
 				
 	
 	force.on("tick", tick);
-	  
+	
+function compartmentText(key){
+//find min and max values of contained nodes
+		var xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity 
+		nested_data.forEach(function(d){
+			if(d.key == key){
+				//console.log(d.values);
+				d.values.forEach(function(e){
+					xMin = Math.min(xMin, e.px-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					xMax = Math.max(xMax, e.px+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					yMin = Math.min(yMin, e.py-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					yMax = Math.max(yMax, e.py+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					//console.log(e.px, e.py, e.id);
+					//console.log(d3.select("#"+e.id).node().getBoundingClientRect());
+				})
+				//console.log(xMin, xMax, yMin, yMax);
+			}
+		});
+		if(xMin==Infinity)  return;
+		//console.log('"translate(' + (xMin+xMax/2) + ', ' + yMin + ')"');
+		return "translate("+(xMin+xMax)/2+", "+(yMin-16)+")";
+}
+	
 	function tick(e) {
 		//compartments
 		  // Push different nodes in different directions for clustering.
- 		var k = .1 * e.alpha;
+/*  		var k = .1 * e.alpha;
 
 		  // Push nodes toward their designated focus.
 		nodeById.forEach(function(id, o) {
@@ -469,11 +522,20 @@ function showSbgn(data){
 								o.x += (focis[compartments.length-1][j].x - o.x) * k;	
 							}
 						}
-						//console.log(focis[compartments.length-1][j].y)
 					}		
 				}
 			}
-		}); 
+		});  */
+		
+	compartment.select("path").attr("d", function(d){
+		//console.log(this, d);
+		return compartmentFlex(d.key);
+	})
+	
+	compartment.select("text").attr("transform", function(d){
+		//console.log(this, d);
+		return compartmentText(d.key);
+	})
 
 	//links for costum symbols and multiple links for inserts and updates
 		  

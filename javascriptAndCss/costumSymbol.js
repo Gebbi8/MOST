@@ -24,8 +24,30 @@ var customSymbolTypes = d3.map({
 	" m " + size*2 + " 0" + 
 	" h -" + size/2;
   },
-  'dissociation': function(size) {
+  'production': function(size) {
 	size = size*0.15;
+	return "m -" + size*0.5 + " -" + size*0.5 +
+	" h " + size + 
+	" v " + size + 
+	" h -" + size +
+	" z " + " m 0 " + size/2 +
+	" h -" + size/2 +
+	" m " + size*2 + " 0" + 
+	" h -" + size/2;
+  },
+  'consumption': function(size) {
+	size = size*0.15;
+	return "m -" + size*0.5 + " -" + size*0.5 +
+	" h " + size + 
+	" v " + size + 
+	" h -" + size +
+	" z " + " m 0 " + size/2 +
+	" h -" + size/2 +
+	" m " + size*2 + " 0" + 
+	" h -" + size/2;
+  },
+  'dissociation': function(size) {
+	size = size*0.1;
 	return "m -" + size * 0.5 + " -" + size * 0.5 + 
 	" m -" + size*0.5 + " " + size*0.5 +
     " a " + size + " " + size + " 0 1 0 " +  size * 2 + " 0" +
@@ -33,22 +55,21 @@ var customSymbolTypes = d3.map({
 	" m " + size*0.3 + " 0" + 
     " a " + size*0.7 + " " + size*0.7 + " 0 1 0 " +  size*0.7 * 2 + " 0" +
 	" a " + size*0.7 + " " + size*0.7 + " 0 1 0 -" +  size*0.7 * 2 + " 0" +
-	"m -" + size + " 0"
+	" m -" + size*0.3 + " 0" + 
 	//" m 0 " + size/2 +
 	" h -" + size/2 +
-	" m " + size*2 + " 0" + 
+	" m " + size*3 + " 0" + 
 	" h -" + size/2;
   },
   'association': function(size) {
-	size = size*0.15;
+	size = size*0.1;
 	return "m -" + size * 0.5 + " -" + size * 0.5 + 
 	" m -" + size*0.5 + " " + size*0.5 +
     " a " + size + " " + size + " 0 1 0 " +  size * 2 + " 0" +
 	" a " + size + " " + size + " 0 1 0 -" +  size * 2 + " 0" +
-	" m -" + size + " 0"
 	//" m 0 " + size/2 +
 	" h -" + size/2 +
-	" m " + size*2 + " 0" + 
+	" m " + size*3 + " 0" + 
 	" h -" + size/2;
   },
   'macromolecule': function(size) {
@@ -84,7 +105,7 @@ var customSymbolTypes = d3.map({
 	" l 0 -" + size*0.8 + 
 	" z ";
   },
-   'pertubing angent': function(size) {
+   'perturbing agent': function(size) {
 	return "m -" + size*0.5 + " -" + size*0.5 +
 	" l " + size + " 0" +
 	" l -" + size*0.125 + " " + size*0.5 +
@@ -146,7 +167,7 @@ function getSymbol(sbo, size) {
 	if (d3.svg.symbolTypes.indexOf(type) !== -1) {
 		return d3.svg.symbol().type(type).size(size)();
 	} else {
-		console.log(type, size);
+		if(type == "inhibition" || type == "conusmption" || type == "production" || type == "modulation" || type == "stimulation" || type == "catalysis" || type == "necessary stimulation") type = 'process';
 		return d3.svg.customSymbol().type(type).size(size)();
 	}
 }
