@@ -206,7 +206,7 @@ function filterTimeDiffs (table)
 	var filtered = [];
 	for (var id = 0; id < table.length; id++)
 	{
-		var datum1 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
+		var datum1 = originalFilestats[ table[id]["model"] + table[id]["version1id"]  ].date;
 		var datum2 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
 		
 		if (datum1 >= extent[0] && datum1 <= extent[1] && datum2 >= extent[0] && datum2 <= extent[1])

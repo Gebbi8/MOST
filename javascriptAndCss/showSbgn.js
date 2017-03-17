@@ -24,11 +24,20 @@ function showSbgn(data){
 		.linkDistance(100)
 		.gravity(0.2)
 		.size([width, height]);
-
+	
+	var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+	
+	function zoomed() {
+	  node.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+	}
+	
 	var svg = d3.select("#bivesGraph").append("svg")
 		.attr("id", 'bivesGraphSvg')
 		.attr("width", width)
-		.attr("height", height);
+		.attr("height", height)
+		;//.call(zoom);
 	
 	defs = svg.append("defs")
 
@@ -277,8 +286,8 @@ function showSbgn(data){
 		nodeById.set(node.id, node);
 	  });
 	  
-	  console.log(compartments);
-	  console.log(nodeById);
+	  //console.log(compartments);
+	  //console.log(nodeById);
 	  
 	  
 
@@ -291,7 +300,7 @@ function showSbgn(data){
 		.nodes(obj.nodes)
 		.links(obj.links)
 		.start();
-	  
+
 	var drag = force.drag()
     .on("dragstart", dragstart);
 	
@@ -299,33 +308,34 @@ function showSbgn(data){
 		d3.select(this).classed("fixed", d.fixed = true);
 	}
 	
-	  var node_drag = d3.behavior.drag()
-        .on("dragstart", dragstart)
-        .on("drag", dragmove)
-        .on("dragend", dragend);
+	var dragCompartment = d3.behavior.drag()
+		.on("dragstart", function() {force.start()})
+		.on("drag", function(d, i){
 
-/*     function dragstart(d, i) {
-        //force.stop() // stops the force auto positioning before you start dragging
-    } */
+			var key = d.key;
+			var selection = d3.selectAll("#bivesGraphSvg").selectAll("g.node")
+				.filter(function(d){return d.compartment == key}); 
 
-    function dragmove(d, i) {
-        d.px += d3.event.dx;
-        d.py += d3.event.dy;
-        d.x += d3.event.dx;
-        d.y += d3.event.dy; 
-        tick(); // this is the key to make it work together with updating both px,py,x,y on d !
-    }
-
-    function dragend(d, i) {
-        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-        tick();
-        force.resume();
-    }
+			selection.each(
+					function(d){
+						d3.select(this).classed("fixed", d.fixed = true);
+						d.x = d.x + d3.event.dx;
+						d.y = d.y + d3.event.dy;
+						d3.select(this).attr("transform", function(d,i){
+							return "translate(" + [ d.x,d.y ] + ")"
+						})
+						x=d.x; y=d.y;
+						d.px=d.x; d.py=d.y;
+					}
+				);
+			tick();
+		})
+	
 	var nested_data = d3.nest()
 		.key(function(d) { return d.compartment; })
 		.entries(obj.nodes);
 
-	var compartmentPath = function(d) { // future compute path basend on xmin/max and ymin/max 
+/* 	var compartmentPath = function(d) { // future compute path basend on xmin/max and ymin/max 
 		var size = 800;
 		return "m -" + size*0.5 + " -" + (size*0.5-20) + 
 		" m  0 " + size*0.05 +
@@ -336,24 +346,7 @@ function showSbgn(data){
 		" q -" + size*0.2 + " " + size*0.05 + " -" + size*0.4 + " " + size*0.05 +
 		" l -" + size*0.2 + " 0 " + 
 		" q -" + size*0.2 + " 0 -" + size*0.4 + " -" + size*0.05 + 
-		" z ";}
-	
-	var drag2 = d3.behavior.drag()
-           .on('dragstart', null)
-           .on('drag', function(d){
-             // move circle
-             var dx = d3.event.dx;
-             var dy = d3.event.dy;
-             var x1New = parseFloat(d3.select(this).attr('x1'))+ dx;
-             var y1New = parseFloat(d3.select(this).attr('y1'))+ dy;
-             var x2New = parseFloat(d3.select(this).attr('x2'))+ dx;
-             var y2New = parseFloat(d3.select(this).attr('y2'))+ dy;
-             compartment.attr("x1",x1New)
-                 .attr("y1",y1New)
-                 .attr("x2",x2New)
-                 .attr("y2",y2New);
-             }).on('dragend', function(){
-           }); 
+		" z ";} */
 	  
 	  var link = svg.selectAll(".link")
 		  .data(obj.links)
@@ -380,16 +373,12 @@ function showSbgn(data){
 		var xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity 
 		nested_data.forEach(function(d){
 			if(d.key == id){
-				//console.log(d.values);
 				d.values.forEach(function(e){
-					xMin = Math.min(xMin, e.px-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					xMax = Math.max(xMax, e.px+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					yMin = Math.min(yMin, e.py-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					yMax = Math.max(yMax, e.py+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					//console.log(e.px, e.py, e.id);
-					//console.log(d3.select("#"+e.id).node().getBoundingClientRect());
+					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
 				})
-				//console.log(xMin, xMax, yMin, yMax);
 			}
 		});
 		if(xMin==Infinity)  return;
@@ -399,13 +388,10 @@ function showSbgn(data){
 		" Q " + (xMin+x/2) + " " + (yMin-8) + " " + (xMin+x) + " " +(yMin-8) +
 		" H " + (xMin + 2*x) + 
 		" Q " + (xMax-x/2) + " " + (yMin-8) + " " + xMax + " " +(yMin) +
-		//" q " + size*0.2 + " 0 " + size*0.4 + " " + size*0.05 +
 		" V " + yMax +
-		//" q -" + size*0.2 + " " + size*0.05 + " -" + size*0.4 + " " + size*0.05 +
 		" Q " + (xMax-x/2) + " " + (yMax+8) + " " + (xMax-x) + " " +(yMax+8) +
 		" H " + (xMin + x) + 
 		" Q " + (xMin+x/2) + " " + (yMax+8) + " " + (xMin) + " " +(yMax) +
-		//" q -" + size*0.2 + " 0 -" + size*0.4 + " -" + size*0.05 + 
 		" z ";
 	}
 	
@@ -413,6 +399,7 @@ function showSbgn(data){
 		  .data(obj.nodes.filter(function(d) { return sboSwitch(d.class) != "compartment"}))
 		.enter().append("g")
 			.attr("class", function(d) {return "node " + sboSwitch(d.class);})
+			.attr("compartment", function(d) {return d.compartment;} )
 			.attr("fill", function(d) { if(d.class != "SBO:0000290") return "white"; if(sboSwitch(d.class)=='association') return black})
 				.call(drag)
 				;//.call(node_drag);
@@ -461,7 +448,7 @@ function showSbgn(data){
 		.style("stroke","black")
 		.style("stroke-width", "2px")
 		.attr("d", function(d) {return compartmentFlex(d.label)})
-		.call(drag);
+		.call(dragCompartment);
 		
 	compartment.append("text")
 		  .style("text-anchor", "middle")
@@ -483,24 +470,19 @@ function compartmentText(key){
 		var xMin=Infinity, xMax=-Infinity, yMin=Infinity, yMax=-Infinity 
 		nested_data.forEach(function(d){
 			if(d.key == key){
-				//console.log(d.values);
 				d.values.forEach(function(e){
-					xMin = Math.min(xMin, e.px-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					xMax = Math.max(xMax, e.px+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					yMin = Math.min(yMin, e.py-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					yMax = Math.max(yMax, e.py+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					//console.log(e.px, e.py, e.id);
-					//console.log(d3.select("#"+e.id).node().getBoundingClientRect());
+					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
+					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
 				})
-				//console.log(xMin, xMax, yMin, yMax);
 			}
 		});
 		if(xMin==Infinity)  return;
-		//console.log('"translate(' + (xMin+xMax/2) + ', ' + yMin + ')"');
 		return "translate("+(xMin+xMax)/2+", "+(yMin-16)+")";
 }
 	
-	function tick(e) {
+	function tick() {
 		//compartments
 		  // Push different nodes in different directions for clustering.
 /*  		var k = .1 * e.alpha;
@@ -528,12 +510,10 @@ function compartmentText(key){
 		});  */
 		
 	compartment.select("path").attr("d", function(d){
-		//console.log(this, d);
 		return compartmentFlex(d.key);
 	})
 	
 	compartment.select("text").attr("transform", function(d){
-		//console.log(this, d);
 		return compartmentText(d.key);
 	})
 
@@ -599,7 +579,6 @@ function compartmentText(key){
 					y2 = d.target.y - rectY;
 					x2 = d.target.x - rectX;
 				} else { // half circles
-					console.log("half circles");
 					var rQuad = 306.25;
 					mQuad = Math.pow(m,2);
 
@@ -687,7 +666,6 @@ function compartmentText(key){
 			}
 			
 			if(targetClass == "process" && sboSwitch(d.class) != "consumption"){
-				if("Z" == d.source.label) console.log("test");
 				
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
 				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/2;
@@ -752,7 +730,6 @@ function compartmentText(key){
 			
 
 			var dr = Math.sqrt((x2-d.source.x) * (x2-d.source.x) + (y2-d.source.y) * (y2-d.source.y));
-			//console.log("M" + x1 + "," + y1 + "A" + dr + "," + dr + " 0 0,1 " + x2 + "," + y2);
 					
 			//var distance = distanceHack(sboSwitch(d.target.class), size);
 			
@@ -778,6 +755,8 @@ function compartmentText(key){
 			});
 		
 	  };
+	  
+	 
 	return obj;
 }
 

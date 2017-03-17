@@ -3,8 +3,8 @@ var originalDiffstats = {};
 var models = {};
 var repoEvolution = {
 	ALL: {maxFiles: 0, maxNodes: 0, values: []},
-	CellML: {maxFiles: 0, maxNodes: 0, values: []},
-	SBML: {maxFiles: 0, maxNodes: 0, values: []},
+	PMR2: {maxFiles: 0, maxNodes: 0, values: []},
+	BIOMODELS: {maxFiles: 0, maxNodes: 0, values: []},
 };
 
 var filestats = {};
