@@ -9,6 +9,7 @@ function showSbgn(data){
 	}
 	var obj = JSON.parse(data);
 
+	var currentZoom = 1;
 	// register click-listeners to the download button
     $("#download").click (function (){download (obj);});
 	
@@ -25,239 +26,26 @@ function showSbgn(data){
 		.gravity(0.2)
 		.size([width, height]);
 	
+	//zoom the whole svg
 	var zoom = d3.behavior.zoom()
-    .scaleExtent([1, 10])
+    .scaleExtent([0.1, 10])
     .on("zoom", zoomed);
 	
 	function zoomed() {
-	  node.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+		container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+		
+		tick();
 	}
 	
 	var svg = d3.select("#bivesGraph").append("svg")
 		.attr("id", 'bivesGraphSvg')
 		.attr("width", width)
 		.attr("height", height)
-		;//.call(zoom);
+		.call(zoom);
+		
+	var container = svg.append("g");
 	
-	defs = svg.append("defs")
-
-	defs.append("marker")
-			.attr({
-				"id":"productionnothing",
-				"viewBox":"0 -6 11 12",
-				"refX":9,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M0,-5L10,0L0,5")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"productionupdate",
-				"viewBox":"0 -6 11 12",
-				"fill":"orange",
-				"stroke-width":"0",
-				"refX":9,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M0,-5L10,0L0,5")
-				.attr("class","arrowHead");
-
-	defs.append("marker")
-			.attr({
-				"id":"modulationnothing",
-				"viewBox":"0 -6 11 12",
-				"fill":"white",
-				"stroke-width":"0.5",
-				"refX":10,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M0,0L5,5L10,0L5,-5Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"modulationupdate",
-				"viewBox":"0 -6 11 12",
-				"fill":"white",
-				"stroke-width":"1",
-				"refX":10,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "orange")
-			.append("path")
-				.attr("d", "M0,0L5,5L10,0L5,-5Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"modulationdelete",
-				"viewBox":"0 -6 11 12",
-				"fill":"white",
-				"stroke-width":"1",
-				"refX":10,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "red")
-			.append("path")
-				.attr("d", "M0,0L5,5L10,0L5,-5Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"modulationinsert",
-				"viewBox":"0 -6 11 12",
-				"fill":"white",
-				"stroke-width":"1",
-				"refX":10,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "green")
-			.append("path")
-				.attr("d", "M0,0L5,5L10,0L5,-5Z")
-				.attr("class","arrowHead");
-
-	defs.append("marker")
-			.attr({
-				"id":"stimulatornothing",
-				"viewBox":"0 -6 11 12",
-				"stroke":"black",
-				"stroke-width":"0.5",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "black")
-			.append("path")
-				.attr("d", "M1,-5L1,4L10,0Z")
-				.attr("class","arrowHead");
-
-	defs.append("marker")
-			.attr({
-				"id":"stimulatorupdate",
-				"viewBox":"0 -6 11 12",
-				"stroke-width":"1",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "orange")
-			.append("path")
-				.attr("d", "M1,-5L1,4L10,0Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"stimulatordelete",
-				"viewBox":"0 -6 11 12",
-				"stroke-width":"1",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "red")
-			.append("path")
-				.attr("d", "M1,-5L1,4L10,0Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"stimulatorinsert",
-				"viewBox":"0 -6 11 12",
-				"stroke-width":"1",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.style("stroke", "green")
-			.append("path")
-				.attr("d", "M1,-5L1,4L10,0Z")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"catalysis",
-				"viewBox":"0 -6 11 12",
-				"stroke":"black",
-				"stroke-width":"0.5",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M1,0A1,1,0,0,1,9,0A1,1,0,0,1,1,0")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"inhibition",
-				"viewBox":"0 -6 11 12",
-				"stroke":"black",
-				"stroke-width":"2.5",
-				"fill":"white",
-				"refX":0,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"fill":"white",
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M0,-5L0,5")
-				.attr("class","arrowHead");
-				
-	defs.append("marker")
-			.attr({
-				"id":"necessarystimulation",
-				"viewBox":"0 -6 11 12",
-				"stroke-width":"0.5",
-				"stroke":"black",
-				"fill":"white",
-				"refX":5,
-				"refY":0,
-				"markerWidth":marker,
-				"markerHeight":marker,
-				"orient":"auto"
-			})
-			.append("path")
-				.attr("d", "M1,-5L1,105M2,-4L2,4L10,0L2,-4")
-				.attr("class","arrowHead");
+	var defs = appendDefs(svg); //define arrowheads: see appendDefs.js
 	
 	var edges = [];
 	var compartments = [];
@@ -305,11 +93,12 @@ function showSbgn(data){
     .on("dragstart", dragstart);
 	
 	function dragstart(d) {
+		d3.event.sourceEvent.stopPropagation();
 		d3.select(this).classed("fixed", d.fixed = true);
 	}
 	
 	var dragCompartment = d3.behavior.drag()
-		.on("dragstart", function() {force.start()})
+		.on("dragstart", function() {force.start(); d3.event.sourceEvent.stopPropagation();})
 		.on("drag", function(d, i){
 
 			var key = d.key;
@@ -334,24 +123,14 @@ function showSbgn(data){
 	var nested_data = d3.nest()
 		.key(function(d) { return d.compartment; })
 		.entries(obj.nodes);
-
-/* 	var compartmentPath = function(d) { // future compute path basend on xmin/max and ymin/max 
-		var size = 800;
-		return "m -" + size*0.5 + " -" + (size*0.5-20) + 
-		" m  0 " + size*0.05 +
-		" q " + size*0.2 + " -" + size* 0.05 + " " + size*0.4 + " -" + size*0.05 +
-		" l " + size*0.2 + " 0" +
-		" q " + size*0.2 + " 0 " + size*0.4 + " " + size*0.05 +
-		" l 0 " + size*0.7 + 
-		" q -" + size*0.2 + " " + size*0.05 + " -" + size*0.4 + " " + size*0.05 +
-		" l -" + size*0.2 + " 0 " + 
-		" q -" + size*0.2 + " 0 -" + size*0.4 + " -" + size*0.05 + 
-		" z ";} */
 	  
-	  var link = svg.selectAll(".link")
+	  var link = container.selectAll(".link")
 		  .data(obj.links)
 		.enter().append("path")
-		  .attr("marker-end", function(d) { return "url(#" + sboSwitch(d.class) + "" + d.bivesClass + ")"; })
+		  .attr("marker-end", function(d) { 
+				var elementClass;
+				return "url(#" + sboSwitchArc(d.class) + "" + d.bivesClass + ")"; 
+			})
 		  .attr("id", function(d) {return d.id})
 		  .attr("class", function(d) { return "link " + d.bivesClass;})
 		  .style("stroke-width", 2)
@@ -374,10 +153,10 @@ function showSbgn(data){
 		nested_data.forEach(function(d){
 			if(d.key == id){
 				d.values.forEach(function(e){
-					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2/currentZoom);
+					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2/currentZoom);
+					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2/currentZoom);
+					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2/currentZoom);
 				})
 			}
 		});
@@ -395,7 +174,7 @@ function showSbgn(data){
 		" z ";
 	}
 	
-	  var node = svg.selectAll(".node")
+	  var node = container.selectAll(".node")
 		  .data(obj.nodes.filter(function(d) { return sboSwitch(d.class) != "compartment"}))
 		.enter().append("g")
 			.attr("class", function(d) {return "node " + sboSwitch(d.class);})
@@ -410,7 +189,7 @@ function showSbgn(data){
 		  .attr("compartment", function(d) {return d.compartment})
 		  .attr('d', function(d) { 
 			var nodeWidth = size;
-			if(d.label != null && d.class != "SBO:0000290") {nodeWidth = d.label.length * 9; if(nodeWidth < 35) nodeWidth = 35;} // biggest size of a Char is ca. 9
+			if(d.label != null && d.class != "SBO:0000290") {nodeWidth = d.label.length * 7; if(nodeWidth < 35) nodeWidth = 35;} // biggest size of a Char is ca. 9
 			return getSymbol(d.class, nodeWidth || size); 
 		  });		  
 		 
@@ -423,7 +202,7 @@ function showSbgn(data){
 		  .attr('dy', "0.25em")
 		  .each(function (d) {
 				if(d.label == null) return;
-				var lines = d.label.split(" ");
+				var lines = d.label.split("_ _");
 				for(var i=0; i<lines.length; i++){
 					d3.select(this)
 						.append("tspan")
@@ -433,7 +212,7 @@ function showSbgn(data){
 				}
 			  });
 				
-	var compartment = svg.selectAll(".compartment")
+	var compartment = container.selectAll(".compartment")
 		.data(nested_data)
 		//.attr("d", compartmentPath)
 	  .enter().insert("g", ":first-child")
@@ -471,10 +250,10 @@ function compartmentText(key){
 		nested_data.forEach(function(d){
 			if(d.key == key){
 				d.values.forEach(function(e){
-					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2);
-					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2);
-					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2);
+					xMin = Math.min(xMin, e.x-d3.select("#"+e.id).node().getBoundingClientRect().width/2/currentZoom);
+					xMax = Math.max(xMax, e.x+d3.select("#"+e.id).node().getBoundingClientRect().width/2/currentZoom);
+					yMin = Math.min(yMin, e.y-d3.select("#"+e.id).node().getBoundingClientRect().height/2/currentZoom);
+					yMax = Math.max(yMax, e.y+d3.select("#"+e.id).node().getBoundingClientRect().height/2/currentZoom);
 				})
 			}
 		});
@@ -520,26 +299,28 @@ function compartmentText(key){
 	//links for costum symbols and multiple links for inserts and updates
 		  
 		link.attr("d", function(d){
-		
+			currentZoom = zoom.scale();
 			var x1 = d.source.x,
 				y1 = d.source.y,
 				y2 = d.target.y,
 				x2 = d.target.x;
 			
-			elementClass = sboSwitch(d.class);
+			//for process nodes: connect arcs to reactant and product ports
+			elementClass = sboSwitchArc(d.class);
 			if(elementClass == "consumption"){
-				x2 = d.target.x - d3.select("#"+d.target.id).node().getBoundingClientRect().width/2;
+				x2 = d.target.x - d3.select("#"+d.target.id).node().getBoundingClientRect().width/2/currentZoom;
 			} else if (elementClass == "production") {
-				x1 = d.source.x + d3.select("#"+d.source.id).node().getBoundingClientRect().width/2;
+				x1 = d.source.x + d3.select("#"+d.source.id).node().getBoundingClientRect().width/2/currentZoom;
 			}
 			
 			var targetClass = sboSwitch(d.target.class);
-			if((targetClass == "simple chemical" && d3.select("#"+d.target.id).node().getBoundingClientRect().width <= 35.1) || targetClass == "source and sink"){
+						
+			
+			
+			if((targetClass == "simple chemical" && d3.select("#"+d.target.id).node().getBoundingClientRect().width/currentZoom <= 35.1) || targetClass == "source and sink" || ((targetClass == "dissociation" || targetClass == "association") && elementClass != "consumption")){
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
-				//var n = 0//d.source.y  - m*d.source.x;
-				var rQuad = Math.pow(d3.select("#"+d.target.id).node().getBoundingClientRect().width/2, 2);
+				var rQuad = Math.pow(d3.select("#"+d.target.id).node().getBoundingClientRect().width/2/currentZoom, 2);
 				var deter = Math.sqrt(rQuad/(1+Math.pow((d.target.y-d.source.y)/(d.target.x-d.source.x), 2)));
-				//var deter = Math.sqrt(Math.pow((m*n/1+Math.pow(m,2)),2)-Math.pow(n,2)+Math.pow(d3.select("#"+d.target.id).node().getBoundingClientRect().width/2, 2));
 				var xCross1 = - deter;
 				var xCross2 = deter;
 				var yCross1 = m*xCross1;
@@ -564,8 +345,8 @@ function compartmentText(key){
 				}
 			} else if (targetClass == "simple chemical"){
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
-				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width-17.5;
-				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
+				var rectWidth = (d3.select("#"+d.target.id).node().getBoundingClientRect().width-17.5)/currentZoom;
+				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height/currentZoom;
 				var rectM = rectHeight / (rectWidth);
 				var rectY, rectX ;
 				
@@ -583,7 +364,7 @@ function compartmentText(key){
 					mQuad = Math.pow(m,2);
 
 					if(d.target.x > d.source.x){
-						var centerX = d.target.x -(d3.select("#"+d.target.id).node().getBoundingClientRect().width-35)/2;
+						var centerX = d.target.x -(d3.select("#"+d.target.id).node().getBoundingClientRect().width-35)/2/currentZoom;
 						var centerY = d.target.y;
 						
 						var sY = centerY - d.source.y;
@@ -608,7 +389,7 @@ function compartmentText(key){
 						x2 = centerX + xCross;
 						y2 = centerY - yCross;				
 					} else {
-						var centerX = d.target.x +(d3.select("#"+d.target.id).node().getBoundingClientRect().width-35)/2;
+						var centerX = d.target.x +(d3.select("#"+d.target.id).node().getBoundingClientRect().width-35)/2/currentZoom;
 						var centerY = d.target.y;
 						
 						var sY = centerY - d.source.y;
@@ -639,8 +420,8 @@ function compartmentText(key){
 			
 			if(targetClass == "complex" || targetClass == "macromolecule"){
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
-				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width;
-				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
+				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/currentZoom;
+				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height/currentZoom;
 				var rectM = rectHeight / rectWidth;
 				var rectY, rectX ;
 				
@@ -664,12 +445,12 @@ function compartmentText(key){
 					x2 = d.target.x + rectX;
 				}				
 			}
-			
-			if(targetClass == "process" && sboSwitch(d.class) != "consumption"){
-				
+
+			if((targetClass == "process" ||targetClass == "inhibition" || targetClass == "conusmption" || targetClass == "production" || targetClass == "modulation" || targetClass == "stimulation" || targetClass == "catalysis" || targetClass == "necessary stimulation") && elementClass != "consumption" && elementClass != "production"){
+
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
-				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/2;
-				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
+				var rectWidth = d3.select("#"+d.target.id).node().getBoundingClientRect().width/2/currentZoom;
+				var rectHeight = d3.select("#"+d.target.id).node().getBoundingClientRect().height/currentZoom;
 				var rectM = rectHeight / rectWidth;
 				var rectY, rectX ;
 				
@@ -698,8 +479,8 @@ function compartmentText(key){
 				
 
 				var m = (d.target.y - d.source.y)/(d.target.x-d.source.x);
-				var w = d3.select("#"+d.target.id).node().getBoundingClientRect().width;
-				var h = d3.select("#"+d.target.id).node().getBoundingClientRect().height;
+				var w = d3.select("#"+d.target.id).node().getBoundingClientRect().width/currentZoom;
+				var h = d3.select("#"+d.target.id).node().getBoundingClientRect().height/currentZoom;
 				
 				var deter = Math.sqrt( 1/( 1/Math.pow(w/2, 2) + Math.pow(m, 2)/Math.pow(h/2, 2) ) );
 				var xCross1 = deter;

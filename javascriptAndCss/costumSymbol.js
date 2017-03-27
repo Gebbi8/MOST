@@ -1,4 +1,19 @@
 // DEFINE A COUPLE OF CUSTOM SYMBOLS
+
+
+var reactionLayout = function(size) {
+	size = size*0.15;
+	return "m -" + size*0.5 + " -" + size*0.5 +
+	" h " + size + 
+	" v " + size + 
+	" h -" + size +
+	" z " + " m 0 " + size/2 +
+	" h -" + size/2 +
+	" m " + size*2 + " 0" + 
+	" h -" + size/2;
+  };
+
+
 var customSymbolTypes = d3.map({
   'compartment': function(size) { //size depends on node content
 	  size = size *8;
@@ -13,39 +28,15 @@ var customSymbolTypes = d3.map({
 	" q -" + size*0.2 + " 0 -" + size*0.4 + " -" + size*0.05 + 
 	" z ";
   },
-  'process': function(size) {
-	size = size*0.15;
-	return "m -" + size*0.5 + " -" + size*0.5 +
-	" h " + size + 
-	" v " + size + 
-	" h -" + size +
-	" z " + " m 0 " + size/2 +
-	" h -" + size/2 +
-	" m " + size*2 + " 0" + 
-	" h -" + size/2;
-  },
-  'production': function(size) {
-	size = size*0.15;
-	return "m -" + size*0.5 + " -" + size*0.5 +
-	" h " + size + 
-	" v " + size + 
-	" h -" + size +
-	" z " + " m 0 " + size/2 +
-	" h -" + size/2 +
-	" m " + size*2 + " 0" + 
-	" h -" + size/2;
-  },
-  'consumption': function(size) {
-	size = size*0.15;
-	return "m -" + size*0.5 + " -" + size*0.5 +
-	" h " + size + 
-	" v " + size + 
-	" h -" + size +
-	" z " + " m 0 " + size/2 +
-	" h -" + size/2 +
-	" m " + size*2 + " 0" + 
-	" h -" + size/2;
-  },
+  
+  'process': reactionLayout,
+  'production': reactionLayout,
+  'consumption': reactionLayout,
+  'modulation': reactionLayout,
+  'stimulation': reactionLayout,
+  'catalysis': reactionLayout,
+  'necessary stimulation': reactionLayout,
+  
   'dissociation': function(size) {
 	size = size*0.1;
 	return "m -" + size * 0.5 + " -" + size * 0.5 + 

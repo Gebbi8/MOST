@@ -2,6 +2,7 @@
   margin:0;
 }
 
+
 body {
 	position: absolute;
     top: 0;
@@ -15,6 +16,11 @@ body {
 	margin-left:10px;
 }
 
+ 
+#bivesGraphSvg{
+	font-family: monospace;
+}
+ 
 #choiceDiv {
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -663,5 +669,9 @@ marker#modulation {
 }
 
 #bivesGraph > text{
+	fill: black;
+}
+
+.association{
 	fill: black;
 }
