@@ -18,6 +18,7 @@ body {
 
  
 #bivesGraphSvg{
+	padding-top: 10px;
 	font-family: monospace;
 }
  
@@ -50,6 +51,7 @@ body {
 
 #midScroll{
 	overflow: initial;
+	padding: 10px;
 }
 
 #charts{
@@ -396,10 +398,11 @@ ul {
 	left: 650px;
 	display: none;
 }
-#bivesResult td
+#bivesResult
 {
-	color: black;
+	padding: 10px;
 }
+
 #bivesResult tr:nth-child(even) {background: #e6f2ff}
 #bivesResult tr:nth-child(odd) {background: #fff}
 #bivesResult th,
@@ -448,6 +451,10 @@ ul {
     cursor: pointer;
 	margin-left: 3px;
 	margin-bottom: 3px;
+}
+
+#bivesAnnotations{
+	display: flex;
 }
 
 .bivesContent{

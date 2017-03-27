@@ -62,8 +62,6 @@ function fillGeneralStatsTable ()
 
 
 
-
-
 function init ()
 {
     // load the tables
@@ -219,4 +217,7 @@ function init ()
         $("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
         $("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
     });
+	
+	//hide annotations tab
+	$("#bivesAnnotations").hide();
 }

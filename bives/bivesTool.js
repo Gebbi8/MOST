@@ -38,8 +38,12 @@ function getBivesData(v1, v2, command, place){
 			if(sbgnJson == undefined) console.log(dataCatch); 
 			else console.log("sbgnJson: ",sbgnJson);
 			showSbgn(sbgnJson);
-			$("#bivesXmlDiff").text ($.parseJSON (dataCatch).xmlDiff);
+			$("#highlightXmlDiff").text($.parseJSON (dataCatch).xmlDiff);
+			  $('#highlightXmlDiff').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
 			$("#loading").hide();
+			
 			$(".bivesNavi").show();
 			$('#bivesResult').show();
 	});

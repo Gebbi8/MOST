@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
 <link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
-	<!--<link rel="stylesheet" type="text/css" href="javascriptAndCss/jquery.snippet.css" />-->
+	<link rel="stylesheet" href="javascriptAndCss/atom-one-light.css">
 	
 	
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="thirdParty/jquery.popupoverlay.js"></script>
-
+<script type="text/javascript" src="javascriptAndCss/3rd party/highlight.pack.js"></script>
 
 <script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
@@ -35,6 +35,7 @@
 <script type="text/javascript" src="javascriptAndCss/costumSymbol.js"></script>
 <script type="text/javascript" src="javascriptAndCss/download.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
+
 </head>
 <body>
 	<div id="choiceDiv">
@@ -166,8 +167,10 @@
 					<div class="bivesContent" id="bivesGraph">
 						<button id="download">download</button>
 					</div>
-					<pre class="bivesContent" id="bivesXmlDiff">
-					</pre>
+					<div class="bivesContent" id="bivesXmlDiff">
+						<pre id="highlightXmlDiff">
+						</pre>
+					</div>
 					<pre class="bivesContent" id="bivesAnnotations">
 					</pre>
 				</div>
