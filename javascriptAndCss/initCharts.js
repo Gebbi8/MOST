@@ -1,6 +1,6 @@
 function initialiseChoiceChart ()
 {
-	queryUrl(callVis);
+	queryUrl(callVis, clickDiff, showBivesTab);
     var counts = {};
     originalDiffstats.forEach(function(r) {
         var datum = originalFilestats[ r["model"] + r["version2id"]  ].date;

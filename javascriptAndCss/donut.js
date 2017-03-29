@@ -35,53 +35,19 @@ function donut(table){
 	var path = svg.datum(table).selectAll("path")
 		.data(pie)
 		.enter().append("path")
+		.attr("id", function(d, i){return "d" + i;})
 		.attr("fill", function(d, i) { return color(i); })
 		.attr("d", arc)
-			.on("mouseover", function(){tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
-			//.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-			//.on("mousemove", function(){return tooltip.style("top", (400)+"px").style("left",(225)+"px");})
+			.on("mouseover", function(){
+				tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-			.on("click", function(){
+			.on("click", function(d, i){
+				console.log(this);
 				var version1 = originalFilestats[this.__data__.data.model + this.__data__.data.version1id];
 				var version2 = originalFilestats[this.__data__.data.model + this.__data__.data.version2id];
-				
-				$("#bivesInfo").show();
-				$('#callBivesButton').show();
-				$('.bivesNavi').hide();
-				$('#bivesResult').hide();
-				$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
-				$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
-				
-				$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
-				$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
-				
-				$('#callBivesButton').off('click');
-				$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});}
-				);
-											
-
-// 	function type(d) {
-// 		d.unix = +d.unix;	
-// 		d.unixinsert = +d.unixinsert;
-// 		d.unixdelete = +d.unixdelete;
-// 		d.bives = +d.bives;
-// 		d.bivesinsert = +d.bivesinsert;
-// 		d.bivesdelete = +d.bivesdelete;
-// 		d.bivesmove = +d.bivesmove;
-// 		d.bivesupdate = +d.bivesupdate;
-// 		d.bivestriggeredinsert = +d.bivestriggeredinsert;
-// 		d.bivestriggereddelete = +d.bivestriggereddelete;
-// 		d.bivestriggeredmove = +d.bivestriggeredmove;
-// 		d.bivestriggeredupdate = +d.bivestriggeredupdate;
-// 		d.bivesnode = +d.bivesnode;
-// 		d.bivesattribute = +d.bivesattribute;
-// 		d.bivestext = +d.bivestext;
-// 		d.version1 = parseDate(d.version1);
-// 		d.version2 = parseDate(d.version2);
-// 		d.model = d.model;
-// 		d.modeltype = d.modeltype;
-// 	  return d;
-// 	}
+				showDiffInfo(version1, version2);
+				setHash("d", "d"+i);
+			});
 
 	// Store the displayed angles in _current.
 	// Then, interpolate from _current to the new angles.
