@@ -29,7 +29,7 @@
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
 <script type="text/javascript" src="javascriptAndCss/sboTermMapping.js"></script>
-<script type="text/javascript" src="javascriptAndCss/3rd party/fileSaver.js"></script>
+<script type="text/javascript" src="javascriptAndCss/3rd party/FileSaver.js"></script>
 <script type="text/javascript" src="javascriptAndCss/appendDefs.js"></script>
 <script type="text/javascript" src="javascriptAndCss/showSbgn.js"></script>
 <script type="text/javascript" src="javascriptAndCss/costumSymbol.js"></script>
