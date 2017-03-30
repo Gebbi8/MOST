@@ -1,6 +1,6 @@
 <?php
 ini_set('max_execution_time', 600);
-$BIVES="http://localhost:8080/bives/";
+$BIVES="https://bives.bio.informatik.uni-rostock.de/";
 
 
 if (!isset ($_POST["bivesJob"]) || empty ($_POST["bivesJob"]))

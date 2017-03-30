@@ -568,15 +568,15 @@ ul {
 
 #donutTip{
 	width: 190px;
-	top: 400px;
-	left: 225px;
+	top: 410px;
+	left: 235px;
 	text-align: center;
 }
 
 #heatTip{
 	width: 290px;
-	top: 190px;
-	*left: 235px;
+	top: 200px;
+	left: 245px;
 	text-align: center;
 	color: white;
 }
