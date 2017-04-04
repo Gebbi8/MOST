@@ -682,3 +682,8 @@ marker#modulation {
 .association{
 	fill: black;
 }
+
+#versionComparison td{
+    text-align:center; 
+    vertical-align:middle;
+}

@@ -40,7 +40,7 @@
 <body>
 	<div id="choiceDiv">
 	<div id="feedback">
-		<a href="#"/> 
+		<a /> 
 	</div>
 	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
@@ -86,8 +86,8 @@
 		<div id="menu">
 			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
 			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
-			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Boxplot</div></li>
-			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Boxplot</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Change Type Boxplot</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Change Target Boxplot</div></li>
 		</div>
 		<div id="midScroll">
 			
@@ -146,9 +146,33 @@
 			<div id="bivesInfo">
 				<div id="bivesGeneralInfo">
 					<h3>Comparison of Models</h3>
+					<table id="versionComparison" border="1">
+						<tr>
+							<td align="center">Model</td><td colspan="2" id="bivesModelName"></td>
+						</tr>
+						<tr>
+							<td>Version</td><td id="bivesOriginalModel"></td><td id="bivesModifiedModel"></td>
+						</tr>
+						<tr>
+							<td>Date</td><td id="bivesOriginalModelSupp"></td><td id="bivesModifiedModelSupp"></td>
+						</tr>
+						<tr>
+							<td>Curated</td><td id="bivesOriginalModelCuration"></td><td id="bivesModifiedModelCuration"></td>
+						</tr>
+						<tr>
+							<td>Repository</td><td colspan="2" id="bivesRepository"></td>
+						</tr>
+						<tr>
+							<td># of Changes</td><td colspan="2" id="bivesChangesSum"></td>
+						</tr>
+					</table>
+					
 					<div id="bivesComparedModels">
-						<a id="bivesOriginalModel"></a> <span id="bivesOriginalModelSupp"></span><br />
-						<a id="bivesModifiedModel"></a> <span id="bivesModifiedModelSupp"></span>
+						<a id="bivesModelName"></a> <span id="bivesModelNameSupp"></span><br />
+						<a id=""></a><a id=""></a><br />
+						<a id="bivesOriginalModelSupp"></a> <a id="bivesModifiedModelSupp"></a><br />
+						<a id="bivesRepository"></a><span id="bivesRepositorySupp"></span>
+						<a id="bivesOriginalModelCuration"></a><span id="bivesOriginalModelCurationSupp"></span><a id="bivesModifiedModelCuration"></a><span id="bivesModifiedModelCurationSupp"></span>
 					</div>
 					<button class="bivesButton" id="callBivesButton">Differences</button>
 				</div>

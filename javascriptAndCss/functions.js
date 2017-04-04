@@ -63,11 +63,19 @@ function showDiffInfo(version1, version2){
 	$('#callBivesButton').show();
 	$('.bivesNavi').hide();
 	$('#bivesResult').hide();
-	$("#bivesOriginalModel").attr ("href", version1.url).text (version1.model + " in version " + version1.versionid);
-	$("#bivesModifiedModel").attr ("href", version2.url).text (version2.model + " in version " + version2.versionid);
+	$("#bivesModelName").text (version1.modelname);
+	$("#bivesOriginalModel").attr ("href", version1.url).text (version1.versionid);
+	$("#bivesModifiedModel").attr ("href", version2.url).text (version2.versionid);
+	var modelDate1 = version1.date;
+	var modelDate2 = version2.date;
+	$("#bivesOriginalModelSupp").text (modelDate1.getDate() + "." + modelDate1.getMonth() + "." + modelDate1.getFullYear());
+	$("#bivesModifiedModelSupp").text (modelDate2.getDate() + "." + modelDate2.getMonth() + "." + modelDate2.getFullYear());
 	
-	$("#bivesOriginalModelSupp").text ("(" + version1.date + ")");
-	$("#bivesModifiedModelSupp").text ("(" + version2.date + ")");
+	$("#bivesOriginalModelCuration").text (version1.curated);
+	$("#bivesModifiedModelCuration").text (version2.curated);	
+	$("#bivesRepository").text (version1.modeltype);
+	$("#bivesChangesSum").text (version1.bives);
+
 	
 	$('#callBivesButton').off('click');
 	$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});

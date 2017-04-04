@@ -165,11 +165,11 @@ function initialiseChoiceChart ()
 	var nodes = {name: "nodes", values: data.map(function(d) {return {date: d.date, value: +d["nodes"]};})};
 	var files = {name: "files", values: data.map(function(d) {return {date: d.date, value: +d["nFiles"]};})};
 	
-	x2.domain(d3.extent(data, function(d) { return d.date; }));
+	x2.domain(d3.extent(data, function(d) { return d.date; })).nice();
 	
 	y2.domain([
 	0,d3.max(properties, function(c) { return d3.max(c.values, function(v) { return v.value; }); })
-	]);
+	]).nice();
 	
 	yNodes.domain([0, repoEvo.maxNodes]);
 	yFiles.domain([0, repoEvo.maxFiles]);
@@ -405,58 +405,11 @@ function initialiseChoiceChart ()
 	}
 	applyFilters ();
 	
-	$("#choiceChanges").click (function ()
-		{			
-/* 			var date1Field = document.getElementById("date1");
-			date1Field.addEventListener("keydown", function (e) {
-				if(e.keyCode === 13){
-					var newDate = Date.parse(date1Field.value);
-					console.log(newDate);
-					alert("jupp");
-					if(newDate != null){
-						if(newDate < minVersion2){
-							newDate = minVersion2;
-						} else if(newDate > maxVersion2){
-							newDate = maxVersion2;
-						}
-						brush2.extent([newDate, date2]);
-						date1 = newDate;
-						extent = brush2.extent();
-						applyFilters ();
-						brushed();
-					} else {
-						alert("Please enter a correct date.");
-					}
-
-				}
-			}); */
-
-
-/* 			var date2Field = document.getElementById("date2");
-			date2Field.addEventListener("keydown", function (e) {
-				if(e.keyCode === 13){
-					var newDate = Date.parse(date2Field.value);
-					if(newDate != null){
-						if(newDate < minVersion2){
-							newDate = minVersion2;
-						} else if(newDate > maxVersion2){
-							newDate = maxVersion2;
-						}
-						brush2.extent([date1, newDate]);
-						date2 = newDate;
-						extent = brush2.extent();
-						applyFilters ();
-						brushed();
-					} else {
-						alert("Please enter a correct date.");
-					}
-				}
-			}); */
-			
-			d3.selectAll("#choiceChartChartProperties").select(".brush").call(brush2);
-			$("#choiceProperties").attr("class","btn-changes-off");
-			$("#choiceChanges").attr("class","btn-changes-on");
-			$("#choiceChartChartChanges").show ();
-			$("#choiceChartChartProperties").hide ();
-		}); 
+	$("#choiceChanges").click (function () {			
+		d3.selectAll("#choiceChartChartProperties").select(".brush").call(brush2);
+		$("#choiceProperties").attr("class","btn-changes-off");
+		$("#choiceChanges").attr("class","btn-changes-on");
+		$("#choiceChartChartChanges").show ();
+		$("#choiceChartChartProperties").hide ();
+	}); 
 }
