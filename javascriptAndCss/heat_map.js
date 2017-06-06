@@ -109,7 +109,7 @@ selectChart("heatmappage");
 					console.log(this);
 					var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
 					var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
-					showDiffInfo(version1, version2);
+					showDiffInfo(version1, version2, d.bives);
 					setHash("d", "hd"+i);
 				});
 				
@@ -139,7 +139,7 @@ selectChart("heatmappage");
 						.on("click", function(d, i){
 							var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
 							var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
-							showDiffInfo(version1, version2);
+							showDiffInfo(version1, version2, d.bives);
 							setHash("d", "hi"+i);
 						});
 				
@@ -169,7 +169,7 @@ selectChart("heatmappage");
 						.on("click", function(d, i){
 							var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
 							var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
-							showDiffInfo(version1, version2);
+							showDiffInfo(version1, version2, d.bives);
 							setHash("d", "hm"+i);
 						});
 					
@@ -199,7 +199,7 @@ selectChart("heatmappage");
 						.on("click", function(d, i){
 							var version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
 							var version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
-							showDiffInfo(version1, version2);
+							showDiffInfo(version1, version2, d.bives);
 							setHash("d", "hu"+i);
 						});
 				

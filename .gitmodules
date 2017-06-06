@@ -1,0 +1,3 @@
+[submodule "divil"]
+	path = divil
+	url = git@github.com:Gebbi8/DiVil.git

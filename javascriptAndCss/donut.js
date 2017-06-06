@@ -14,7 +14,7 @@ function donut(table){
 	var color = d3.scale.category20();
 
 	var pie = d3.layout.pie()	
-			.value(function(d){ return d.bives; })
+			.value(function(d){ return d.bives})
 	    .sort(null);
  	
 	var arc = d3.svg.arc()
@@ -42,10 +42,9 @@ function donut(table){
 				tooltip.text(this.__data__.data.model) ;return tooltip.style("visibility", "visible");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 			.on("click", function(d, i){
-				console.log(this);
 				var version1 = originalFilestats[this.__data__.data.model + this.__data__.data.version1id];
 				var version2 = originalFilestats[this.__data__.data.model + this.__data__.data.version2id];
-				showDiffInfo(version1, version2);
+				showDiffInfo(version1, version2, d.value);
 				setHash("d", "d"+i);
 			});
 

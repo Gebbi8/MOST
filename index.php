@@ -6,8 +6,8 @@
 <link rel="shortcut icon" href="favicon.png" />
 	<link rel="stylesheet" type="text/css" href="javascriptAndCss/stats.css" />
 	<link rel="stylesheet" href="javascriptAndCss/atom-one-light.css">
-	
-	
+
+
 
 <script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
@@ -28,19 +28,19 @@
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
-<script type="text/javascript" src="javascriptAndCss/sboTermMapping.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/sboTermMapping.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/FileSaver.js"></script>
-<script type="text/javascript" src="javascriptAndCss/appendDefs.js"></script>
-<script type="text/javascript" src="javascriptAndCss/showSbgn.js"></script>
-<script type="text/javascript" src="javascriptAndCss/costumSymbol.js"></script>
-<script type="text/javascript" src="javascriptAndCss/download.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/appendDefs.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/showSbgn.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/costumSymbol.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/download.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
 
 </head>
 <body>
 	<div id="choiceDiv">
 	<div id="feedback">
-		<a /> 
+		<a />
 	</div>
 	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
@@ -90,38 +90,40 @@
 			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Change Target Boxplot</div></li>
 		</div>
 		<div id="midScroll">
-			
+
 			<div id="charts">
-				
+
 				<div id="landingpage">
-					<h3>General Statistics</h3>
-					<table id="generalStatsTable"><col><col>
-						<tbody>
-							<tr id="generalStatsTableDummy"><td>loading...</td><td>please be patient</td></tr>
-						</tbody>
-					</table>
-				
-					<h3>Project info</h3>
-					<p id="projectInfo"> </p>
-													
-					
-					<h3>Acknowledgments</h3>
-					<p id="acknowledgments">
-					</p>
-					<div id="linkLogos">
-						<a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
-						<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a>
-						<a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a>
+					<div id="startInfo">
+						<h3>General Statistics</h3>
+						<table id="generalStatsTable"><col><col>
+							<tbody>
+								<tr id="generalStatsTableDummy"><td>loading...</td><td>please be patient</td></tr>
+							</tbody>
+						</table>
+
+						<h3>Project info</h3>
+						<p id="projectInfo"> </p>
+					</div>
+
+					<div id="bottom">
+						<h3>Acknowledgments</h3>
+						<p id="acknowledgments"> </p>
+						<div id="linkLogos">
+							<a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
+							<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a>
+							<a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a>
+						</div>
 					</div>
 				</div>
-				
+
 				<div id="donutpage">
 				<div class="tooltip" id="donutTip"></div>
 				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 					<div class="infoBox" id="donutBox"></div>
 				</div>
 				</div>
-				
+
 				<div id="heatmappage">
 				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
 					<div class="infoBox" id="heatBox"></div>
@@ -129,29 +131,33 @@
 				<div id="scaleHeatmap">
 				</div>
 				</div>
-				
+
 				<div id="box1page">
 				<div class="menuInfoButton" id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
 					<div class="infoBox" id="box1Box"></div>
 				</div>
 				</div>
-				
+
 				<div id="box2page">
 				<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
 					<div class="infoBox" id="box2Box"></div>
 				</div>
 				</div>
 			</div>
-			
+
 			<div id="bivesInfo">
 				<div id="bivesGeneralInfo">
 					<h3>Comparison of Models</h3>
 					<table id="versionComparison" border="1">
+						<colgroup>
+							<col>
+							<col>
+						</colgroup>
 						<tr>
 							<td align="center">Model</td><td colspan="2" id="bivesModelName"></td>
 						</tr>
 						<tr>
-							<td>Version</td><td id="bivesOriginalModel"></td><td id="bivesModifiedModel"></td>
+							<td>Version</td><td><a id="bivesOriginalModel"></a></td><td><a id="bivesModifiedModel"></a></td>
 						</tr>
 						<tr>
 							<td>Date</td><td id="bivesOriginalModelSupp"></td><td id="bivesModifiedModelSupp"></td>
@@ -160,13 +166,26 @@
 							<td>Curated</td><td id="bivesOriginalModelCuration"></td><td id="bivesModifiedModelCuration"></td>
 						</tr>
 						<tr>
-							<td>Repository</td><td colspan="2" id="bivesRepository"></td>
+							<td>Type</td><td colspan="2" id="bivesRepository"></td>
 						</tr>
-						<tr>
-							<td># of Changes</td><td colspan="2" id="bivesChangesSum"></td>
+						<tr rowspan="2">
+							<td>
+								<span># of Changes</span></br>
+								<span style="color:red">Deletes</span>
+								<span style="color:green">Inserts</span>
+								<span style="color:blue">Moves</span>
+								<span style="color:orange">Updates</span>
+							</td>
+							<td colspan="2" >
+								<span id="bivesChangesSum"></span></br>
+								<span style="color:red" id="bivesDeletes"></span>
+								<span style="color:green" id="bivesInserts"></span>
+								<span style="color:blue" id="bivesMoves"></span>
+								<span style="color:orange" id="bivesUpdates"></span>
+							</td>
 						</tr>
 					</table>
-					
+
 					<div id="bivesComparedModels">
 						<a id="bivesModelName"></a> <span id="bivesModelNameSupp"></span><br />
 						<a id=""></a><a id=""></a><br />

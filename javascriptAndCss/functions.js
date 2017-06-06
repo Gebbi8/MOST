@@ -58,7 +58,16 @@ var formatDate = d3.time.format("%Y-%m-%d");
 
 // show info andd difference button of a visulization element
 function showDiffInfo(version1, version2){
-	console.log("try to get diff info");
+	var bivesSum, bivesDeletes, bivesInserts, bivesUpdates, bivesMoves;
+	originalDiffstats.forEach(function(r){
+		if(r.model == version1.model && r.version1id == version1.versionid && r.version2id == version2.versionid){
+			bivesSum = r.bives;
+			bivesInserts = r.bivesinsert;
+			bivesDeletes = r.bivesdelete;
+			bivesMoves = r.bivesmove;
+			bivesUpdates = r.bivesupdate;
+		}
+	});
 	$("#bivesInfo").show();
 	$('#callBivesButton').show();
 	$('.bivesNavi').hide();
@@ -66,20 +75,17 @@ function showDiffInfo(version1, version2){
 	$("#bivesModelName").text (version1.modelname);
 	$("#bivesOriginalModel").attr ("href", version1.url).text (version1.versionid);
 	$("#bivesModifiedModel").attr ("href", version2.url).text (version2.versionid);
-	var modelDate1 = version1.date;
-	var modelDate2 = version2.date;
-	$("#bivesOriginalModelSupp").text (modelDate1.getDate() + "." + modelDate1.getMonth() + "." + modelDate1.getFullYear());
-	$("#bivesModifiedModelSupp").text (modelDate2.getDate() + "." + modelDate2.getMonth() + "." + modelDate2.getFullYear());
+	$("#bivesOriginalModelSupp").text (version1.date.getDate() + "." + version1.date.getMonth() + "." + version1.date.getFullYear());
+	$("#bivesModifiedModelSupp").text (version2.date.getDate() + "." + version2.date.getMonth() + "." + version2.date.getFullYear());
 	
 	$("#bivesOriginalModelCuration").text (version1.curated);
 	$("#bivesModifiedModelCuration").text (version2.curated);	
 	$("#bivesRepository").text (version1.modeltype);
-	$("#bivesChangesSum").text (version1.bives);
+	$("#bivesChangesSum").text (bivesSum);
+	$("#bivesInserts").text (bivesInserts);
+	$("#bivesUpdates").text (bivesUpdates);
+	$("#bivesMoves").text (bivesMoves);
+	$("#bivesDeletes").text (bivesDeletes);
 
-	
-	$('#callBivesButton').off('click');
 	$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});
 }
-
-
-

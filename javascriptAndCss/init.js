@@ -23,8 +23,6 @@ var charts = [
 
 var timewidth = 250, timeheight = 200;
 
-
-
 function addGeneralStatsTableRow (table, key, val)
 {
     table.append('<tr><td>' + key + '</td><td>' + val + '</td></tr>');
@@ -60,8 +58,6 @@ function fillGeneralStatsTable ()
 }
 
 
-
-
 function init ()
 {
     // load the tables
@@ -70,7 +66,9 @@ function init ()
         for (var i = 0; i < dd.length; i++)
         {
             dd[i]["date"] = new Date (dd[i]["date"]);
+			//if(originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] != undefined) console.log(dd[i]["model"] + dd[i]["versionid"], dd[i]["model"], dd[i]["versionid"]);
             originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
+			if (dd[i]["versionid"] == undefined || dd[i]["versionid"] == "") alert("ätsch");
 
             if (!models[dd[i]["model"]])
                 models[dd[i]["model"]] = {
@@ -80,8 +78,19 @@ function init ()
 
             if (models[dd[i]["model"]].earliest > dd[i]["date"])
                 models[dd[i]["model"]].earliest = dd[i]["date"];
-            models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
+			
+			var push = 1;
+			for(var j = 0; j < models[dd[i]["model"]].versions.length; j++){
+				if(models[dd[i]["model"]].versions[j] == dd[i]["versionid"]) push = 0;
+			}
+            if(push == 1) models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
         }
+		
+		var countModelVersions =0;
+		for(var i=0; i<Object.keys(models).length;i++){
+			countModelVersions = countModelVersions + models[Object.keys(models)[i]].versions.length;
+		}
+		console.log(countModelVersions);
         
         d3.tsv("statsTables/repo-evolution", function(data) {
 					function scaleRow (data)

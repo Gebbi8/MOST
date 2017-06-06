@@ -1,7 +1,5 @@
 //Info-Content
 function getBivesData(v1, v2, command, place){
-	console.log(v1.model+"_"+v1.versionid+"_"+v2.versionid);
-	console.log(v1.url, v2.url, command)
 	$(".bivesNavi").hide();
 	$(".bivesResult").hide();
 	$('#loading').show();
@@ -11,9 +9,7 @@ function getBivesData(v1, v2, command, place){
 	
 	var dataCatch;	
 	
-	if(sessionStorage.getItem(v1.model+"_"+v1.versionid+"_"+v2.versionid) != null){
-		console.log("retrieved from sessionStorage");
-		
+	if(sessionStorage.getItem(v1.model+"_"+v1.versionid+"_"+v2.versionid) != null){		
 		dataCatch = sessionStorage.getItem(v1.model+"_"+v1.versionid+"_"+v2.versionid);
 		fillGraphTabs(dataCatch);
 		return;
@@ -69,4 +65,6 @@ function fillGraphTabs(data){
 	$("#loading").hide();
 	$(".bivesNavi").show();
 	$('#bivesResult').show();	
+	//set Hash to report tab
+	setHash('b', 'r');
 }

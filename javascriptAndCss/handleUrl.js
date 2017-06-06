@@ -1,7 +1,7 @@
 function queryUrl(callback1, callback2, callback3){
 	var url = location.hash.slice(1);
 	console.log(url);
-	var vis, tab, diff; 
+	var vis, tab, diff, callBives; 
 	
 	var variables = url.split(',');
 	console.log(variables);
@@ -17,6 +17,7 @@ function queryUrl(callback1, callback2, callback3){
 				case 'b': tab = pair[1]; break;
 				case 'd': diff = pair[1]; break;
 				case 's': sessionStorage.clear();
+				//case 'c': callBives = 1;
 				default: console.log("invalid var name: " + pair[0]);
 			}
 	}
@@ -93,6 +94,7 @@ function callVis(vis){
 function clickDiff(vis, id){
 	console.log("click diff");
 	console.log($('#'+id));
+	
 	d3.select('#'+id).each(
 		function(d){
 			var version1, version2;
@@ -110,6 +112,7 @@ function clickDiff(vis, id){
 
 function showBivesTab(vis, tab, id){
 	console.log("show tab: " + tab);
+	if(tab == undefined) return;
 	//compute diff
 	d3.select('#' + id).each(
 		function(d){
