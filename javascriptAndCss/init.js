@@ -78,20 +78,19 @@ function init ()
 
             if (models[dd[i]["model"]].earliest > dd[i]["date"])
                 models[dd[i]["model"]].earliest = dd[i]["date"];
-			
+
 			var push = 1;
 			for(var j = 0; j < models[dd[i]["model"]].versions.length; j++){
 				if(models[dd[i]["model"]].versions[j] == dd[i]["versionid"]) push = 0;
 			}
             if(push == 1) models[dd[i]["model"]].versions.push (dd[i]["versionid"]);
         }
-		
+
 		var countModelVersions =0;
 		for(var i=0; i<Object.keys(models).length;i++){
 			countModelVersions = countModelVersions + models[Object.keys(models)[i]].versions.length;
 		}
-		console.log(countModelVersions);
-        
+
         d3.tsv("statsTables/repo-evolution", function(data) {
 					function scaleRow (data)
 					{
@@ -110,12 +109,12 @@ function init ()
 						data["events"] /= n;
 						return data;
 					};
-					
+
 					for (var i=0; i < data.length; i++)
 					{
 						data[i] = scaleRow (data[i]);
 						repoEvolution[data[i]["type"]].values.push (data[i]);
-						
+
 						if (+data[i]["nFiles"] > repoEvolution[data[i]["type"]].maxFiles)
 						{
 							repoEvolution[data[i]["type"]].maxFiles = data[i]["nFiles"];
@@ -125,7 +124,7 @@ function init ()
 							repoEvolution[data[i]["type"]].maxNodes = data[i]["nodes"];
 						}
 					}
-					
+
 					d3.tsv("statsTables/diffstats", function(d) {
 							// get the diffs table and parse numbers
 							for (var i=0; i < d.length; i++){
@@ -226,7 +225,7 @@ function init ()
         $("#projectInfo").append(json.projectInfo.motivation).append(json.projectInfo.question);
         $("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
     });
-	
+
 	//hide annotations tab
 	$("#bivesAnnotations").hide();
 }
