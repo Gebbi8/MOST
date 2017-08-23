@@ -216,14 +216,19 @@ function filterTimeDiffs (table)
 }
 
 
+
+
+
 // filter by several model IDs in files table
 function filterIdFiles(table){
 	var filtered = {};
  	for(var id in table){
-		for(var i = 0; i < modelsFilter.length; i++){
- 			if(table.hasOwnProperty(id) && modelsFilter.indexOf(table[id].model) > -1){
-				filtered[id] = table[id];
-			} 
+		if(table.hasOwnProperty(id)) {
+			for(var i = 0; i < modelsFilter.length; i++){
+				if(table[id].model.indexOf(modelsFilter[i]) > -1){
+					filtered[id] = table[id];
+				} 
+			}
 		}
 	} 
 	return filtered;
@@ -233,10 +238,14 @@ function filterIdFiles(table){
 function filterIdDiffs (table)
 {
 	var filtered = [];
- 	for (var id = 0; id < table.length; id++)
-	{
-		if (modelsFilter.indexOf(table[id]["model"]) > -1)
-			filtered.push (table[id]);
+ 	for (var id = 0; id < table.length; id++) {
+		if(table.hasOwnProperty(id)) {
+			for(var i = 0; i < modelsFilter.length; i++){
+				if (table[id]["model"].indexOf(modelsFilter[i]) > -1) {
+					filtered.push (table[id]);
+				}
+			}
+		}
 	} 
 	return filtered;
 }
