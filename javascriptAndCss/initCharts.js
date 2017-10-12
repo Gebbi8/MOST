@@ -43,7 +43,7 @@ function initialiseChoiceChart ()
         .attr("width", timewidth + margin.left + margin.right)
         .attr("height", timeheight + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(50,30)");		
+        .attr("transform", "translate(50,30)");
     svg.append("g")
         .attr("class", "y axis")
         .attr("fill", "white")
@@ -72,10 +72,10 @@ function initialiseChoiceChart ()
         .append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return x(d.datum); })
-        .attr("width", timewidth / data.length) 
+        .attr("width", timewidth / data.length)
         .attr("y", function(d) { return y(d.count) })
         .attr("height", function(d) { return timeheight - y(d.count);})
-        .attr("fill", "white");	
+        .attr("fill", "white");
 
     var date1 = new Date(document.getElementById("date1").value);
     var date2 = new Date(document.getElementById("date2").value);
@@ -91,8 +91,8 @@ function initialiseChoiceChart ()
         .call(brush)
         .selectAll('rect')
         .attr('height', timeheight);
-		    
-		
+
+
 	margin.left = 65;
 	margin.right = 25;
 //		drawPropertiesChart (repoEvolution["ALL"], margin, timewidth + 35, timeheight);
@@ -100,60 +100,60 @@ function initialiseChoiceChart ()
 	$("#choiceChartChartProperties").hide ();
 
 	var repoEvo = repoEvolution["ALL"]; var width = timewidth + 35; var height = timeheight
-	
+
 	data = repoEvo.values;
-	
+
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
-	
+
 	var x2 = d3.time.scale()
 	.range([0, timewidth]);
-	
+
 	var y2 = d3.scale.linear()
 	.range([timeheight, 0]);
-	
+
 	var yNodes = d3.scale.linear()
 	.range([height, 0]);
-	
+
 	var yFiles = d3.scale.linear()
 	.range([height, 0]);
-	
+
 	var color = d3.scale.category10();
-	
+
 	var xAxis = d3.svg.axis().scale(x2).orient("bottom").ticks(5).tickFormat(d3.time.format("%Y"));
-	
+
 	var yAxis = d3.svg.axis().scale(y2).orient("left").ticks(7);
-	
+
 	var line = d3.svg.line()
 	.interpolate("basis")
 	.x(function(d) { return x2(d.date); })
 	.y(function(d) { return y2(d.value); });
-	
+
 	var lineFiles = d3.svg.line()
 	.interpolate("basis")
 	.x(function(d) { return x2(d.date); })
 	.y(function(d) { return yFiles(d.value); });
-	
+
 	var lineNodes = d3.svg.line()
 	.interpolate("basis")
 	.x(function(d) { return x2(d.date); })
 	.y(function(d) { return yNodes(d.value); });
-	
-	
+
+
 	var svg2 = d3.select("#choiceChartChartProperties").append("svg")
 	.attr("width", timewidth + margin.left + margin.right)
 	.attr("height", timeheight + margin.top + margin.bottom)
 	.append("g")
 	.attr("transform", "translate(50,30)");
-	
-	
+
+
 	var neglect = ["date", "type", "nodes", "nFiles", "rules", "components", "compartments", "events", "functions"];
-	
+
 	color.domain(d3.keys(data[0]).filter(function(key) { return neglect.indexOf (key) < 0; }));
-	
+
 	data.forEach(function(d) {
 		d.date = parseDate(d.date);
 	});
-	
+
 	var properties = color.domain().map(function(name) {
 		return {
 			name: name,
@@ -164,22 +164,22 @@ function initialiseChoiceChart ()
 	});
 	var nodes = {name: "nodes", values: data.map(function(d) {return {date: d.date, value: +d["nodes"]};})};
 	var files = {name: "files", values: data.map(function(d) {return {date: d.date, value: +d["nFiles"]};})};
-	
+
 	x2.domain(d3.extent(data, function(d) { return d.date; })).nice();
-	
+
 	y2.domain([
 	0,d3.max(properties, function(c) { return d3.max(c.values, function(v) { return v.value; }); })
 	]).nice();
-	
+
 	yNodes.domain([0, repoEvo.maxNodes]);
 	yFiles.domain([0, repoEvo.maxFiles]);
-	
+
 	svg2.append("g")
 	.attr("class", "x axis")
 	.attr("transform", "translate(0," + timeheight + ")")
 	.attr("fill", "white")
 	.call(xAxis);
-	
+
 	svg2.append("g")
 	.attr("class", "y axis")
 	.attr("fill", "white")
@@ -191,29 +191,29 @@ function initialiseChoiceChart ()
 	.style("text-anchor", "end")
 	.attr("fill", "white")
 	.text("Changes");
-	
+
 	var property = svg2.selectAll(".property")
 	.data(properties)
 	.enter().append("g")
 	.attr("class", "property");
-	
+
 	property.append("path")
 	.attr("class", "line")
 	.attr("d", function(d) { return line(d.values); })
 	.style("stroke", function(d) { return color(d.name); });
-	
+
 	svg2.append('path')
 	.attr("class", "line")
 	.attr('d', lineFiles (files.values))
 	.attr('stroke', 'black')
 	.attr('fill', 'none');
-	
+
 	var domain = color.domain().push("files");
-	
+
 	var color = d3.scale.ordinal()
 	  .domain(["files", "variables", "units", "species", "reactions", "parameters"])
 	  .range(["#000000"].concat(d3.scale.category10().range()));
-	  
+
 	var legend = svg2.selectAll('.legend')
 		.data(color.domain())
 		.enter()
@@ -224,20 +224,20 @@ function initialiseChoiceChart ()
 			var vert = i * 12 + 5;
 			return 'translate(' + horz + ',' + vert + ')';
 		});
-		
+
 	legend.append('rect')
 	  .attr("class", "legendRect")
 	  .attr('width', 15)
 	  .attr('height', 1)
 	  .style('fill', color)
 	  .style('stroke', color);
-	  
+
 	legend.append('text')
 	 .attr('x', 18)
 	 .attr('y',3)
 	 .style('fill', 'white')
 	 .text(function(d) { return d; });
-	    
+
 	var date1 = new Date(document.getElementById("date1").value);
     var date2 = new Date(document.getElementById("date2").value);
 
@@ -252,13 +252,13 @@ function initialiseChoiceChart ()
         .call(brush2)
         .selectAll('rect')
         .attr('height', timeheight);
-		
+
 	date1 = new Date(document.getElementById("date1").value);
 	date2 = moment(document.getElementById("date2").value);
-	
+
 	brush.extent([date1, date2]);
 
-	var date1Up = document.getElementById("date1Up");
+/*	var date1Up = document.getElementById("date1Up");
 	date1Up.onmouseup = function(){ hold = 0; applyFilters ();};
 	date1Up.onmouseout = function(){ hold = 0;};
 	date1Up.onmousedown = function () { wait = 1; hold = -1; holdit("date1", "up");};
@@ -277,15 +277,15 @@ function initialiseChoiceChart ()
 	date2Down.onmouseup = function(){ hold = 0; applyFilters ();};
 	date2Down.onmouseout = function(){ hold = 0;};
 	date2Down.onmousedown = function () { wait = 1; hold = -1; holdit("date2", "down");};
-
-	$("#choiceProperties").click (function (){		
+*/
+	$("#choiceProperties").click (function (){
 		$("#choiceProperties").attr("class","btn-changes-on");
 		$("#choiceChanges").attr("class","btn-changes-off");
 		$("#choiceChartChartProperties").show();
 		$("#choiceChartChartChanges").hide();
 	});
 
-    function holdit(btn, mode) {
+/*    function holdit(btn, mode) {
         if (hold == -1 && wait == 1){
             setTimeout(function(){
                 wait = 0;
@@ -358,6 +358,7 @@ function initialiseChoiceChart ()
             }, 1);
         }
     };
+*/
 
 	function brushed() {
 		svg.select(".brush").call(brush);
@@ -375,7 +376,7 @@ function initialiseChoiceChart ()
 		brushed();
     }
 
-	
+
     function brushmove2() {
         extent = brush2.extent();
         date1 = new Date(window.extent[0]);
@@ -395,7 +396,7 @@ function initialiseChoiceChart ()
         extent = brush.extent();
         applyFilters ();
 	}
-	
+
     function brushend2() {
 		brush.extent([date1, date2]);
 		svg.select(".brush").call(brush);
@@ -404,12 +405,12 @@ function initialiseChoiceChart ()
         applyFilters ();
 	}
 	applyFilters ();
-	
-	$("#choiceChanges").click (function () {			
+
+	$("#choiceChanges").click (function () {
 		d3.selectAll("#choiceChartChartProperties").select(".brush").call(brush2);
 		$("#choiceProperties").attr("class","btn-changes-off");
 		$("#choiceChanges").attr("class","btn-changes-on");
 		$("#choiceChartChartChanges").show ();
 		$("#choiceChartChartProperties").hide ();
-	}); 
+	});
 }
