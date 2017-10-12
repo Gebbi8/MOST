@@ -693,8 +693,7 @@ marker#modulation {
 }
 
 #bottom{
-  position: absolute;
-  bottom: 5px;
+  margin-top: 50px;
 }
 
 p{

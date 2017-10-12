@@ -50,13 +50,15 @@
 			</div>
 			<div class="buttons">
 				<input type="date" id="date1" value="2010-01-01">
-				<a href="#" class="button left up" id="date1Up"></a>
-				<a href="#" class="button right down" id="date1Down"></a>
+			<!--<a href="#" class="button left up" id="date1Up"></a>
+					<a href="#" class="button right down" id="date1Down"></a>
+			-->
 			</div>
 			<div class="buttons">
 				<input type="date" id="date2" value="2011-01-01">
-				<a href="#" class="button left up" id="date2Up"></a>
+		<!--<a href="#" class="button left up" id="date2Up"></a>
 				<a href="#" class="button right down" id="date2Down"></a>
+		-->
 				</div>
 			<!--<div class="choiseSwitches">
 				<input id="toggle-btn-changes" class="toggle-btn" type="checkbox"/>
@@ -105,7 +107,6 @@
 						<h3>Project info</h3>
 						<p id="projectInfo"> </p>
 					</div>
-
 					<div id="bottom">
 						<h3>Acknowledgments</h3>
 						<p id="acknowledgments"> </p>
@@ -116,6 +117,7 @@
 						</div>
 					</div>
 				</div>
+
 
 				<div id="donutpage">
 				<div class="tooltip" id="donutTip"></div>
