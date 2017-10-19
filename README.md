@@ -3,7 +3,7 @@
 MOST is an interactive website to visualize, filter and explore the evolution of biological models.
 Based on the BioModels Database and the Physiome Model Repository 2 (PMR2) we computed statistics about all models and visualize them in different views. The underlying data set can be filtered by the user in different ways.
 
-[Check it out!](most.sems.uni-rostock.de)
+[Check it out!](https://most.bio.informatik.uni-rostock.de/)
 
 ## Data
 All model versions from BioModels and PMR2 are retrived and sorted by the [ModelCrawler](https://github.com/SemsProject/ModelCrawler).
@@ -93,3 +93,25 @@ By copying it, the current view can be shared or saved to share or save the curr
 
 ## Connect to MOST
 If you want to connect your models to MOST you can use the [URL](#filter-via-url). With this you can provide a model history by a simple link.
+
+## LICENSE
+
+Artwork and text etc is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/) ![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)
+
+The code is licensed under an [Apache 2.0 license](LICENSE):
+
+    Copyright
+        * tom gebhard <https://www.sbi.uni-rostock.de/team/single/tom-gebhardt/>
+        * martin scharm <https://binfalse.de/contact/>
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
