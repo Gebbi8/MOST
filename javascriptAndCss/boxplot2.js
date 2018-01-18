@@ -1,4 +1,5 @@
-function boxplot2(date1, date2){
+function boxplot2(table){
+
 	$('.menuInfoButton').fadeOut();
  	d3.selectAll('#box2page').selectAll('svg').remove();
 	d3.selectAll('.onoffswitch').remove();
@@ -48,7 +49,7 @@ function boxplot2(date1, date2){
 		  .append("span")
 		   .attr("class", "onoffswitch-inner");
 	onOffSwitch = d3.select(".onoffswitch-label")
-		  .append("span")	
+		  .append("span")
 		   .attr("class", "onoffswitch-switch");
 	var x,x2,y;
 
@@ -73,29 +74,29 @@ function boxplot2(date1, date2){
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	
-			var tsv = diffstats.filter(function(d){
-				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
-				return date1 < ddatum && ddatum < date2;
-			});
+				var tsv = table;
+			// var tsv = diffstats.filter(function(d){
+			// 	var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
+			// 	return date1 < ddatum && ddatum < date2;
+			// });
 
 		//filter by modelType
-		if(document.getElementById('SBMLFilter').checked != document.getElementById('CellMLFilter').checked){
-			if(document.getElementById('SBMLFilter').checked) {
-				tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
-			} else {
-				tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})
-			}
-		}
+		// if(document.getElementById('SBMLFilter').checked != document.getElementById('CellMLFilter').checked){
+		// 	if(document.getElementById('SBMLFilter').checked) {
+		// 		tsv = tsv.filter(function(d){return d.modeltype == 'SBML'})
+		// 	} else {
+		// 		tsv = tsv.filter(function(d){return d.modeltype == 'CellML'})
+		// 	}
+		// }
 		var header = [["text nodes"],["attributes"],["document nodes"]];
 
 		tsv.forEach(function(d){
 			d.bivesnode = +d.bivesnode;
 			d.bivesattribute = +d.bivesattribute;
 			d.bivestext = + d.bivestext;
-		
+
 			//discard diff if all values equal 0
-		
+
 			if(d.bivesnode + d.bivesattribute + d.bivestext < 20) {
 				//console.log(d.bivesmove, d.bivesdelete, d.bivesinsert,d.bivesupdate);
 			}
@@ -103,7 +104,7 @@ function boxplot2(date1, date2){
 				data[0].push(d.bivesnode);
 				data[1].push(d.bivesattribute);
 				data[2].push(d.bivestext);
-			
+
 				max = Math.max(max, d.bivesnode, d.bivesattribute, d.bivestext);
 				min = Math.min(min, d.bivesnode, d.bivesattribute, d.bivestext);
 			}
@@ -114,8 +115,8 @@ function boxplot2(date1, date2){
 		data[2].sort(function(a,b){ return a-b;});
 
 		y = d3.scale.ordinal()
-			.domain( header.map(function(d) { return d[0] } ) )	    
-			.rangeRoundBands([0 , height], 0.7, 0.3); 
+			.domain( header.map(function(d) { return d[0] } ) )
+			.rangeRoundBands([0 , height], 0.7, 0.3);
 
 		var yAxis = d3.svg.axis()
 				.scale(y)
@@ -123,16 +124,16 @@ function boxplot2(date1, date2){
 
 		x = d3.scale.log()
 			.base(Math.E)
-			.domain([1, max])	
+			.domain([1, max])
 			.clamp(true)
 			.range([0, width]).nice();
 
 ///////////////////
 		x2 = d3.scale.linear()
-			.domain([1, max])	
+			.domain([1, max])
 			.clamp(true)
 			.range([0, width]).nice()
-			;	
+			;
 
 		var xAxis = d3.svg.axis()
 				.scale(x)
@@ -142,21 +143,21 @@ function boxplot2(date1, date2){
 		var xAxis2 = d3.svg.axis()
 				.scale(x2)
 				.orient("bottom")
-				.tickFormat(function(d){return Math.round(d);});		
-		
+				.tickFormat(function(d){return Math.round(d);});
+
 		for(var i=0; i<3; i++){
 			var lW = lowerWhisker(data[i]);
 			if(lW == 0){ boxData[i][0] = 0; boxData2[i][0] = 0; } else { boxData[i][0] = x(lW); boxData2[i][0] = x2(lW);};
-		
+
 			var lQ = lowerQuartil(data[i]);
 			if(lowerQuartil(data[i]) == 0){ boxData[i][1] = 0; boxData2[i][1] = 0;} else {boxData[i][1] = x(lQ); boxData2[i][1] = x2(lQ);};
-		
+
 			var m = median(data[i]);
 			if(m == 0){ boxData[i][2] = 0; boxData2[i][2] = 0;} else {boxData[i][2] = x(m); boxData2[i][2] = x2(m);};
-		
+
 			var uQ = upperQuartil(data[i]);
 			if(uQ == 0){ boxData[i][3] = 0; boxData2[i][3] = 0;} else {boxData[i][3] = x(uQ); boxData2[i][3] = x2(uQ)};
-		
+
 			var uW = upperWhisker(data[i]);
 			if(uW == 0){ boxData[i][4] = 0; boxData2[i][4] = 0;} else {boxData[i][4] = x(uW); boxData2[i][4] = x2(uW);};
 		}
@@ -167,7 +168,7 @@ function boxplot2(date1, date2){
 				.attr("class", "x axis")
 					.attr("transform", "translate(0," + height + ")")
 				  .call(xAxis);
-	
+
 		svg.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
@@ -178,7 +179,7 @@ function boxplot2(date1, date2){
 				.attr("class", "x axis")
 					.attr("transform", "translate(0," + height + ")")
 				  .call(xAxis2);
-	
+
 		svg2.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
@@ -251,10 +252,10 @@ function boxplot2(date1, date2){
 		var color = [["#83C5D1"],["#B5D045"],["#F47E7D"],["#FFFA5F"]];
 
 /*		var controlData = data; var controlData2 = data;
-		
+
 		for(var i = 0; i<data.length; i++){
 			for(var j = 0; j < data[i].length; j++){
-				
+
 				controlData[i][j]=x(data[i][j]);
 				controlData2[i][j]=x2(data[i][j]);
 			}
@@ -304,11 +305,11 @@ function boxplot2(date1, date2){
 
 			svg.append("line")
 				.style("stroke", "black")
-				.style("stroke-dasharray", ("3, 3")) 
+				.style("stroke-dasharray", ("3, 3"))
 				.attr("x1", boxes[i][0])
 				.attr("y1", 59 + i*131)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 59 + i*131);	
+				.attr("y2", 59 + i*131);
 
 			svg.append("rect")
 				.style("fill", color[i])
@@ -318,7 +319,7 @@ function boxplot2(date1, date2){
 				.attr("y", 59 + i*131 - boxHeight/2)
 				.attr("width", boxes[i][3] - boxes[i][1])
 				.attr("height", boxHeight);
-			
+
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][2])
@@ -367,11 +368,11 @@ function boxplot2(date1, date2){
 
 			svg2.append("line")
 				.style("stroke", "black")
-				.style("stroke-dasharray", ("3, 3")) 
+				.style("stroke-dasharray", ("3, 3"))
 				.attr("x1", boxes2[i][0])
 				.attr("y1", 59 + i*131)
 				.attr("x2", boxes2[i][4])
-				.attr("y2", 59 + i*131);	
+				.attr("y2", 59 + i*131);
 
 			svg2.append("rect")
 				.style("fill", color[i])
@@ -381,20 +382,20 @@ function boxplot2(date1, date2){
 				.attr("y", 59 + i*131 - boxHeight/2)
 				.attr("width", boxes2[i][3] - boxes2[i][1])
 				.attr("height", boxHeight);
-			
+
 			svg2.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes2[i][2])
 				.attr("y1", 59 + i*131 + boxHeight/2)
 				.attr("x2", boxes2[i][2])
 				.attr("y2", 59 + i*131 - boxHeight/2)
-			
+
 		}
 	}
 
 	function type(d) {
 		d.version1 = parseDate(d.version1);
-		d.version2 = parseDate(d.version2);	
+		d.version2 = parseDate(d.version2);
 		return d;
 	}
 

@@ -7,7 +7,7 @@
 var activeFilesFilters = [];
 var activeDiffsFilters = [];
 
-var modelsFilter = []; 
+var modelsFilter = [];
 
 
 
@@ -192,8 +192,9 @@ function filterTimeFiles (table)
 {
 	var filtered = {};
 	for (var id in table)
-	{	
-		if (table.hasOwnProperty(id) && table[id].date >= extent[0] && table[id].date <= extent[1])
+	{
+		if ((table.hasOwnProperty(id) && table[id].date >= extent[0] && table[id].date <= extent[1]) ||
+				(table.hasOwnProperty(id) && table[id].date <= extent[0] && table[id].date >= extent[1]))
 			filtered[id] = table[id];
 	}
 	return filtered;
@@ -208,8 +209,9 @@ function filterTimeDiffs (table)
 	{
 		var datum1 = originalFilestats[ table[id]["model"] + table[id]["version1id"]  ].date;
 		var datum2 = originalFilestats[ table[id]["model"] + table[id]["version2id"]  ].date;
-		
-		if (datum1 >= extent[0] && datum1 <= extent[1] && datum2 >= extent[0] && datum2 <= extent[1])
+
+		if ((datum1 >= extent[0] && datum1 <= extent[1] && datum2 >= extent[0] && datum2 <= extent[1]) ||
+		 		(datum1 <= extent[0] && datum1 >= extent[1] && datum2 <= extent[0] && datum2 >= extent[1]))
 			filtered.push (table[id]);
 	}
 	return filtered;
@@ -227,10 +229,10 @@ function filterIdFiles(table){
 			for(var i = 0; i < modelsFilter.length; i++){
 				if(table[id].model.indexOf(modelsFilter[i]) > -1){
 					filtered[id] = table[id];
-				} 
+				}
 			}
 		}
-	} 
+	}
 	return filtered;
 }
 
@@ -246,6 +248,6 @@ function filterIdDiffs (table)
 				}
 			}
 		}
-	} 
+	}
 	return filtered;
 }

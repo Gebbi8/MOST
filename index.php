@@ -223,7 +223,10 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-			$(document).ready(function () {init ();});
+			$(document).ready(
+				function () {
+					init ();
+				});
 	</script>
 </body>
 </html>

@@ -198,7 +198,7 @@ function init ()
     $("#donutbutton").click (function (){donut (diffstats);});
     $("#heatmapbutton").click (function (){heatmap(diffstats);});
     $("#boxplot1button").click (function (){boxplot(diffstats);});
-    $("#boxplot2button").click (function (){boxplot2(window.extent[0], window.extent[1]);});
+    $("#boxplot2button").click (function (){boxplot2(diffstats);});
     $("#logolink").click (function (){selectChart("landingpage");});
 
     // register click-listeners to the bives-tabs
