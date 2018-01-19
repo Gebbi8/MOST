@@ -52,7 +52,7 @@ function boxplot(table){
 		  .append("span")
 		   .attr("class", "onoffswitch-inner");
 	onOffSwitch = d3.select(".onoffswitch-label")
-		  .append("span")	
+		  .append("span")
 		   .attr("class", "onoffswitch-switch");
 
 	var x,y,x2;
@@ -77,7 +77,7 @@ function boxplot(table){
 				.style("display", "none")
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-				
+
 			var tsv = table;
 /* 			.filter(function(d){
 				var ddatum = filestats[d["model"] + d["version2id"] ]["date"];
@@ -99,9 +99,9 @@ function boxplot(table){
 			d.bivesinsert = +d.bivesinsert;
 			d.bivesdelete = +d.bivesdelete;
 			d.bivesupdate = +d.bivesupdate;
-		
+
 			//discard diff if all values equal 0
-		
+
 			if(d.bivesmove + d.bivesdelete + d.bivesinsert + d.bivesupdate < 20) { //?????????????????????????
 			}
 			else {
@@ -109,7 +109,7 @@ function boxplot(table){
 				data[1].push(d.bivesinsert);
 				data[2].push(d.bivesdelete);
 				data[3].push(d.bivesupdate);
-			
+
 				max = Math.max(max, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
 				min = Math.min(min, d.bivesmove, d.bivesinsert, d.bivesdelete, d.bivesupdate);
 			}
@@ -121,8 +121,8 @@ function boxplot(table){
 		data[3].sort(function(a,b){ return a-b;});
 
 		y = d3.scale.ordinal()
-			.domain( header.map(function(d) { return d[0] } ) )	    
-			.rangeRoundBands([0 , height], 0.7, 0.3); 
+			.domain( header.map(function(d) { return d[0] } ) )
+			.rangeRoundBands([0 , height], 0.7, 0.3);
 
 		var yAxis = d3.svg.axis()
 				.scale(y)
@@ -130,16 +130,16 @@ function boxplot(table){
 
 		x = d3.scale.log()
 			.base(Math.E)
-			.domain([1, max])	
+			.domain([1, max])
 			.clamp(true)
 			.range([0, width]).nice();
 
 ///////////////////
 		x2 = d3.scale.linear()
-			.domain([1, max])	
+			.domain([1, max])
 			.clamp(true)
 			.range([0, width]).nice()
-			;	
+			;
 
 		var xAxis = d3.svg.axis()
 				.scale(x)
@@ -149,32 +149,32 @@ function boxplot(table){
 		var xAxis2 = d3.svg.axis()
 				.scale(x2)
 				.orient("bottom")
-				.tickFormat(function(d){return Math.round(d);});		
-		
+				.tickFormat(function(d){return Math.round(d);});
+
 		for(var i=0; i<4; i++){
 			var lW = lowerWhisker(data[i]);
 			if(lW == 0){ boxData[i][0] = 0; boxData2[i][0] = 0; } else { boxData[i][0] = x(lW); boxData2[i][0] = x2(lW);};
-		
+
 			var lQ = lowerQuartil(data[i]);
 			if(lowerQuartil(data[i]) == 0){ boxData[i][1] = 0; boxData2[i][1] = 0;} else {boxData[i][1] = x(lQ); boxData2[i][1] = x2(lQ);};
-		
+
 			var m = median(data[i]);
 			if(m == 0){ boxData[i][2] = 0; boxData2[i][2] = 0;} else {boxData[i][2] = x(m); boxData2[i][2] = x2(m);};
-		
+
 			var uQ = upperQuartil(data[i]);
 			if(uQ == 0){ boxData[i][3] = 0; boxData2[i][3] = 0;} else {boxData[i][3] = x(uQ); boxData2[i][3] = x2(uQ)};
-		
+
 			var uW = upperWhisker(data[i]);
 			if(uW == 0){ boxData[i][4] = 0; boxData2[i][4] = 0;} else {boxData[i][4] = x(uW); boxData2[i][4] = x2(uW);};
 		}
 
-		
+
 
 		svg.append("g")
 				.attr("class", "x axis")
 					.attr("transform", "translate(0," + height + ")")
 				  .call(xAxis);
-	
+
 		svg.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
@@ -184,12 +184,12 @@ function boxplot(table){
 				.attr("class", "x axis")
 					.attr("transform", "translate(0," + height + ")")
 				  .call(xAxis2);
-	
+
 		svg2.append("g")
 				.attr("class", "y axis")
 					.attr("transform", "translate(0, 0)")
 				  .call(yAxis);
-		
+
 		drawBoxes(boxData, boxData2, data);
 
 	/*var testArr = [0,1,2,3,4,5];
@@ -257,10 +257,10 @@ function boxplot(table){
 		var color = [["#83C5D1"],["#B5D045"],["#F47E7D"],["#FFFA5F"]];
 
 /*		var controlData = data; var controlData2 = data;
-		
+
 		for(var i = 0; i<data.length; i++){
 			for(var j = 0; j < data[i].length; j++){
-				
+
 				controlData[i][j]=x(data[i][j]);
 				controlData2[i][j]=x2(data[i][j]);
 			}
@@ -310,11 +310,11 @@ function boxplot(table){
 
 			svg.append("line")
 				.style("stroke", "black")
-				.style("stroke-dasharray", ("3, 3")) 
+				.style("stroke-dasharray", ("3, 3"))
 				.attr("x1", boxes[i][0])
 				.attr("y1", 55 + i*120)
 				.attr("x2", boxes[i][4])
-				.attr("y2", 55 + i*120);	
+				.attr("y2", 55 + i*120);
 
 			svg.append("rect")
 				.style("fill", color[i])
@@ -324,7 +324,7 @@ function boxplot(table){
 				.attr("y", 55 + i*120 - boxHeight/2)
 				.attr("width", boxes[i][3] - boxes[i][1])
 				.attr("height", boxHeight);
-			
+
 			svg.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes[i][2])
@@ -373,11 +373,11 @@ function boxplot(table){
 
 			svg2.append("line")
 				.style("stroke", "black")
-				.style("stroke-dasharray", ("3, 3")) 
+				.style("stroke-dasharray", ("3, 3"))
 				.attr("x1", boxes2[i][0])
 				.attr("y1", 55 + i*120)
 				.attr("x2", boxes2[i][4])
-				.attr("y2", 55 + i*120);	
+				.attr("y2", 55 + i*120);
 
 			svg2.append("rect")
 				.style("fill", color[i])
@@ -387,20 +387,20 @@ function boxplot(table){
 				.attr("y", 55 + i*120 - boxHeight/2)
 				.attr("width", boxes2[i][3] - boxes2[i][1])
 				.attr("height", boxHeight);
-			
+
 			svg2.append("line")
 				.style("stroke", "black")
 				.attr("x1", boxes2[i][2])
 				.attr("y1", 55 + i*120 + boxHeight/2)
 				.attr("x2", boxes2[i][2])
 				.attr("y2", 55 + i*120 - boxHeight/2)
-			
+
 		}
 	}
 
 	function type(d) {
 		d.version1 = parseDate(d.version1);
-		d.version2 = parseDate(d.version2);	
+		d.version2 = parseDate(d.version2);
 		return d;
 	}
 

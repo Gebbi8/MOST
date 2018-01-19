@@ -1,4 +1,4 @@
-function queryUrl(callback1, callback2, callback3){
+function queryUrl(callback1, callback2, callback3, brushed, brush, brush2){
 	var url = location.hash.slice(1);
 	console.log(url);
 	var vis, tab, diff, callBives;
@@ -10,10 +10,10 @@ function queryUrl(callback1, callback2, callback3){
 		console.log(pair);
 			switch (pair[0]){
 				case 't': checkTypeBoxes(pair[1]); break;
-				case 'd1': setDate('date1', pair[1]); break;
-				case 'd2': setDate('date2', pair[1]); break;
+				case 'd1': setDate('date1', pair[1], brushed); break;
+				case 'd2': setDate('date2', pair[1], brushed); break;
 				case 'v': vis = pair[1]; break;
-				case 'm': filterModel(pair[1]); break;
+				case 'm': filterModel(pair[1], brushed); break;
 				case 'b': tab = pair[1]; break;
 				case 'd': diff = pair[1]; break;
 				case 's': sessionStorage.clear();
@@ -21,6 +21,12 @@ function queryUrl(callback1, callback2, callback3){
 				default: console.log("invalid var name: " + pair[0]);
 			}
 	}
+
+    //date1 = new Date (document.getElementById("date1").value);
+    //date2 = new Date (document.getElementById("date2").value);
+    brush.extent(window.extent);
+    brush2.extent(window.extent);
+    brushed ();
 
 	applyFilters ();
 
@@ -45,7 +51,6 @@ function filterModel(models){
 
 	activateFilesFilter(filterIdFiles);
 	activateDiffsFilter(filterIdDiffs);
-
 };
 
 function setDate(datafield, date){
@@ -56,8 +61,12 @@ function setDate(datafield, date){
 	console.log(newDate);
 	document.getElementById(datafield).value = newDate.toISOString().slice(0,10);
 
-	if(datafield == "date1") extent[0] = newDate;
-	else  extent[1] = newDate;
+	if(datafield == "date1") {
+        window.extent[0] = newDate;
+    }
+	else {
+        window.extent[1] = newDate;
+    }
 	console.log("ende");
 }
 
