@@ -35,7 +35,7 @@ function attachInfo (smallInfo, infoBox, infoMsg, top, left)
 function showBivesContent(show, tab){
 	$(".naviTab").attr("class", "naviTab");
 	$(tab).attr("class", "naviTab active");
-	
+
 	$('.bivesContent').hide();
 	$(show).show();
 	var hash;
@@ -77,9 +77,9 @@ function showDiffInfo(version1, version2){
 	$("#bivesModifiedModel").attr ("href", version2.url).text (version2.versionid);
 	$("#bivesOriginalModelSupp").text (version1.date.getDate() + "." + version1.date.getMonth() + "." + version1.date.getFullYear());
 	$("#bivesModifiedModelSupp").text (version2.date.getDate() + "." + version2.date.getMonth() + "." + version2.date.getFullYear());
-	
+
 	$("#bivesOriginalModelCuration").text (version1.curated);
-	$("#bivesModifiedModelCuration").text (version2.curated);	
+	$("#bivesModifiedModelCuration").text (version2.curated);
 	$("#bivesRepository").text (version1.modeltype);
 	$("#bivesChangesSum").text (bivesSum);
 	$("#bivesInserts").text (bivesInserts);

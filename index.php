@@ -24,7 +24,7 @@
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
 <script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
-<script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
+<script type="text/javascript" src="javascriptAndCss/initCharts.js?<?php echo rand();?>"></script>
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
@@ -49,13 +49,13 @@
 				Timespan<button id="smallInfoTimespan" class="smallInfo">i</button><div class="infoBox" id="timeSpanBox"></div>
 			</div>
 			<div class="buttons">
-				<input type="date" id="date1" value="2010-01-01">
+				<input type="date" id="date1" value="2010-01-01" min="2004-12-31" max="2017-12-31">
 			<!--<a href="#" class="button left up" id="date1Up"></a>
 					<a href="#" class="button right down" id="date1Down"></a>
 			-->
 			</div>
 			<div class="buttons">
-				<input type="date" id="date2" value="2011-01-01">
+				<input type="date" id="date2" value="2011-01-01" min="2004-12-31" max="2017-12-31">
 		<!--<a href="#" class="button left up" id="date2Up"></a>
 				<a href="#" class="button right down" id="date2Down"></a>
 		-->

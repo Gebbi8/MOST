@@ -25,6 +25,11 @@ function initialiseChoiceChart ()
     var minVersion2 = d3.min(data, function (d){ return d.datum });
     var maxVersion2 = d3.max(data, function (d){ return d.datum });
 
+    // document.getElementById("date1").setAttribute("min", minVersion2);
+    // document.getElementById("date1").setAttribute("max", maxVersion2);
+    // document.getElementById("date2").setAttribute("min", minVersion2);
+    // document.getElementById("date2").setAttribute("max", maxVersion2);
+
 
 
     var margin = {top: 10, right: 25, bottom: 70, left: 65};
@@ -257,6 +262,7 @@ function initialiseChoiceChart ()
 	date2 = moment(document.getElementById("date2").value);
 
 	brush.extent(window.extent);
+  brush2.extent(window.extent);
 	//brush.extent([date1, date2]);
 
 	$("#choiceProperties").click (function (){
@@ -268,7 +274,6 @@ function initialiseChoiceChart ()
 
 
 	function brushed() {
-    console.log ("brushing");
 		svg.select(".brush").call(brush);
     svg2.select(".brush").call(brush2);
   }
@@ -326,5 +331,29 @@ function initialiseChoiceChart ()
 	});
 
 	queryUrl(callVis, clickDiff, showBivesTab, brushed, brush, brush2);
+
+  $("#date1").change(function(){handleDateChange()});
+  $("#date2").change(function(){handleDateChange()});
+
+  // $('input[type="date"]').change(function(){
+  //       alert(this.value);         //Date in full format alert(new Date(this.value));
+  //       var inputDate = new Date(this.value);
+  //   });
+
+  function handleDateChange(){
+    //window.extent = [new Date(date1), new Date(date2)];
+    //brushmove();
+  //  window.extent[0] = $('#date1').value;
+    window.extent[0] = new Date(document.getElementById('date1').value);
+  //  window.extent[1] = $('#date2').value;
+    window.extent[1] = new Date(document.getElementById('date2').value);
+    brush.extent(window.extent);
+    brush2.extent(window.extent);
+    console.log("handler");
+    console.log(window.extent);
+    console.log(brush.extent());
+
+    brushed();
+  }
 
 }

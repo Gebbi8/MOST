@@ -1,4 +1,5 @@
 function queryUrl(callback1, callback2, callback3, brushed, brush, brush2){
+	//console.log(brush, brush2);
 	var url = location.hash.slice(1);
 	console.log(url);
 	var vis, tab, diff, callBives;
