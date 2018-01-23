@@ -24,7 +24,7 @@
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
 <script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
-<script type="text/javascript" src="javascriptAndCss/initCharts.js?<?php echo rand();?>"></script>
+<script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
