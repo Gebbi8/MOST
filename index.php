@@ -49,13 +49,13 @@
 				Timespan<button id="smallInfoTimespan" class="smallInfo">i</button><div class="infoBox" id="timeSpanBox"></div>
 			</div>
 			<div class="buttons">
-				<input type="date" id="date1" value="2010-01-01" min="2004-12-31" max="2017-12-31">
+				<input type="date" id="date1" value="2007-01-01" min="2004-12-31" max="2017-12-31">
 			<!--<a href="#" class="button left up" id="date1Up"></a>
 					<a href="#" class="button right down" id="date1Down"></a>
 			-->
 			</div>
 			<div class="buttons">
-				<input type="date" id="date2" value="2011-01-01" min="2004-12-31" max="2017-12-31">
+				<input type="date" id="date2" value="2013-01-01" min="2004-12-31" max="2017-12-31">
 		<!--<a href="#" class="button left up" id="date2Up"></a>
 				<a href="#" class="button right down" id="date2Down"></a>
 		-->

@@ -61,7 +61,7 @@ function fillGeneralStatsTable ()
 function init ()
 {
     // load the tables
-    d3.tsv("statsTables/filestats", function(dd) {
+    d3.tsv("statsTables_custmost/filestats", function(dd) {
         // get the file's table and immediately parse the date
         for (var i = 0; i < dd.length; i++)
         {
@@ -91,7 +91,7 @@ function init ()
 			countModelVersions = countModelVersions + models[Object.keys(models)[i]].versions.length;
 		}
 
-        d3.tsv("statsTables/repo-evolution", function(data) {
+        d3.tsv("statsTables_custmost/repo-evolution", function(data) {
 					function scaleRow (data)
 					{
 						var n = +data["nFiles"];
@@ -125,7 +125,7 @@ function init ()
 						}
 					}
 
-					d3.tsv("statsTables/diffstats", function(d) {
+					d3.tsv("statsTables_custmost/diffstats", function(d) {
 							// get the diffs table and parse numbers
 							for (var i=0; i < d.length; i++){
 									d[i]["bivesinsert"] = +d[i]["bivesinsert"];
