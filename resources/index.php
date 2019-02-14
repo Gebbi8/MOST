@@ -1,5 +1,6 @@
 <?php
 
+
 function strip_tailing_slashes ($str)
 {
     while (substr ($str, 0, 1) == '/')
@@ -21,7 +22,7 @@ function getXml ($userAgent, $httpAccept)
 	// java tool always gets the xml
 	if (strpos($userAgent, 'Java') !== false)
 		return true;
-	
+
 	// otherwise we evaluate the Accept: contents of the header
 	if ($httpAccept)
 	{
@@ -44,11 +45,13 @@ if (count ($url) != 5 || $url[1] != "resources")
     die ("access denied.");
 
 
-$repo = prep ($url[2]);
+$repo = prep ($url[2]);       //web
 $model = prep ($url[3]);
 $version = prep ($url[4]);
 
-$isCellModelRepo = strpos($repo, 'biomodels') === false;
+$isBioModelRep = strpos($repo, 'biomodels') === true;
+$isCellModelRepo = strpos($repo, 'cellml') === true;
+
 
 $httpAccept = "";
 $userAgent = "";
@@ -64,9 +67,11 @@ if( !getXml ($userAgent, $httpAccept) )
     {
         header("Location: http://$repo/file/$version/$model");
     }
-    else
+    else if($isBioModelRep)
     {
         header("Location: http://$repo/$model");
+    } else {
+        header("Location: http://$repo/$model/SBML/$version.xml");
     }
 }
 else
@@ -76,9 +81,11 @@ else
     {
         header("Location: http://$repo/download/$version/$model");
     }
-    else
+    else if($isBioModelRep)
     {
         header("Location: http://biomodels.bio.informatik.uni-rostock.de/$model.xml/$version/$model.xml");
+    } else {
+        header("Location: http://$repo/$model/SBML/$version.xml");
     }
 }
 ?>
