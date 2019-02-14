@@ -1,4 +1,4 @@
 date	type	nFiles	nodes	components	variables	units	species	reactions	compartments	functions	parameters	rules	events
-"2018-11-16"	ALL	20	42148	0	0	20	734	1203	27	0	864	131	4
+"2018-11-16"	ALL	20	41815	0	0	20	739	1213	27	0	891	133	4
 "2018-11-16"	PMR2	0	0	0	0	0	0	0	0	0	0	0	0
 "2018-11-16"	BIOMODELS	0	0	0	0	0	0	0	0	0	0	0	0

@@ -134,6 +134,7 @@ function showBivesTab(vis, tab, id){
 				version1 = originalFilestats[this.__data__.model + this.__data__.version1id];
 				version2 = originalFilestats[this.__data__.model + this.__data__.version2id];
 			}
+			console.log(version1, version2);
 			getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info")
 		}
 	);
