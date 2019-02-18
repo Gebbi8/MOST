@@ -45,12 +45,12 @@ if (count ($url) != 5 || $url[1] != "resources")
     die ("access denied.");
 
 
-$repo = prep ($url[2]);       //web
+$repo = prep ($url[2]);
 $model = prep ($url[3]);
 $version = prep ($url[4]);
 
-$isBioModelRep = strpos($repo, 'biomodels') === true;
-$isCellModelRepo = strpos($repo, 'cellml') === true;
+$isBioModelRep = strpos($repo, 'biomodels') !== false;
+$isCellModelRepo = strpos($repo, 'cellml') !== false;
 
 
 $httpAccept = "";
