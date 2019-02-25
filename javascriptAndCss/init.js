@@ -61,12 +61,12 @@ function fillGeneralStatsTable ()
 function init ()
 {
     // load the tables
-    d3.tsv("statsTables_custmost/filestats", function(dd) {
+    d3.tsv("statsTables_custmost/filestats").then(function(dd) {
         // get the file's table and immediately parse the date
         for (var i = 0; i < dd.length; i++)
         {
             dd[i]["date"] = new Date (dd[i]["date"]);
-			//if(originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] != undefined) console.log(dd[i]["model"] + dd[i]["versionid"], dd[i]["model"], dd[i]["versionid"]);
+			if(originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] != undefined) console.log(dd[i]["model"] + dd[i]["versionid"], dd[i]["model"], dd[i]["versionid"]);
             originalFilestats[ dd[i]["model"] + dd[i]["versionid"]  ] = dd[i];
 			if (dd[i]["versionid"] == undefined || dd[i]["versionid"] == "") alert("ätsch");
 
@@ -91,7 +91,9 @@ function init ()
 			countModelVersions = countModelVersions + models[Object.keys(models)[i]].versions.length;
 		}
 
-        d3.tsv("statsTables_custmost/repo-evolution", function(data) {
+
+
+        d3.tsv("statsTables_custmost/repo-evolution").then(function(data) {
 					function scaleRow (data)
 					{
 						var n = +data["nFiles"];
@@ -110,6 +112,8 @@ function init ()
 						return data;
 					};
 
+					var lastModel = null;
+
 					for (var i=0; i < data.length; i++)
 					{
 						data[i] = scaleRow (data[i]);
@@ -125,20 +129,34 @@ function init ()
 						}
 					}
 
-					d3.tsv("statsTables_custmost/diffstats", function(d) {
+
+
+
+					d3.tsv("statsTables_custmost/diffstats").then(function(d) {
 							// get the diffs table and parse numbers
+							console.log(d.length);
 							for (var i=0; i < d.length; i++){
 									d[i]["bivesinsert"] = +d[i]["bivesinsert"];
 									d[i]["bivesmove"] = +d[i]["bivesmove"];
 									d[i]["bivesdelete"] = +d[i]["bivesdelete"];
 									d[i]["bivesupdate"] = +d[i]["bivesupdate"];
 									d[i]["bives"] = +d[i]["bives"];
+
+									//sunburst data & model selection list
+									var lastModel;
+									var modelSelection = d3.select("#selectOptions"); //select list
+									if(lastModel != d[i]["model"]){
+										modelSelection.append('option').text(d[i]["model"]); //add models to selection list
+										lastModel = d[i]["model"];
+									}
+
 							}
+
 							originalDiffstats=d;
 
 							// per default time filters are active
-							activateFilesFilter (filterTimeFiles);
-							activateDiffsFilter (filterTimeDiffs);
+							//activateFilesFilter (filterTimeFiles);
+							//activateDiffsFilter (filterTimeDiffs);
 
 							applyFilters ();
 
@@ -146,10 +164,12 @@ function init ()
 							fillGeneralStatsTable ();
 
 							// if that's done we can initialise the choise chart
-							initialiseChoiceChart ();
+				//			initialiseChoiceChart ();
 					});
+				});
 			});
-    });
+
+
 
 
     $("#SBMLFilter").click (function ()
@@ -186,7 +206,7 @@ function init ()
             });
 
 	//load comodi svg
-	d3.xml("image/comodi-figure.svg").mimeType("image/svg+xml").get(function(error, xml) {
+	d3.svg("image/comodi-figure.svg").then(function(error, xml) {
 	  if (error) throw error;
 	  document.getElementById("bivesAnnotations").appendChild(xml.documentElement);
 	});
@@ -195,11 +215,12 @@ function init ()
     selectChart("landingpage");
 
     // register click-listeners to the tab-buttons
-    $("#donutbutton").click (function (){donut (diffstats);});
+    $("#donutbutton").click (function (){donut(diffstats);});
     $("#heatmapbutton").click (function (){heatmap(diffstats);});
     $("#boxplot1button").click (function (){boxplot(diffstats);});
     $("#boxplot2button").click (function (){boxplot2(diffstats);});
     $("#logolink").click (function (){selectChart("landingpage");});
+		$("#sunburstbutton").click (function (){createSunburst(diffstats);});
 
     // register click-listeners to the bives-tabs
     $("#reportTab").click(function (){showBivesContent("#bivesReport", "#reportTab")});
@@ -226,6 +247,15 @@ function init ()
         $("#acknowledgments").append(json.acknowledgments.design).append(json.acknowledgments.funding);
     });
 
+		//register action listerners
+		$("#selectOptions").change(function (e) {updateSelectionFilter(e)});
+
 	//hide annotations tab
 	$("#bivesAnnotations").hide();
+}
+
+function getShortName(name){
+	var re = /.*_(.*)_.*/;
+	var newstr = name.replace(re, "$1");
+	return newstr;
 }

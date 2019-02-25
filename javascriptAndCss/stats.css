@@ -538,9 +538,9 @@ ul {
 	float: right;
 }
 
-.title, .buttons, .choiceSwitches, #datasetFilter{
-	margin-left: 70px;
+.title, .buttons, .choiceSwitches, #datasetFilter, #modelFilterList{
 }
+	margin-left: 70px;
 
 #choiceChartChartChanges, #choiceChartChartProperties{
 	margin-left: -40px;

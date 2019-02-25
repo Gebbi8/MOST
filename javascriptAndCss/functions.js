@@ -52,8 +52,8 @@ function showBivesContent(show, tab){
 
 
 // parse the date for D3
-var parseDate = d3.time.format("%Y-%m-%d").parse;
-var formatDate = d3.time.format("%Y-%m-%d");
+var parseDate = d3.timeParse("%Y-%m-%d");
+var formatDate = d3.timeFormat("%Y-%m-%d");
 
 
 // show info andd difference button of a visulization element

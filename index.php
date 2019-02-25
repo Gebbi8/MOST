@@ -10,23 +10,27 @@
 
 
 <script type="text/javascript" src="thirdParty/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script>
-<!--<script type="text/javascript" src="thirdParty/d3.v5.min.js" charset="utf-8"></script>-->
-
-<script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script>
+<!-- <script type="text/javascript" src="thirdParty/d3.min.js" charset="utf-8"></script> -->
+<script type="text/javascript" src="thirdParty/d3.v5.min.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script> -->
 <script type="text/javascript" src="thirdParty/jquery.popupoverlay.js"></script>
-<script type="text/javascript" src="javascriptAndCss/3rd party/highlight.pack.js"></script>
+<!-- <script type="text/javascript" src="javascriptAndCss/3rd party/highlight.pack.js"></script> -->
 
 <script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
-<script type="text/javascript" src="javascriptAndCss/heat_map.js"></script>
+
+
+<!--<script type="text/javascript" src="javascriptAndCss/heat_map.js"></script>				runs on d3 v3
 <script type="text/javascript" src="javascriptAndCss/donut.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot1.js"></script>
 <script type="text/javascript" src="javascriptAndCss/boxplot2.js"></script>
+-->
+<script type="text/javascript" src="javascriptAndCss/sunburst.js"></script>
+
 <script type="text/javascript" src="javascriptAndCss/filters.js"></script>
 <script type="text/javascript" src="javascriptAndCss/feedback.js"></script>
 <script type="text/javascript" src="javascriptAndCss/handleUrl.js"></script>
-<script type="text/javascript" src="javascriptAndCss/initCharts.js"></script>
+<!-- <script type="text/javascript" src="javascriptAndCss/initCharts.js"></script> -->
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
@@ -41,53 +45,66 @@
 </head>
 <body>
 	<div id="choiceDiv">
-	<div id="feedback">
-		<a />
-	</div>
-	<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
+		<div id="feedback">
+			<a />
+		</div>
+		<a href="#" id="logolink"><img id="logo" src="image/logo.svg" alt=""></a>
 
 	  <div id="choiceChart" class="chart">
-	    <div class="title">
+	    <!-- <div class="title">
 				Timespan<button id="smallInfoTimespan" class="smallInfo">i</button><div class="infoBox" id="timeSpanBox"></div>
-			</div>
-			<div class="buttons">
-				<input type="date" id="date1" value="2007-01-01" min="2004-12-31" max="2017-12-31">
-			<!--<a href="#" class="button left up" id="date1Up"></a>
+			</div> -->
+			<!-- <div class="buttons">
+				<input type="date" id="date1" value="2010-01-01" min="2004-12-31" max="2017-12-31">
+					<a href="#" class="button left up" id="date1Up"></a>
 					<a href="#" class="button right down" id="date1Down"></a>
-			-->
-			</div>
-			<div class="buttons">
-				<input type="date" id="date2" value="2013-01-01" min="2004-12-31" max="2017-12-31">
-		<!--<a href="#" class="button left up" id="date2Up"></a>
+
+			</div> -->
+			<!-- <div class="buttons">
+				<input type="date" id="date2" value="2011-01-01" min="2004-12-31" max="2017-12-31">
+				<a href="#" class="button left up" id="date2Up"></a>
 				<a href="#" class="button right down" id="date2Down"></a>
-		-->
-				</div>
-			<!--<div class="choiseSwitches">
+
+			</div> -->
+			<!-- <div class="choiseSwitches">
 				<input id="toggle-btn-changes" class="toggle-btn" type="checkbox"/>
 				<label for="toggle-btn-changes" data-on="Changes" data-off="Changes"></label>
 				<input id="toggle-btn-props" class="toggle-btn" type="checkbox"/>
 				<label for="toggle-btn-props" data-on="Properties" data-off="Properties"></label>
-				</div>-->
-			<div class="choiceSwitches">
+			</div> -->
+
+			<!-- <div class="choiceSwitches">
 				<button id='choiceChanges' class='btn-changes-on'>changes</button>
 				<button id='choiceProperties' class='btn-changes-off'>properties</button>
 				<div id="choiceChartChartChanges" class="chart"></div>
 				<div id="choiceChartChartProperties" class="chart"></div>
-			</div>
+			</div> -->
+
 			<div id="datasetFilter">
-			Dataset<button id="smallInfoDataset" class="smallInfo">i</button><div class="infoBox" id="datasetBox"></div>
-			<form>
-				<label>SBML<input checked="checked" name="mode" class="modelType" id="SBMLFilter" type="checkbox"></label>
-				<label>CellML<input checked="checked" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label></form>
-			<div class="choiceInfo">
-				Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
-			</div>
+				Dataset<button id="smallInfoDataset" class="smallInfo">i</button>
+				<div class="infoBox" id="datasetBox"></div>
+
+				<!-- <form>
+					<label>SBML<input checked="checked" name="mode" class="modelType" id="SBMLFilter" type="checkbox"></label>
+					<label>CellML<input checked="checked" name="mode" class="modelType" id="CellMLFilter" type="checkbox"></label>
+				</form> -->
+
+				<div class="choiceInfo">
+					Your selection contains:<ul><li><span id="choiceSelectedVersions"></span> model versions</li><li><span id="choiceSelectedDiffs"></span> deltas</li></ul>
+				</div>
+
 			</div>
 	  </div>
+		<div id="modelFilterList">
+			<select id="selectOptions" multiple size="8">
+
+			</select>
+		</div>
 	</div>
 
 	<div id="contentDiv"><p></p>
 		<div id="menu">
+			<li><img class="pictureMenu" src="image/sunburst.png" alt="Sunburst" id="sunburstbutton"><div class="desc">Sunburst</div></li>
 			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
 			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
 			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Change Type Boxplot</div></li>

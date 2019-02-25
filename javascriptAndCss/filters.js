@@ -251,3 +251,22 @@ function filterIdDiffs (table)
 	}
 	return filtered;
 }
+
+
+//filter models by selection listener
+function updateSelectionFilter(selection){
+  modelsFilter = [];
+  var selectedOptions = $(selection.target).val();
+
+	if(selectedOptions != []){
+		for(var i=0; i<selectedOptions.length; i++){
+			modelsFilter.push(selectedOptions[i]);
+		}
+		activateFilesFilter(filterIdFiles);
+		activateDiffsFilter(filterIdDiffs);
+	} else {
+		deactivateDiffsFilter(filterIdFiles);
+		deactivateFilesFilter(filterIdDiffs);
+	}
+	applyFilters();
+}
