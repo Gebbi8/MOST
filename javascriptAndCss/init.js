@@ -18,7 +18,8 @@ var charts = [
     "heatmappage",
     "box1page",
     "box2page",
-    "bivesInfo"
+    "bivesInfo",
+		"sunburstPage"
 ];
 
 var timewidth = 250, timeheight = 200;
@@ -238,6 +239,7 @@ function init ()
         attachInfo ("#smallInfoTimespan", '#timeSpanBox', json.timespan, -20, 80);
         attachInfo ("#smallInfoDataset", '#datasetBox', json.dataset, -20, 80);
         attachInfo ("#smallInfoDonut", '#donutBox', json.donutVis + json.donutUsage, 150, -80);
+				attachInfo ("#smallInfoSunburst", '#sunburstBox', json.sunburstVis + json.sunburstUsage, 150, -80);
         attachInfo ("#smallInfoHeat", '#heatBox', json.heatmapVis + json.heatmapUsage, 150, -80);
         attachInfo ("#smallInfoBox1", '#box1Box', json.boxplot1Vis + json.boxplot1Usage, 150, -80);
         attachInfo ("#smallInfoBox2", '#box2Box', json.boxplot2Vis + json.boxplot2Usage, 150, -80);

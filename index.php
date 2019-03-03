@@ -139,32 +139,43 @@
 
 
 				<div id="donutpage">
-				<div class="tooltip" id="donutTip"></div>
-				<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
-					<div class="infoBox" id="donutBox"></div>
-				</div>
+					<div class="tooltip" id="donutTip"></div>
+					<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
+						<div class="infoBox" id="donutBox"></div>
+					</div>
 				</div>
 
 				<div id="heatmappage">
-				<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
-					<div class="infoBox" id="heatBox"></div>
-				</div>
-				<div id="scaleHeatmap">
-				</div>
+					<div class="menuInfoButton" id="heatButton"><button id="smallInfoHeat" class="smallInfo">i</button>
+						<div class="infoBox" id="heatBox"></div>
+					</div>
+					<div id="scaleHeatmap">
+					</div>
 				</div>
 
 				<div id="box1page">
-				<div class="menuInfoButton" id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
-					<div class="infoBox" id="box1Box"></div>
-				</div>
+					<div class="menuInfoButton" id="box1Button"><button id="smallInfoBox1" class="smallInfo">i</button>
+						<div class="infoBox" id="box1Box"></div>
+					</div>
 				</div>
 
 				<div id="box2page">
-				<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
-					<div class="infoBox" id="box2Box"></div>
+					<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
+						<div class="infoBox" id="box2Box"></div>
+					</div>
 				</div>
+				<div id="sunburstPage">
+					<div class="tooltip" id="sunburstTip"></div>
+					<div class="menuInfoButton" id="sunburstButton"><button id="smallInfoSunburst" class="smallInfo">i</button>
+						<div class="infoBox" id="sunburstBox"></div>
+					</div>
 				</div>
+
+
 			</div>
+
+
+
 
 			<div id="bivesInfo">
 				<div id="bivesGeneralInfo">

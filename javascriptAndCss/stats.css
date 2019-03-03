@@ -374,12 +374,21 @@ ul {
 	display: none;
 }
 
+#sunburstButton
+{
+	position: relative;
+	left: 800px;
+	top: 60px;
+	display: none;
+}
+
 #donutBox,
 #datasetBox,
 #timeSpanBox,
 #heatBox,
 #box1Box,
-#box2Box
+#box2Box,
+#sunburstBox
 {
 	color: white;
 }
@@ -539,8 +548,8 @@ ul {
 }
 
 .title, .buttons, .choiceSwitches, #datasetFilter, #modelFilterList{
-}
 	margin-left: 70px;
+}
 
 #choiceChartChartChanges, #choiceChartChartProperties{
 	margin-left: -40px;
@@ -570,7 +579,7 @@ ul {
 	position: absolute;
 }
 
-#donutTip{
+#donutTip, #sunburstTip{
 	width: 190px;
 	top: 440px;
 	left: 235px;

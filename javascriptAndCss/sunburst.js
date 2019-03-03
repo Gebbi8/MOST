@@ -1,5 +1,13 @@
 function createSunburst(table){
 // TODO remove sunburst and starting page.
+
+$('.menuInfoButton').fadeOut();
+d3.selectAll('#sunburstPage').selectAll('svg').remove();
+d3.selectAll('.onoffswitch').remove();
+d3.selectAll('#info > *').remove();
+d3.selectAll('#sunburstTip > *').remove();
+selectChart("sunburstPage");
+$('#sunburstButton').fadeIn();
 //  d3.selectAll('#donutpage').selectAll('svg').remove();
 
   var sunburstJSON = '{"name": "BenchmarkModels", "children":[\n';
@@ -46,7 +54,7 @@ function createSunburst(table){
 function sunburstChart(data){
 
   var width = 1000;
-  var svgSunburst = d3.select("#landingpage").append("svg").attr("width", width).attr("height", width).attr("id", "svgBurst");
+  var svgSunburst = d3.select("#sunburstPage").append("svg").attr("width", width).attr("height", width).attr("id", "svgBurst");
 
   radius = width / 6;
   format = d3.format(",d");
@@ -92,6 +100,8 @@ function sunburstChart(data){
     path.filter(d => d.children)
         .style("cursor", "pointer")
         .on("click", clicked);
+
+        console.log(d, d.children);
 
     path.append("title")
         .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
