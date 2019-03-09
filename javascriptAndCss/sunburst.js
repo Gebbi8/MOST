@@ -35,12 +35,13 @@ $('#sunburstButton').fadeIn();
       } else {
         sunburstJSON +=  ',';
       }
-      sunburstJSON += '\n\t{"name": "' + getShortName(table[i].version1id) + ' -> ' + getShortName(table[i].version2id) + '", "value": ' + table[i].bives + '}';
+      sunburstJSON += '\n\t{"name": "' + getShortName(table[i].version1id) + ' -> ' + getShortName(table[i].version2id) +
+                          '", "version1": "' + table[i].version1id + '", "version2": "' + table[i].version2id + '", "value": ' + table[i].bives + '}';
 
   }
   sunburstJSON += "\n]}]}";
 
-//  console.log(sunburstJSON);
+  console.log(sunburstJSON);
 
 
   sunburstObj = JSON.parse(sunburstJSON);
@@ -70,6 +71,8 @@ function sunburstChart(data){
       (root);
   };
 
+
+
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
 
   arc = d3.arc()
@@ -97,11 +100,21 @@ function sunburstChart(data){
         .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
         .attr("d", d => arc(d.current));
 
+
+
+
+console.log(path.filter(d => d.children));
+console.log(path);
+console.log();
     path.filter(d => d.children)
         .style("cursor", "pointer")
         .on("click", clicked);
 
-        console.log(d, d.children);
+    path.filter(d => {return (d.children == null) ? d : null;})
+        .style("cursor", "pointer")
+        .on("click", clickedOuter);
+
+
 
     path.append("title")
         .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
@@ -126,6 +139,7 @@ function sunburstChart(data){
         .on("click", clicked);
 
     function clicked(p) {
+
       parent.datum(p.parent || root);
 
       root.each(d => d.target = {
@@ -170,6 +184,14 @@ function sunburstChart(data){
       const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
       const y = (d.y0 + d.y1) / 2 * radius;
       return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+    }
+
+    function clickedOuter(p){
+      clicked(p.parent);
+
+      var version1 = originalFilestats[p.parent.data.name + p.data.version1];
+      var version2 = originalFilestats[p.parent.data.name + p.data.version2];
+      showDiffInfo(version1, version2);
     }
 
     return svg.node();
