@@ -57,10 +57,10 @@ function fillGraphTabs(data){
 	showSbgn(sbgnJson);
 
 	//highlight XmlDiff
-	$("#highlightXmlDiff").text($.parseJSON (data).xmlDiff);
-	  $('#highlightXmlDiff').each(function(i, block) {
-		hljs.highlightBlock(block);
-	});
+	// $("#highlightXmlDiff").text($.parseJSON (data).xmlDiff);
+	//   $('#highlightXmlDiff').each(function(i, block) {
+	// 	hljs.highlightBlock(block);
+	// });
 
 	//hide loading gif, show bives tabs
 	$("#loading").hide();

@@ -34,13 +34,17 @@
 <script type="text/javascript" src="javascriptAndCss/setHash.js"></script>
 <script type="text/javascript" src="javascriptAndCss/comodiParser.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/dom-to-image.js"></script>
-<script type="text/javascript" src="divil/javascriptAndCss/sboTermMapping.js"></script>
 <script type="text/javascript" src="javascriptAndCss/3rd party/FileSaver.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/sboTermMapping.js"></script>
 <script type="text/javascript" src="divil/javascriptAndCss/appendDefs.js"></script>
 <script type="text/javascript" src="divil/javascriptAndCss/showSbgn.js"></script>
-<script type="text/javascript" src="divil/javascriptAndCss/costumSymbol.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/customSymbol.js"></script>
 <script type="text/javascript" src="divil/javascriptAndCss/download.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/sbmlParser.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/xmlDiffParser.js"></script>
+<script type="text/javascript" src="divil/javascriptAndCss/arrowsOnNodes.js"></script>
 <script type="text/javascript" src="javascriptAndCss/init.js"></script>
+
 
 </head>
 <body>
@@ -240,6 +244,10 @@
 					<div class="bivesContent" id="bivesReport">
 					</div>
 					<div class="bivesContent" id="bivesGraph">
+						<form>
+							Toggle process node ports
+							<input type="checkbox" id="portToggle">
+						</form>
 						<button id="download">download</button>
 					</div>
 					<div class="bivesContent" id="bivesXmlDiff">
