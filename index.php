@@ -14,7 +14,7 @@
 <script type="text/javascript" src="thirdParty/d3.v5.min.js" charset="utf-8"></script>
 <!-- <script type="text/javascript" src="thirdParty/moment-with-locales.min.js"></script> -->
 <script type="text/javascript" src="thirdParty/jquery.popupoverlay.js"></script>
-<!-- <script type="text/javascript" src="javascriptAndCss/3rd party/highlight.pack.js"></script> -->
+<script type="text/javascript" src="javascriptAndCss/3rd party/highlight.pack.js"></script>
 
 <script type="text/javascript" src="javascriptAndCss/functions.js"></script>
 <script type="text/javascript" src="bives/bivesTool.js"></script>
