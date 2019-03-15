@@ -58,7 +58,7 @@ function fillGraphTabs(data){
 
 	//highlight XmlDiff
 	$("#highlightXmlDiff").text($.parseJSON (data).xmlDiff);
-	  $('#highlightXmlDiff').each(function(i, block) {
+	$('#highlightXmlDiff').each(function(i, block) {
 		hljs.highlightBlock(block);
 	});
 

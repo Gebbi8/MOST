@@ -69,7 +69,7 @@ function showDiffInfo(version1, version2){
 		}
 	});
 	$("#bivesInfo").show();
-	$('#callBivesButton').show();
+	$('.bivesButton').show();
 	$('.bivesNavi').hide();
 	$('#bivesResult').hide();
 	$("#bivesModelName").text (version1.modelname);
@@ -88,4 +88,9 @@ function showDiffInfo(version1, version2){
 	$("#bivesDeletes").text (bivesDeletes);
 
 	$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});
+	//localhost
+	
+//	$('#mergeVersions').click(function(){window.open("/GitRepos/DiVil/#" + version1.url + '&&' + version2.url)});
+	//web
+	$('#mergeVersions').click(function(){window.open("https://merge-proto.bio.informatik.uni-rostock.de/#" + version1.url + '&&' + version2.url)});
 }

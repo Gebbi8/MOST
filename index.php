@@ -230,6 +230,7 @@
 						<a id="bivesOriginalModelCuration"></a><span id="bivesOriginalModelCurationSupp"></span><a id="bivesModifiedModelCuration"></a><span id="bivesModifiedModelCurationSupp"></span>
 					</div>
 					<button class="bivesButton" id="callBivesButton">Differences</button>
+					<button class="bivesButton" id="mergeVersions">Merge this!</button>
 				</div>
 				<div class="bivesNavi">
 					<a class="naviTab active" id="reportTab"> Report </a>
