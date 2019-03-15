@@ -57,6 +57,7 @@ function fillGraphTabs(data){
 	showSbgn(sbgnJson);
 
 	//highlight XmlDiff
+	console.log($.parseJSON (data).xmlDiff, typeof $.parseJSON (data).xmlDiff);
 	$("#highlightXmlDiff").text($.parseJSON (data).xmlDiff);
 	$('#highlightXmlDiff').each(function(i, block) {
 		hljs.highlightBlock(block);
