@@ -104,16 +104,16 @@
 
 			</select>
 		</div>
+		<div id="menu">
+			<li><img class="pictureMenu" src="image/sunburstMini.png" alt="Sunburst" id="sunburstbutton"><div class="desc">Create Sunburst</div></li>
+			<!-- <li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
+			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Change Type Boxplot</div></li>
+			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Change Target Boxplot</div></li> -->
+		</div>
 	</div>
 
 	<div id="contentDiv"><p></p>
-		<div id="menu">
-			<li><img class="pictureMenu" src="image/sunburst.png" alt="Sunburst" id="sunburstbutton"><div class="desc">Sunburst</div></li>
-			<li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
-			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
-			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Change Type Boxplot</div></li>
-			<li><img class="pictureMenu" src="image/boxplotMini2.png" alt="Bives-Boxplot" id="boxplot2button"><div class="desc">Change Target Boxplot</div></li>
-		</div>
 		<div id="midScroll">
 
 			<div id="charts">
@@ -134,15 +134,15 @@
 						<h3>Acknowledgments</h3>
 						<p id="acknowledgments"> </p>
 						<div id="linkLogos">
-							<a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
-							<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a>
-							<a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a>
+							<!-- <a href="https://www.ebi.ac.uk/biomodels-main/" class="floatlogo" id="bioModels"></a>
+							<a href="http://models.cellml.org/cellml" class="floatlogo" id="cellML"></a> -->
+							<!-- <a href="https://sems.uni-rostock.de/projects/bives/" class="floatlogo"id="bives"></a> -->
 						</div>
 					</div>
 				</div>
 
 
-				<div id="donutpage">
+				<!-- <div id="donutpage">
 					<div class="tooltip" id="donutTip"></div>
 					<div class="menuInfoButton" id="donutButton"><button id="smallInfoDonut" class="smallInfo">i</button>
 						<div class="infoBox" id="donutBox"></div>
@@ -167,7 +167,7 @@
 					<div class="menuInfoButton" id="box2Button"><button id="smallInfoBox2" class="smallInfo">i</button>
 						<div class="infoBox" id="box2Box"></div>
 					</div>
-				</div>
+				</div> -->
 				<div id="sunburstPage">
 					<div class="tooltip" id="sunburstTip"></div>
 					<div class="menuInfoButton" id="sunburstButton"><button id="smallInfoSunburst" class="smallInfo">i</button>

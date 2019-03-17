@@ -167,7 +167,7 @@ ul {
 
 .floatlogo {
     float: left;
-	width: 150px;
+	   width: 150px;
     height: 75px;
     margin: 10px;
 }
@@ -180,7 +180,6 @@ ul {
    display: flex;
    justify-content: space-around;
    max-width: 700px;
-   min-width: 450px;
 }
 
 #menu li{
@@ -190,8 +189,7 @@ ul {
 }
 
 .pictureMenu {
-	display: block;
-	width: 100px;
+	width: 80px;
 }
 
 /* BIVES TOOL */
@@ -481,7 +479,9 @@ ul {
 #versionComparison tr:nth-child(even), #generalStatsTable tr:nth-child(even) {background: #f5f5f5}
 #versionComparison tr > td:first-child , #generalStatsTable tr > td:first-child {font-weight: bold}
 
-
+ #generalStatsTable{
+   margin-bottom: 30px;
+ }
 .btn-changes-on,
 .btn-changes-off
 {

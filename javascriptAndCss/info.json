@@ -3,20 +3,20 @@
 	"dataset": "Select the data sets you wish to display in the model statistics on the right. You can choose either the SBML-encoded model versions from BioModels, or the CellML-encoded model versions from PMR2, or both.",
 
 	"projectInfo": {
-		"motivation": "Models evolve over time, and sometimes even marginal changes in the model description can have an impact. Particularly when planning to reuse a model, it is necessary – and at the least interesting – to be informed about the changes in a model. The following questions can be addressed:",
-		"question": "<ul> <li> How often do models change? </li?> <li>What types of changes are frequently applied?</li> <li>What are the reasons for these changes?</li></ul>"
+		"motivation": "Select your models of interest from the left hand side. The number of models and deltas are updating on the fly. If you made your decision, click on 'create sunburst'.",
+		"question": ""
 	},
 
 	"acknowledgments": {
-		"design": "This project incorporates model versions from <a href='https://www.ebi.ac.uk/biomodels-main/'>BioModels</a> and from the <a href='http://models.cellml.org/cellml'>CellML Model Repository</a>. The diffs were generated using the <a href='https://sems.uni-rostock.de/projects/bives/'>BiVeS tool</a>.",
-		"funding": "The project is funded by the e:Bio <a='https://sems.uni-rostock.de/'>SEMS project</a> (FKZ 031 6194)."
+		"design": "This page is a beta version. It incorporates model versions from <a href='https://github.com/LoosC/Benchmark-Models'>Benchmark-Models</a> and can be adopted for other model sources. The diffs were generated using the <a href='https://sems.uni-rostock.de/projects/bives/'>BiVeS tool</a>.",
+		"funding": "The project is funded by the e:Med <a='https://www.integrative-pathway-models.de/'>INCOME project</a> (FKZ 01Z X1705)."
 	},
 
 	"donutVis": "The donut chart visualises the amount of diffs between the model versions in the selected data set. The colors are randomly assigned and thus should not be interpreted.",
 	"donutUsage": "Click on one of the fields in the donut chart to get more information. By hovering over, you retrieve the name of the model. By clicking, you get further information about the actual diff below the donut chart. Even more details are available when clicking the Report-button afterwards.",
 
-	"sunburstVis": "The sunburst chart ....",
-	"sunburstUsage": "Do something ....",
+	"sunburstVis": "Click on an Delta (outer ring) to select it. Afterwards you will see specific statistics. You can call BiVeS with the left button to have more insight. Than select the merge button to combine the verions.",
+	"sunburstUsage": "",
 
 
 
