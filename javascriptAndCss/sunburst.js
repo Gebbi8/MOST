@@ -1,5 +1,5 @@
 function createSunburst(table){
-// TODO remove sunburst and starting page.
+// TODO remove sunburst and starting page. //
 
 $('.menuInfoButton').fadeOut();
 d3.selectAll('#sunburstPage').selectAll('svg').remove();

@@ -88,9 +88,14 @@ function showDiffInfo(version1, version2){
 	$("#bivesDeletes").text (bivesDeletes);
 
 	$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});
-	
+
 	//localhost
 	//$('#mergeVersions').click(function(){window.open("/GitRepos/DiVil/#" + version1.url + '&&' + version2.url)});
 	//web
-	$('#mergeVersions').click(function(){window.open("https://merge-proto.bio.informatik.uni-rostock.de/#" + version1.url + '&&' + version2.url)});
+	$('#mergeVersions').click(function(){openMerger(version1, version2)});
+	console.log(version1.versionid, version2.versionid);
+}
+
+function openMerger(v1, v2){
+	window.open("https://merge-proto.bio.informatik.uni-rostock.de/#" + v1.url + '&&' + v2.url)
 }
