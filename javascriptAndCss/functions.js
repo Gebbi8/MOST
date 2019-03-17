@@ -87,13 +87,14 @@ function showDiffInfo(version1, version2){
 	$("#bivesMoves").text (bivesMoves);
 	$("#bivesDeletes").text (bivesDeletes);
 
+	$('#callBivesButton').off('click');
 	$('#callBivesButton').click(function(){getBivesData(version1, version2, ["reportHtml", "reactionsSbgnJson", "xmlDiff", "separateAnnotations"], "#info");});
 
 	//localhost
 	//$('#mergeVersions').click(function(){window.open("/GitRepos/DiVil/#" + version1.url + '&&' + version2.url)});
 	//web
+	$('#mergeVersions').off('click');
 	$('#mergeVersions').click(function(){openMerger(version1, version2)});
-	console.log(version1.versionid, version2.versionid);
 }
 
 function openMerger(v1, v2){

@@ -48,6 +48,7 @@ function getBivesData(v1, v2, command, place){
 
 function fillGraphTabs(data){
 	//fill bives tabs
+	console.log(data);
 	$("#bivesReport").html ($.parseJSON (data).reportHtml);
 
 	var annotations = $.parseJSON (data).separateAnnotations;

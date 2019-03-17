@@ -189,6 +189,7 @@ console.log();
     function clickedOuter(p){
       clicked(p.parent);
 
+      console.log(p.data)
       var version1 = originalFilestats[p.parent.data.name + p.data.version1];
       var version2 = originalFilestats[p.parent.data.name + p.data.version2];
       showDiffInfo(version1, version2);
