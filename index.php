@@ -105,7 +105,7 @@
 			</select>
 		</div>
 		<div id="menu">
-			<li><img class="pictureMenu" src="image/sunburstMini.png" alt="Sunburst" id="sunburstbutton"><div class="desc">Create Sunburst</div></li>
+			<li><img class="pictureMenu" src="image/sunburst.png" alt="Sunburst" id="sunburstbutton"><div class="desc">Create Sunburst</div></li>
 			<!-- <li><img class="pictureMenu" src="image/donutMini.png" alt="Donut" id="donutbutton"><div class="desc">Donut</div></li>
 			<li><img class="pictureMenu" src="image/heatmapMini.png" alt="BivesChange" id="heatmapbutton"><div class="desc">Heatmap</div></li>
 			<li><img class="pictureMenu" src="image/boxplotMini.png" alt="Bives-Boxplot" id="boxplot1button"><div class="desc">Change Type Boxplot</div></li>
