@@ -101,7 +101,7 @@ Artwork and text etc is licensed under a [Creative Commons Attribution-ShareAlik
 The code is licensed under an [Apache 2.0 license](LICENSE):
 
     Copyright
-        * tom gebhard <https://www.sbi.uni-rostock.de/team/single/tom-gebhardt/>
+        * tom gebhardt <https://www.sbi.uni-rostock.de/team/single/tom-gebhardt/>
         * martin scharm <https://binfalse.de/contact/>
 
     Licensed under the Apache License, Version 2.0 (the "License");
